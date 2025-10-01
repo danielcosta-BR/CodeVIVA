@@ -36,10 +36,41 @@ main{
 
 h1{
     text-decoration: none;
-    color:red;
+    color:rgb(0, 0, 0);
 }
 
-@media screen and (max-width: 500px){
+.cabeca{
+    display: flex;
+    align-content: end;
+    background-color: rgb(173, 204, 216);
+    height: 90px;
+    justify-content: right;
+    align-items: center;
+    flex-direction: row;
+}
 
+.buttons{
+    margin-right: 40px;
+}
+
+.btn1{
+    background-color:  rgb(173, 204, 216) ;
+    height: 20px;
+    border: 0px;
+}
+
+.linhaV{
+    display: inline;
+    border-left: 1px solid black;
+    height: 20px;
+    margin: auto 6px;
+}
+
+
+@media screen and (max-width: 500px){
+    h1{
+        text-decoration: none;
+        color:rgb(129, 19, 19);
+    }
 }
     
