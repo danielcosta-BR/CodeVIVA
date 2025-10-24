@@ -1,0 +1,308 @@
+<!--
+VIVA+ — Protótipo de site (single-file HTML) + Pré-projeto
+Como usar: abra este arquivo em um navegador. Contém:
+  - Página inicial com visão geral do projeto
+  - Formulário de cadastro (mock)
+  - Caderneta de vacinação (exemplo com entradas de vacinas)
+  - Notificações simuladas e pedido rápido de especialista
+  - Seção "Pré-projeto" com objetivo, público-alvo, funcionalidades e roadmap
+Este arquivo é pensada como base para apresentações e desenvolvimento inicial.
+-->
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VIVA+ — Caderneta de Vacinação Online (Protótipo)</title>
+  <style>
+    /* Reset simples */
+    :root{--bg:#f7fbff;--card:#ffffff;--accent:#58a6ff;--muted:#666;--danger:#d95555}
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; background:var(--bg); color:#0b1220; line-height:1.4}
+    .container{max-width:1000px;margin:28px auto;padding:20px}
+    header{display:flex;align-items:center;gap:16px}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#6ec6ff,#3b82f6);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    h1{font-size:1.4rem;margin:0}
+    p.lead{color:var(--muted);margin:6px 0 18px}
+
+    /* Layout */
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    @media(max-width:880px){.grid{grid-template-columns:1fr} .sidebar {order:2}}
+    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(12,18,28,0.06)}
+
+    /* Forms and lists */
+    label{display:block;font-size:0.85rem;margin-bottom:6px}
+    input, select, button, textarea{width:100%;padding:10px;border:1px solid #e6eef9;border-radius:8px;font-size:0.95rem}
+    small{color:var(--muted)}
+    .vaccine-list{list-style:none;padding:0;margin:0}
+    .vaccine-item{display:flex;justify-content:space-between;padding:10px;border-radius:8px;border:1px dashed #eef6ff;margin-bottom:10px}
+    .pill{padding:15px 0.5em;border-radius:9px;font-weight:600; width: 80px; border: solid black 1px;}
+    .pill.ok{background:#e6fff1;color:#066540}
+    .pill.due{background:#fac2c2;color:#9b0202}
+    .actions{display:flex;gap:8px}
+
+    /* Notification area */
+    .notifs{display:flex;flex-direction:column;gap:8px}
+    .notif{padding:10px;border-radius:8px;background:#f0f9ff;border:1px solid #dbeeff}
+
+    /* Footer */
+    footer{margin-top:20px;color:var(--muted);font-size:0.9rem}
+
+    /* Accessibility helpers */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* Buttons */
+    .btn{background:var(--accent);color:white;border:none;padding:10px 12px;border-radius:10px;cursor:pointer}
+    .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(59,130,246,0.16)}
+    .btn.danger{background:var(--danger)}
+
+    /* Small helper styles */
+    .muted{color:var(--muted);font-size:0.9rem}
+    .row{display:flex;gap:10px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo" aria-hidden>V+</div>
+      <div>
+        <h1>VIVA+ — Caderneta de Vacinação Online</h1>
+        <p class="lead">Protótipo funcional para apresentação: registre usuários, gerencie vacinas, receba notificações e solicite especialistas.</p>
+      </div>
+    </header>
+
+    <main class="grid" role="main">
+      <!-- Conteúdo principal -->
+      <section class="card" aria-labelledby="main-title">
+        <h2 id="main-title">Painel do Paciente (exemplo)</h2>
+        <p class="muted">Exemplo de um paciente cadastrado. Os dados abaixo são fictícios e servem para demonstrar fluxo.</p>
+
+        <!-- Perfil resumido -->
+        <div style="display:flex;align-items:center;gap:14px;margin-top:12px;margin-bottom:14px">
+          <div style="width:72px;height:72px;border-radius:10px;background:#f1f6ff;display:flex;align-items:center;justify-content:center;font-weight:700">BP</div>
+          <div>
+            <div style="font-weight:700">Bento Pereira</div>
+            <div class="muted">Nasc.: 12/03/1948 • Idade: 77</div>
+            <div class="muted">Local: Zona Rural - Município Exemplo</div>
+          </div>
+        </div>
+
+        <!-- Caderneta -->
+        <h3 style="margin-top:6px">Caderneta de Vacinação</h3>
+        <ul id="vaccineList" class="vaccine-list" aria-live="polite">
+          <!-- Itens gerados por JavaScript -->
+        </ul>
+
+        <div style="display:flex;gap:10px;margin-top:12px">
+          <button class="btn" id="addMockVaccine">Adicionar vacina de exemplo</button>
+          <button class="btn ghost" id="exportBtn">Exportar (JSON)</button>
+        </div>
+
+        <hr style="margin:18px 0;border:none;border-top:1px solid #eef6ff">
+
+        <h3>Solicitar Especialista — Atendimento Rápido</h3>
+        <p class="muted">Use este formulário para simular um pedido de atendimento emergencial.</p>
+        <form id="specialistForm" onsubmit="return false;">
+          <label for="reason">Motivo (breve)</label>
+          <input id="reason" name="reason" placeholder="Descrição rápida do problema" required />
+          <label for="priority">Prioridade</label>
+          <select id="priority">
+            <option value="normal">Normal</option>
+            <option value="urgent">Urgente</option>
+          </select>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn" id="requestSpecialist">Enviar pedido</button>
+            <button class="btn ghost" id="clearRequests">Limpar</button>
+          </div>
+        </form>
+
+      </section>
+
+      <!-- Barra lateral -->
+      <aside class="sidebar">
+        <div class="card">
+          <h3>Cadastro</h3>
+          <p class="muted">Formulário simples para criar um usuário (dados salvos localmente no navegador).</p>
+          <form id="registerForm" onsubmit="return false;">
+            <label for="name">Nome completo</label>
+            <input id="name" required />
+            <label for="birth">Data de nascimento</label>
+            <input id="birth" type="date" />
+            <label for="address">Endereço / Município</label>
+            <input id="address" placeholder="Ex: Sítio Boa Vista - Município X" />
+            <label for="disability">Observação (deficiência / restrições)</label>
+            <input id="disability" placeholder="Ex: surdez, mobilidade reduzida" />
+            <div style="margin-top:10px;display:flex;gap:8px">
+              <button class="btn" id="registerBtn">Cadastrar</button>
+              <button class="btn ghost" id="loadExample">Carregar exemplo</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Notificações</h3>
+          <div class="notifs" id="notifArea" aria-live="polite">
+            <div class="notif">Nenhuma notificação no momento.</div>
+          </div>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="btn" id="simulateNotif">Simular notificação</button>
+            <button class="btn ghost" id="clearNotifs">Limpar</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Pré-projeto</h3>
+          <p class="muted">Resumo rápido do projeto: finalidade, público-alvo e roadmap.</p>
+          <details>
+            <summary>Ver pré-projeto</summary>
+            <div style="margin-top:8px">
+              <strong>Objetivo:</strong>
+              <p class="muted">Criar uma Caderneta de Vacinação Online acessível para aumentar cobertura vacinal e facilitar atendimento.</p>
+              <strong>Público-alvo:</strong>
+              <p class="muted">Pessoas com deficiência, moradores rurais e idosos.</p>
+              <strong>Funcionalidades:</strong>
+              <ul class="muted">
+                <li>Cadastro</li>
+                <li>Registro e histórico vacinal</li>
+                <li>Notificações e lembretes</li>
+                <li>Solicitação de especialistas / teleconsulta</li>
+                <li>Exportar/Compartilhar caderneta</li>
+              </ul>
+              <strong>Roadmap (exemplo):</strong>
+              <ol class="muted">
+                <li>Protótipo e avaliação com usuários</li>
+                <li>Backend com banco de dados e autenticação</li>
+                <li>Integração com serviços de SMS/Push</li>
+                <li>Parcerias com unidades de saúde</li>
+              </ol>
+            </div>
+          </details>
+        </div>
+
+      </aside>
+    </main>
+
+    <footer>
+      <p>Protótipo criado para a disciplina <em>Laboratório Web</em>. Orientador: Marcus Vinicius Meirelles.</p>
+      <p class="muted">Observação: este protótipo salva dados localmente no navegador (apenas para demonstração).</p>
+    </footer>
+  </div>
+
+  <script>
+    // Mock storage (localStorage key)
+    const STORAGE_KEY = 'viva_plus_demo'
+    const defaultState = {
+      user: null,
+      vaccines: [],
+      requests: [],
+      notifs: []
+    }
+
+    function saveState(s){localStorage.setItem(STORAGE_KEY, JSON.stringify(s))}
+    function loadState(){return JSON.parse(localStorage.getItem(STORAGE_KEY) || JSON.stringify(defaultState))}
+
+    // Render vaccine list
+    function render(){
+      const state = loadState()
+      const list = document.getElementById('vaccineList')
+      list.innerHTML=''
+      if(!state.user){
+        const li = document.createElement('li')
+        li.className='muted'
+        li.textContent='Usuário não cadastrado. Cadastre-se na lateral para começar.'
+        list.appendChild(li)
+      } else if(state.vaccines.length===0){
+        const li = document.createElement('li')
+        li.className='muted'
+        li.textContent='Nenhuma vacina registrada.'
+        list.appendChild(li)
+      } else {
+        state.vaccines.forEach((v,i)=>{
+          const el = document.createElement('li')
+          el.className='vaccine-item'
+          el.innerHTML = `<div><strong>${v.name}</strong><div class="muted">Tomada em: ${v.date || '—'}</div></div><div class="row"><div class="pill ${v.status==='taken'?'ok':'due'}">${v.status==='taken'?'Tomada':'Atrasada'}</div><div class="actions"><button class='btn ghost' data-action='toggle' data-i='${i}'>Alternar status</button><button class='btn' data-action='remove' data-i='${i}'>Remover</button></div></div>`
+          list.appendChild(el)
+        })
+      }
+
+      // Notifications
+      const notifArea = document.getElementById('notifArea')
+      notifArea.innerHTML=''
+      if(state.notifs.length===0){
+        const d = document.createElement('div'); d.className='notif'; d.textContent='Nenhuma notificação no momento.'; notifArea.appendChild(d)
+      } else {
+        state.notifs.slice().reverse().forEach(n=>{
+          const d = document.createElement('div'); d.className='notif'; d.textContent = `${n.title} — ${n.body}`; notifArea.appendChild(d)
+        })
+      }
+
+      // Save back
+      saveState(state)
+    }
+
+    // Handlers
+    document.getElementById('registerBtn').addEventListener('click',()=>{
+      const name = document.getElementById('name').value.trim()
+      if(!name){alert('Informe o nome.');return}
+      const state = loadState();
+      state.user = {name, birth: document.getElementById('birth').value, address: document.getElementById('address').value, disability: document.getElementById('disability').value}
+      saveState(state); render(); alert('Usuário cadastrado (simulação).')
+    })
+
+    document.getElementById('loadExample').addEventListener('click',()=>{
+      const state = loadState();
+      state.user = {name:'Bento Pereira', birth:'1948-03-12', address:'Sítio Boa Vista - Exemplo', disability:'mobilidade reduzida'}
+      state.vaccines = [
+        {name:'Influenza (2024)', date:'2024-04-10', status:'taken'},
+        {name:'Hepatite B (Dose de reforço)', date:'', status:'due'}
+      ]
+      state.notifs = [{title:'Vacina atrasada', body:'Hepatite B: reforço pendente.'}]
+      saveState(state); render();
+    })
+
+    document.getElementById('addMockVaccine').addEventListener('click',()=>{
+      const state = loadState();
+      state.vaccines.push({name:'Nova Vacina '+(state.vaccines.length+1), date:'', status:'due'})
+      saveState(state); render();
+    })
+
+    document.getElementById('exportBtn').addEventListener('click',()=>{
+      const data = loadState();
+      const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'})
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a'); a.href=url; a.download='viva_plus_export.json'; a.click(); URL.revokeObjectURL(url)
+    })
+
+    document.getElementById('simulateNotif').addEventListener('click',()=>{
+      const state = loadState();
+      state.notifs.push({title:'Lembrete de vacinação', body:'Você tem 1 vacina próxima. Verifique a caderneta.'})
+      saveState(state); render();
+    })
+
+    document.getElementById('clearNotifs').addEventListener('click',()=>{const s=loadState();s.notifs=[];saveState(s);render()})
+    document.getElementById('clearRequests').addEventListener('click',()=>{const s=loadState();s.requests=[];saveState(s);alert('Pedidos limpos (simulação)')})
+
+    document.getElementById('requestSpecialist').addEventListener('click',()=>{
+      const reason = document.getElementById('reason').value.trim(); const priority=document.getElementById('priority').value
+      if(!reason){alert('Descreva o motivo.');return}
+      const s = loadState(); s.requests.push({reason, priority, date:new Date().toISOString()})
+      s.notifs.push({title:'Pedido enviado', body:`Pedido de especialista (${priority}). Motivo: ${reason}`})
+      saveState(s); render(); alert('Pedido de especialista enviado (simulação).')
+      document.getElementById('reason').value=''
+    })
+
+    document.getElementById('vaccineList').addEventListener('click', e=>{
+      const btn = e.target.closest('button')
+      if(!btn) return
+      const action = btn.dataset.action; const i = Number(btn.dataset.i)
+      const s = loadState()
+      if(action==='toggle'){ s.vaccines[i].status = s.vaccines[i].status==='taken'?'due':'taken'; if(s.vaccines[i].status==='taken') s.vaccines[i].date = new Date().toISOString().slice(0,10); saveState(s); render(); }
+      if(action==='remove'){ if(confirm('Remover vacina?')){ s.vaccines.splice(i,1); saveState(s); render(); } }
+    })
+
+    // Export initial state to initialize UI
+    render()
+  </script>
+</body>
+</html>

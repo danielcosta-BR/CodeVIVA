@@ -1,0 +1,340 @@
+<!--
+Caderneta de Vacinação Online - Single-file
+Salve como: caderneta_vacinacao_online.html
+Funcionalidades:
+- Registro / Login simples (localStorage)
+- Painel com vacinas (adicionar, marcar como tomada, editar data)
+- Notificações locais (Notification API) para vacinas atrasadas
+- Solicitação de especialista (salva em localStorage)
+- Acessibilidade: aria-labels, foco visível, contraste
+- Responsivo e com CSS simples
+
+Observação: Para produção você precisará de backend seguro (autenticação, banco de dados, notificações por e-mail/SMS).
+-->
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Caderneta de Vacinação Online</title>
+  <style>
+    :root{
+      --bg:#f7f9fc; --card:#ffffff; --primary:#0b67d0; --muted:#6b7280; --danger:#dc2626;
+      --success:#16a34a; --glass: rgba(255,255,255,0.6);
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:linear-gradient(180deg,#eef6ff 0%,var(--bg) 100%);color:#0f172a}
+    .container{max-width:1100px;margin:28px auto;padding:18px}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    header h1{font-size:1.2rem;margin:0}
+    header p{margin:0;color:var(--muted);font-size:0.9rem}
+
+    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(11,103,208,0.06);}
+
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:16px;margin-top:18px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+    form input, form select, form button, textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef8;font-size:0.95rem}
+    label{display:block;margin-bottom:6px;font-weight:600}
+    .muted{color:var(--muted);font-size:0.9rem}
+
+    .vaccines-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+    .vac-item{display:flex;align-items:center;justify-content:space-between;padding:10px;border-radius:10px;border:1px solid #eef6ff}
+    .vac-left{display:flex;align-items:center;gap:12px}
+    .badge{padding:6px 10px;border-radius:999px;font-weight:700;font-size:0.85rem}
+    .badge.pending{background:#fff6ea;color:#b45309}
+    .badge.taken{background:#ecfdf5;color:#166534}
+
+    .small{font-size:0.85rem;color:var(--muted)}
+    .actions button{margin-left:8px}
+
+    .btn{background:var(--primary);color:white;border:0;padding:10px 12px;border-radius:8px;font-weight:700;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid #e2e8f0;color:var(--muted)}
+    .btn.warn{background:var(--danger)}
+
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:0.85rem}
+
+    /* focus visible for accessibility */
+    :focus{outline:3px solid rgba(11,103,208,0.16);outline-offset:2px}
+
+    /* small helpers */
+    .right{text-align:right}
+    .flex{display:flex;gap:8px;align-items:center}
+    .spaced{display:flex;justify-content:space-between;align-items:center}
+
+    /* login box */
+    .auth{max-width:420px;margin:30px auto}
+
+    /* notification hint */
+    .notice{padding:10px;border-radius:8px;background:linear-gradient(90deg,#fff 0%,#f8fafc 100%);border:1px dashed #dbeafe}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header aria-label="Cabeçalho">
+      <div>
+        <h1>Caderneta de Vacinação Online</h1>
+        <p class="muted">Acompanhe vacinas, receba lembretes e solicite assistência — feito com foco em acessibilidade.</p>
+      </div>
+      <div id="userArea" class="card" style="min-width:220px;text-align:right">
+        <!-- conteúdo alterado por JS -->
+      </div>
+    </header>
+
+    <main class="grid" aria-live="polite">
+      <section id="mainPanel" class="card" tabindex="0">
+        <!-- Painel principal alterado por JS -->
+      </section>
+
+      <aside class="card" aria-label="Painel lateral">
+        <h3>Opções rápidas</h3>
+        <div style="margin-top:12px">
+          <button id="btnNotifyTest" class="btn" aria-label="Testar notificações">Testar Notificações</button>
+        </div>
+
+        <hr style="margin:12px 0" />
+        <div>
+          <h4>Solicitar especialista</h4>
+          <form id="requestForm">
+            <label for="type">Tipo</label>
+            <select id="type" required>
+              <option value="enfermagem">Enfermagem</option>
+              <option value="pediatria">Pediatria</option>
+              <option value="geriatra">Geriatra</option>
+              <option value="outro">Outro</option>
+            </select>
+            <label for="msg">Mensagem</label>
+            <textarea id="msg" rows="3" placeholder="Descreva a necessidade" required></textarea>
+            <div style="margin-top:8px" class="right">
+              <button class="btn" type="submit">Enviar solicitação</button>
+            </div>
+          </form>
+        </div>
+
+        <hr style="margin:12px 0" />
+        <div class="notice small">
+          <strong>Atenção:</strong> Este protótipo salva dados no seu navegador. Para uso real, implemente um servidor seguro e banco de dados.
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      Desenvolvido para projeto de Laboratório Web — exemplo educativo. <br /> Pressione <kbd>Tab</kbd> para navegar por acessibilidade.
+    </footer>
+  </div>
+
+<script>
+// --- Utilitários simples ---
+const qs = sel => document.querySelector(sel);
+const qsa = sel => Array.from(document.querySelectorAll(sel));
+
+// Dados no localStorage: 'cv_users' (array), 'cv_current' (username), 'cv_requests'
+function loadJSON(key, fallback){ try{ return JSON.parse(localStorage.getItem(key)) ?? fallback }catch(e){return fallback} }
+function saveJSON(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
+
+// Inicialização de armazenamento
+if(!localStorage.getItem('cv_users')) saveJSON('cv_users', []);
+if(!localStorage.getItem('cv_requests')) saveJSON('cv_requests', []);
+
+// --- Modelo de vacinas padrão (exemplo) ---
+const sampleVaccines = [
+  {id: 'vac1', name: 'COVID-19', recommendedAge: 'Adulto', dueDate: '', taken: false},
+  {id: 'vac2', name: 'Influenza', recommendedAge: 'Anual', dueDate: '', taken: false},
+  {id: 'vac3', name: 'Tétano', recommendedAge: 'A cada 10 anos', dueDate: '', taken: false}
+];
+
+// --- Autenticação simples ---
+function showAuth(){
+  document.getElementById('mainPanel').innerHTML = `
+    <div class="auth card">
+      <h2>Entrar / Registrar</h2>
+      <p class="muted">Crie um usuário rápido (apenas local). Para produção: implemente autenticação segura.</p>
+      <form id="authForm">
+        <label for="username">Nome completo</label>
+        <input id="username" required placeholder="Ex: Maria Silva" />
+        <label for="cpf">Identificador (ex: CPF)*</label>
+        <input id="cpf" placeholder="000.000.000-00" required />
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <button class="btn" type="submit">Entrar / Registrar</button>
+          <button class="btn ghost" id="demoBtn" type="button">Usar Demo</button>
+        </div>
+      </form>
+      <p class="small muted" style="margin-top:8px">*Usamos um identificador local para diferenciar usuários no navegador.</p>
+    </div>
+  `;
+
+  qs('#authForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = qs('#username').value.trim();
+    const cpf = qs('#cpf').value.trim();
+    if(!name || !cpf) return alert('Preencha todos os campos.');
+    loginOrRegister(name, cpf);
+  });
+
+  qs('#demoBtn').addEventListener('click', ()=>{
+    loginOrRegister('Usuário Demo','demo');
+  });
+}
+
+function loginOrRegister(name, id){
+  const users = loadJSON('cv_users', []);
+  let user = users.find(u => u.id === id);
+  if(!user){
+    user = {id, name, vaccines: structuredClone(sampleVaccines), createdAt: new Date().toISOString()};
+    users.push(user);
+    saveJSON('cv_users', users);
+  }
+  localStorage.setItem('cv_current', id);
+  renderApp();
+}
+
+function logout(){ localStorage.removeItem('cv_current'); renderApp(); }
+
+// --- Render usuário e painel principal ---
+function renderUserArea(){
+  const cur = localStorage.getItem('cv_current');
+  const area = qs('#userArea');
+  if(!cur){ area.innerHTML = `<div class="muted">Não está logado.<br/><a href="#" id="goLogin">Entrar / Registrar</a></div>`; qs('#goLogin')?.addEventListener('click', e=>{e.preventDefault();showAuth();}); return;} 
+  const users = loadJSON('cv_users',[]);
+  const user = users.find(u=>u.id===cur);
+  area.innerHTML = `<div class="small"><strong>${escapeHtml(user.name)}</strong><br/><span class="muted">ID: ${escapeHtml(user.id)}</span></div>
+    <div style="margin-top:10px"><button class="btn ghost" id="btnProfile">Ver Perfil</button> <button class="btn" id="btnLogout">Sair</button></div>`;
+  qs('#btnLogout').addEventListener('click', logout);
+  qs('#btnProfile').addEventListener('click', ()=>renderProfile(user));
+}
+
+function renderApp(){ renderUserArea(); const cur = localStorage.getItem('cv_current'); if(!cur) return showAuth(); renderDashboard(); }
+
+function renderProfile(user){
+  document.getElementById('mainPanel').innerHTML = `
+    <h2>Perfil</h2>
+    <div class="small muted">Informações do usuário</div>
+    <div style="margin-top:12px">
+      <p><strong>Nome:</strong> ${escapeHtml(user.name)}</p>
+      <p><strong>ID:</strong> ${escapeHtml(user.id)}</p>
+      <p><strong>Cadastrado em:</strong> ${new Date(user.createdAt).toLocaleString()}</p>
+      <div style="margin-top:10px"><button class="btn" id="backBtn">Voltar</button></div>
+    </div>
+  `;
+  qs('#backBtn').addEventListener('click', renderDashboard);
+}
+
+function renderDashboard(){
+  const cur = localStorage.getItem('cv_current'); const users = loadJSON('cv_users',[]);
+  const user = users.find(u=>u.id===cur);
+  document.getElementById('mainPanel').innerHTML = `
+    <h2>Minhas vacinas</h2>
+    <div class="muted">Atualize suas vacinas e registre quando tomar. O navegador poderá enviar lembretes.</div>
+
+    <div style="margin-top:12px">
+      <form id="addVacForm" class="spaced">
+        <div style="flex:1;margin-right:8px">
+          <label for="vacName">Nome da vacina</label>
+          <input id="vacName" placeholder="Ex: Hepatite B" required />
+        </div>
+        <div style="width:180px">
+          <label for="vacDate">Data prevista</label>
+          <input id="vacDate" type="date" />
+        </div>
+        <div style="width:120px;display:flex;align-items:end">
+          <button class="btn" type="submit">Adicionar</button>
+        </div>
+      </form>
+
+      <div class="vaccines-list" id="vaccinesList"></div>
+    </div>
+  `;
+
+  // eventos
+  qs('#addVacForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    const name = qs('#vacName').value.trim();
+    const date = qs('#vacDate').value || '';
+    if(!name) return alert('Informe o nome da vacina.');
+    addVaccineToUser(user.id, name, date);
+    qs('#vacName').value=''; qs('#vacDate').value='';
+    renderDashboard();
+  });
+
+  renderVaccines(user);
+}
+
+function renderVaccines(user){
+  const container = qs('#vaccinesList'); container.innerHTML = '';
+  user.vaccines.forEach(v=>{
+    const el = document.createElement('div'); el.className='vac-item';
+    const left = document.createElement('div'); left.className='vac-left';
+    const info = document.createElement('div');
+    const title = document.createElement('div'); title.innerHTML = `<strong>${escapeHtml(v.name)}</strong>`;
+    const meta = document.createElement('div'); meta.className='small muted';
+    meta.textContent = v.dueDate ? `Prevista para: ${v.dueDate}` : 'Sem data prevista';
+    info.appendChild(title); info.appendChild(meta);
+    left.appendChild(info);
+
+    const right = document.createElement('div'); right.className='flex actions';
+    const status = document.createElement('span'); status.className='badge '+(v.taken? 'taken':'pending'); status.textContent = v.taken? 'Tomada':'Pendente';
+    right.appendChild(status);
+
+    const btnTaken = document.createElement('button'); btnTaken.className='btn ghost'; btnTaken.setAttribute('aria-label','Marcar como tomada'); btnTaken.textContent = v.taken? 'Desmarcar':'Marcar tomada';
+    btnTaken.addEventListener('click', ()=>{ toggleTaken(user.id, v.id); renderApp(); });
+    right.appendChild(btnTaken);
+
+    const btnEdit = document.createElement('button'); btnEdit.className='btn ghost'; btnEdit.textContent='Editar';
+    btnEdit.addEventListener('click', ()=>{ showEditModal(user.id, v.id); });
+    right.appendChild(btnEdit);
+
+    const btnDel = document.createElement('button'); btnDel.className='btn ghost'; btnDel.textContent='Remover';
+    btnDel.addEventListener('click', ()=>{ if(confirm('Remover vacina?')){ removeVaccine(user.id, v.id); renderApp(); } });
+    right.appendChild(btnDel);
+
+    el.appendChild(left); el.appendChild(right);
+    container.appendChild(el);
+  });
+}
+
+// --- CRUD vacinas no user ---
+function addVaccineToUser(uid, name, date){ const users = loadJSON('cv_users',[]); const u = users.find(x=>x.id===uid); u.vaccines.push({id:'v'+Date.now(), name, dueDate:date, taken:false}); saveJSON('cv_users', users); }
+function toggleTaken(uid, vid){ const users = loadJSON('cv_users',[]); const u = users.find(x=>x.id===uid); const v = u.vaccines.find(x=>x.id===vid); v.taken = !v.taken; if(v.taken) v.takenAt = new Date().toISOString(); saveJSON('cv_users', users); }
+function removeVaccine(uid, vid){ const users = loadJSON('cv_users',[]); const u = users.find(x=>x.id===uid); u.vaccines = u.vaccines.filter(x=>x.id!==vid); saveJSON('cv_users', users); }
+
+function showEditModal(uid, vid){
+  const users = loadJSON('cv_users',[]); const u = users.find(x=>x.id===uid); const v = u.vaccines.find(x=>x.id===vid);
+  // simples prompt para editar
+  const newName = prompt('Nome da vacina', v.name); if(newName===null) return; const newDate = prompt('Data prevista (YYYY-MM-DD) ou vazio', v.dueDate || ''); v.name = newName.trim() || v.name; v.dueDate = newDate.trim(); saveJSON('cv_users', users); renderApp();
+}
+
+// --- Solicitações de especialista ---
+qs('#requestForm')?.addEventListener('submit', e=>{ e.preventDefault(); const cur = localStorage.getItem('cv_current'); if(!cur) return alert('Faça login para solicitar.'); const type = qs('#type').value; const msg = qs('#msg').value.trim(); if(!msg) return alert('Descreva a necessidade.'); const requests = loadJSON('cv_requests',[]); requests.push({id:'r'+Date.now(), userId:cur, type, msg, createdAt:new Date().toISOString()}); saveJSON('cv_requests', requests); alert('Solicitação enviada.'); qs('#msg').value=''; });
+
+// --- Notificações ---
+async function requestNotificationPermission(){ if(!('Notification' in window)) return false; if(Notification.permission==='granted') return true; if(Notification.permission==='denied') return false; const p = await Notification.requestPermission(); return p==='granted'; }
+
+async function sendNotification(title, body){ const ok = await requestNotificationPermission(); if(!ok){ alert(title+"\n"+body); return; } new Notification(title, {body}); }
+
+qs('#btnNotifyTest').addEventListener('click', ()=> sendNotification('Teste de Notificação','Este é um lembrete de exemplo.'));
+
+// Checagem periódica de vacinas vencidas/pendentes (simples)
+function checkDueVaccines(){ const cur = localStorage.getItem('cv_current'); if(!cur) return; const users = loadJSON('cv_users',[]); const u = users.find(x=>x.id===cur); if(!u) return;
+  const today = new Date().toISOString().slice(0,10);
+  const overdue = u.vaccines.filter(v => v.dueDate && !v.taken && v.dueDate <= today);
+  if(overdue.length>0){ sendNotification('Vacinas pendentes', `Você tem ${overdue.length} vacina(s) pendente(s). Verifique sua caderneta.`); }
+}
+
+// roda a cada vez que a página abre
+setTimeout(checkDueVaccines, 1200);
+// e a cada 1 hora
+setInterval(checkDueVaccines, 1000*60*60);
+
+// --- helpers ---
+function escapeHtml(str){ return String(str).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+
+// --- Inicial renderização ---
+renderApp();
+
+</script>
+</body>
+</html>
