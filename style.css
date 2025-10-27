@@ -48,6 +48,8 @@ h1{
     text-align: center;
 }
 
+
+
 .cabeca{
     display: flex;
     background-color: rgb(173, 204, 216);
@@ -61,16 +63,18 @@ h1{
 
 .buttons{
     margin-right: 40px;
-    padding: 5px;
     background-color: rgba(0, 0, 0, 0.150);
     border-radius: 5px;
+    padding: 5px;
 }
 
 .btn2{
-    background-color:  rgba(173, 204, 216, 0) ;
+    /* background-color:  rgba(173, 204, 216, 0) ; */
+    /* background-color: rgba(0, 0, 0, 0.150); */
     height: 20px;
-    border: 0px;
+    border-radius: 5px;
     cursor: pointer;
+    /* padding: 5px; */
     transition: 100ms;
 }
 .btn2:hover{
