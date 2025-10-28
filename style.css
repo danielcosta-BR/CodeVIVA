@@ -1,11 +1,24 @@
 *{
     padding: 0px;
     margin: 0px;
+    box-sizing: border-box; /* 👈 Adicione esta linha no seu reset global! */
 }
  
+a{
+    display: block; /* Faz o link ocupar toda a largura da div */
+    /* width: 100%; */
+    height: 100%;   /* Garante a altura total, se a div tiver altura definida */
+    text-decoration: none;
+    color: black;
+}
+
+a:visited{
+    color: black;
+}
+
 html{
-    width: 100vw;
-    height: 100vh;
+    /* width: 100vw; */
+    /* height: 100vh; */
     /* background-image: url(Img/WhatsApp\ Image\ 2025-09-12\ at\ 4.15.07\ PM.jpeg); */
     /* background-image: url(Img/JxmBgOyC-vacina-gripe-curitiba-1-1024x596.webp); */
     /* background-image: url(Img/medicbg1.webp); */
@@ -17,7 +30,15 @@ html{
     background-image: url(Img/postobg4.jpg);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 100% 100%;
+    background-size: cover;
+}
+
+body{
+    width: 100%; 
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* 👈 Esta linha corrige o scroll horizontal! */
 }
 
 
@@ -28,7 +49,7 @@ header{
 
 section{
     width: 100vw;
-    height: 87vh;
+    height: 80vh;
     display: flex;
     align-content: center;
     align-items: center;
@@ -51,6 +72,7 @@ h1{
 
 
 .cabeca{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     display: flex;
     background-color: rgb(173, 204, 216);
     height: 90px;
@@ -62,18 +84,45 @@ h1{
 }
 
 .buttons{
-    margin-right: 40px;
+    margin-right: 4vw;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
     background-color: rgba(0, 0, 0, 0.150);
     border-radius: 5px;
-    padding: 5px;
+    flex-wrap: nowrap;
+    padding: 7px 14px;
+    
 }
 
+.btn1{
+    /* background-color:  rgba(173, 204, 216, 0) ; */
+    /* background-color: rgba(0, 0, 0, 0.150); */
+    height: 20px;
+    text-align: center;
+    width: 80px;
+    /* height: 5vh; */
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    /* padding: 5px; */
+    transition: 100ms;
+}
+.btn1:hover{
+    transform: scale(1.1,1.0);
+}
+.btn1:active{
+    color: white;
+}
 .btn2{
     /* background-color:  rgba(173, 204, 216, 0) ; */
     /* background-color: rgba(0, 0, 0, 0.150); */
     height: 20px;
+    text-align: center;
+    width: 80px;
     border-radius: 5px;
     cursor: pointer;
+    text-align: center;
     /* padding: 5px; */
     transition: 100ms;
 }
@@ -111,7 +160,8 @@ h1{
         background-image: url(Img/postobg4.jpg);
         background-repeat: no-repeat;
         background-position: -80px;
-        background-size: auto 100vh;
+        background-size: cover; /* Garante que a imagem cubra toda a área */
+        background-attachment: fixed; /* FIXA o fundo na viewport, resolvendo o problema de tela branca ao rolar */ 
     }
 
 
@@ -132,6 +182,7 @@ h1{
         flex-direction: column;
         margin-top: 0px;
         overflow: hidden;
+        width: 100vw;
     }
 
     .cabeca{
@@ -142,6 +193,7 @@ h1{
         align-items: center;
         flex-direction: row;
         position: fixed;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         width: 100vw;
     }
 
@@ -150,14 +202,24 @@ h1{
     }
 
     .buttonsDownR{
-        display: inline-block;
-        position: static;
-        padding: 5px;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
         background-color: rgba(0, 0, 0, 0.150);
         border-radius: 5px;
+        flex-wrap: nowrap;
+        /* padding: 7px 14px; */
+        position: static;
+        padding: 5px;
         margin-bottom: 100px;
     }
 
+    .btn1{
+        width: 80px;
+    }
+    .btn2{
+        width: 80px;
+    }
     .content-down-mobile1{
         display: flex;
         justify-content: end;

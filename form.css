@@ -1,0 +1,143 @@
+/* form.css */
+
+/* Centraliza o conteúdo do formulário verticalmente e horizontalmente */
+.form-section {
+    width: 100vw;
+    /* MUDANÇA CRUCIAL: Mude 'height: 100vh;' para 'min-height: 100vh;' */
+    min-height: 100vh; /* Permite que o conteúdo do formulário empurre o container para baixo se necessário */
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px 0; 
+}
+/* Estilo do container principal do formulário (o 'card') */
+.form-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px; /* Reduzido de 40px para 30px */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    width: 90%;
+    max-width: 350px; /* REDUZIDO de 400px para 350px (Desktop) */
+    margin: 20px auto;
+    text-align: center;
+}
+
+.form-container h2 {
+    color: #333;
+    margin-bottom: 25px; /* Reduzido o espaço abaixo do título */
+    font-family: sans-serif;
+    border-bottom: 2px solid rgb(173, 204, 216);
+    padding-bottom: 8px;
+}
+
+/* Ajustes menores de espaçamento (input-group) */
+.input-group {
+    margin-bottom: 15px; /* Reduzido de 20px para 15px */
+    text-align: left;
+}
+
+/* Mantendo os estilos de input e botão inalterados */
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+    font-family: sans-serif;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: rgb(147, 207, 231);
+    outline: none;
+}
+.input-group select:focus {
+    border-color: rgb(147, 207, 231);
+    outline: none;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px; /* Levemente reduzido */
+    background-color: rgb(173, 204, 216);
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px; /* Levemente reduzido */
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px; /* Levemente reduzido */
+    transition: background-color 0.2s, transform 0.1s;
+    font-family: sans-serif;
+}
+
+.submit-btn:hover {
+    background-color: rgb(140, 180, 195);
+    transform: scale(1.01);
+}
+
+.submit-btn:active {
+    background-color: rgb(100, 140, 155);
+    transform: scale(0.99);
+}
+
+.form-link {
+    margin-top: 15px; /* Reduzido de 20px para 15px */
+    font-size: 14px;
+    color: #666;
+    font-family: sans-serif;
+}
+
+.form-link a {
+    color: rgb(70, 100, 110);
+    text-decoration: underline;
+    display: inline;
+    width: auto;
+    height: auto;
+    font-weight: bold;
+}
+
+.form-link a:hover {
+    color: rgb(40, 60, 70);
+}
+
+.instruction-text {
+    margin-bottom: 25px;
+    color: #665;
+    font-size: 15px;
+    font-family: sans-serif;
+    line-height: 1.4;
+}
+
+/* Media Query para telas menores (Mobile) */
+@media (max-width: 500px) {
+    .form-container {
+        padding: 20px; /* Reduzido o padding interno em Mobile */
+        width: 95%; 
+        max-width: 350px; /* Mantido o mesmo max-width para controle */
+        margin-top: 40px; 
+    }
+
+    .form-section {
+        /* Garante que o formulário apareça abaixo do cabeçalho fixo */
+        align-items: flex-start; 
+        padding-top: 110px; 
+    }
+}
