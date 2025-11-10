@@ -43,7 +43,9 @@ if (isset($_GET['status'])) {
 <head>
     <meta charset='utf-8'>
     <title>VIVA+ | Painel do Administrador</title>
-    <style> /* Estilos básicos para o exemplo */
+    <link rel='stylesheet' type='text/css' media='screen' href='administrador.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../styleadm.css'>
+    <!-- <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
         .cabeca { background-color: #333; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
         .cabeca .logo { height: 40px; }
@@ -54,7 +56,7 @@ if (isset($_GET['status'])) {
         .form-section p { font-size: 0.9em; color: #666; }
         .form-section button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; }
         .form-section button:hover { background-color: #0056b3; }
-    </style>
+    </style> -->
 </head>
 <body>
     <header>
@@ -83,13 +85,13 @@ if (isset($_GET['status'])) {
             </form>
         </div>
 
-        <div class="form-section" style="margin-top: 50px;">
+        <div class="form-section">
             <h4>Gerenciar Postos de Saúde</h4>
             <p>Listar, adicionar, editar ou remover postos de saúde.</p>
             <button onclick="alert('Funcionalidade ainda não implementada!')">Acessar Gerenciamento de Postos</button>
         </div>
 
-        <div class="form-section" style="margin-top: 20px;">
+        <div class="form-section">
             <h4>Gerenciar Usuários</h4>
             <p>Visualizar e editar usuários (pacientes, enfermeiros).</p>
             <button onclick="alert('Funcionalidade ainda não implementada!')">Acessar Gerenciamento de Usuários</button>
