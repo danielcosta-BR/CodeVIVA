@@ -54,6 +54,15 @@
     font-size: 16px;
     transition: border-color 0.3s;
 }
+.input-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
 .input-group select {
     width: 100%;
     padding: 10px;
@@ -124,6 +133,35 @@
     font-size: 15px;
     font-family: sans-serif;
     line-height: 1.4;
+}
+
+/* Contêiner para posicionar o ícone dentro do campo de input */
+.input-senha-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Garante que o input dentro do contêiner ocupe 100% da largura, mantendo o padding */
+.input-senha-container input {
+    width: 100%;
+    padding-right: 40px; /* Adiciona espaço à direita para o ícone */
+}
+
+/* Estilo e posicionamento do ícone (botão de alternar) */
+.toggle-password {
+    position: absolute;
+    right: 12px; /* Distância da borda direita */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Ajuste fino para o centro exato */
+    cursor: pointer;
+    color: #888; /* Cor suave para o ícone */
+    font-size: 18px; /* Tamanho do ícone (o olho) */
+    /* Remove a seleção de texto acidental ao clicar no ícone */
+    user-select: none; 
+}
+
+.toggle-password:hover {
+    color: #333;
 }
 
 /* Media Query para telas menores (Mobile) */

@@ -1,0 +1,38 @@
+.form-section {
+    width: 100vw;
+    /* MUDANÇA CRUCIAL: Mude 'height: 100vh;' para 'min-height: 100vh;' */
+    max-height: 100vh; /* Permite que o conteúdo do formulário empurre o container para baixo se necessário */
+    display: flex;
+    align-items: center; 
+    justify-content: start; 
+    padding: 20px 0; 
+}
+/* Estilo do container principal do formulário (o 'card') */
+.form-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px; /* Reduzido de 40px para 30px */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    width: 100%;
+    max-width: 1200px; /* REDUZIDO de 400px para 350px (Desktop) */
+    max-height: 1000px; /* REDUZIDO de 400px para 350px (Desktop) */
+    margin: 20px auto;
+}
+
+.form-container h2 {
+    color: #333;
+    margin-bottom: 25px; /* Reduzido o espaço abaixo do título */
+    font-family: sans-serif;
+    border-bottom: 2px solid rgb(173, 204, 216);
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+.form-container h3{
+    text-align: center;
+}
+.form-container p{
+    text-align: justify;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}

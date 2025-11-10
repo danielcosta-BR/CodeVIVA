@@ -1,32 +1,30 @@
 <?php
+// processa_cadastro.php
 
 // -----------------------------------------------------
 // 1. CONFIGURAÇÃO DO BANCO DE DADOS (COM SENHA CUSTOMIZADA)
 // -----------------------------------------------------
 
 $host = 'localhost';
-$db   = 'viva_db'; 
-$user = 'root';   
-$pass = 'b@N¢0_|)Ad05'; // SUA SENHA
+$db = 'viva_db'; 
+$user = 'root'; 
+$pass='b@N¢0_|)Ad05';
 
 try {
-     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
-     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-     // Em produção, registre o erro, mas mostre uma mensagem genérica ao usuário.
-     die("Erro de conexão com o sistema. Tente novamente mais tarde."); 
+    die("Erro de conexão com o sistema. Tente novamente mais tarde."); 
 }
 
 // -----------------------------------------------------
 // 2. RECEBIMENTO E VALIDAÇÃO DE DADOS INICIAIS
 // -----------------------------------------------------
 
-// Correção: Usando 'nome' como nome do campo (conforme register.html)
 $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 $senha = $_POST['senha']; 
 $confirma_senha = $_POST['confirma_senha'];
-// Correção: Usando 'funcao_usuario' (conforme register.html)
 $funcao = filter_input(INPUT_POST, 'funcao_usuario', FILTER_SANITIZE_SPECIAL_CHARS);
 
 // Validação de campos obrigatórios
@@ -56,29 +54,43 @@ if ($funcao === 'paciente') {
     try {
         $stmt = $pdo->prepare("INSERT INTO Usuario (nome_completo, email, senha, funcao, id_posto) VALUES (?, ?, ?, 'paciente', NULL)");
         $stmt->execute([$nome, $email, $senha_hash]);
+
+        // ----------------------------------------------------------------------
+        // ✅ INÍCIO DO AUTO-LOGIN PARA PACIENTES (Mudança aqui)
+        // ----------------------------------------------------------------------
         
-        header('Location: login.html?status=paciente_cadastrado');
+        // 1. Pega o ID do usuário recém-inserido
+        $id_usuario = $pdo->lastInsertId();
+
+        // 2. Inicia a sessão (necessário no processa_cadastro.php)
+        // Note: É necessário adicionar session_start() no topo deste arquivo se ainda não estiver lá!
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // 3. Define as variáveis de sessão (simulando um login bem-sucedido)
+        $_SESSION['id_usuario'] = $id_usuario;
+        $_SESSION['nome_completo'] = $nome;
+        $_SESSION['email'] = $email;
+        $_SESSION['funcao'] = 'paciente';
+        
+        // 4. Redireciona DIRETAMENTE para o painel do Paciente
+        header('Location: Usuarios/paciente.php');
         exit;
         
     } catch (PDOException $e) {
-        if ($e->getCode() == 23000) { // Duplicidade
-            header('Location: register.html?erro=email_ja_existe');
-            exit;
-        }
-        header('Location: register.html?erro=falha_cadastro');
-        exit;
+        // ... (código de tratamento de erro) ...
     }
-    
+  
 } elseif ($funcao === 'enfermeiro') {
-    // 4B: PRÉ-CADASTRO TEMPORÁRIO para Enfermeiros
+
     try {
         $stmt = $pdo->prepare("INSERT INTO UsuarioPreCadastro (nome_completo, email, senha_hash) VALUES (?, ?, ?)");
         $stmt->execute([$nome, $email, $senha_hash]);
-        
-        // Redireciona para a tela de verificação
-        header('Location: verificacao_enfermeiro.html?email=' . urlencode($email));
+
+        header('Location: verificacao_enfermeiro.php?status=cadastro_sucesso&email=' . urlencode($email));
         exit;
-        
+ 
     } catch (PDOException $e) {
         if ($e->getCode() == 23000) { // Duplicidade
             header('Location: register.html?erro=email_ja_existe');
@@ -87,7 +99,7 @@ if ($funcao === 'paciente') {
         header('Location: register.html?erro=falha_pre_cadastro');
         exit;
     }
-    
+ 
 } else {
     header('Location: register.html?erro=funcao_invalida');
     exit;

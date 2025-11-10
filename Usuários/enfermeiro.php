@@ -10,7 +10,11 @@ include 'verificar_acesso.php';
 <head>
     <meta charset='utf-8'>
     <title>VIVA+ | Painel do Enfermeiro</title>
-    </head>
+    <link rel='stylesheet' type='text/css' media='screen' href='../style.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='enfermeiro.css'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='../form.css'> -->
+     <script src="../login.js"></script>
+</head>
 <body>
 
     <header>
@@ -22,12 +26,15 @@ include 'verificar_acesso.php';
         </div>
     </header>
 
-    <main style="padding-top: 100px;">
-        <h2>👨‍⚕️ Bem-vindo(a), Enfermeiro(a) <?php echo htmlspecialchars($_SESSION['nome_completo']); ?>!</h2>
-        <h3>Sua Função: Enfermeiro</h3>
-        
-        <p>Aqui você gerencia agendamentos, registra aplicações e controla o estoque.</p>
-
-        </main>
+    <main>
+        <section class="form-section">
+            <div class="form-container">
+                <h2>👨‍⚕️ Bem-vindo(a), Enfermeiro(a) <?php echo htmlspecialchars($_SESSION['nome_completo']); ?>!</h2>
+                <h3>ENFERMEIRO</h3>
+                
+                <p>Aqui você gerencia agendamentos, registra aplicações e controla o estoque.</p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

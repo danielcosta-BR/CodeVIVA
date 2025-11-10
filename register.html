@@ -35,11 +35,21 @@
                     </div>
                     <div class="input-group">
                         <label for="senha">Senha</label>
-                        <input type="password" id="senha" name="senha" required>
+                        <div class="input-senha-container"> 
+                            <input type="password" id="senha" name="senha" required>
+                            <!-- A função recebe 2 parâmetros: o ID do input alvo e 'this' (o próprio span clicado) -->
+                            <span class="toggle-password" onclick="togglePasswordVisibility('senha', this)">👁️</span>
+                        </div>
                     </div>
+
+                    <!-- Bloco de Confirmar Senha -->
                     <div class="input-group">
                         <label for="confirma_senha">Confirmar Senha</label>
-                        <input type="password" id="confirma_senha" name="confirma_senha" required>
+                        <div class="input-senha-container">
+                            <input type="password" id="confirma_senha" name="confirma_senha" required>
+                            <!-- Aqui usamos 'confirma_senha' como ID -->
+                            <span class="toggle-password" onclick="togglePasswordVisibility('confirma_senha', this)">👁️</span>
+                        </div>
                     </div>
                     <div class="input-group">
                         <label for="funcao_usuario">Função</label>
@@ -54,8 +64,40 @@
                 </form>
 
                 <p class="form-link">Já tem uma conta? <a href="login.html">Faça Login</a></p>
+                <div id="mensagem-verificacao">
+                    <p class="form-link">Seu pré-cadastro já foi realizado!</p>
+                    <p class="form-link">Deseja finalizar a verificação? <a href="verificacao_enfermeiro.php" id="link-verificacao">Clique aqui</a></p>
+                </div>
             </div>
         </section>
     </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const email = urlParams.get('email');
+        
+        // 1. Verifica se o status de sucesso no cadastro está na URL
+        if (status === 'cadastro_sucesso') {
+            const mensagemDiv = document.getElementById('mensagem-verificacao');
+            const linkVerificacao = document.getElementById('link-verificacao');
+
+            // 2. Exibe a mensagem escondida
+            mensagemDiv.style.display = 'block';
+
+            // 3. (Opcional, mas recomendado) Mantém o email no link de volta para a verificação
+            if (email) {
+                // O link deve direcionar para a tela de verificação,
+                // mantendo o email na URL para que o processo saiba quem verificar.
+                linkVerificacao.href = `verificacao_enfermeiro.php?email=${email}`;
+            } else {
+                // Se por algum motivo o email for perdido, apenas manda para a página
+                linkVerificacao.href = `verificacao_enfermeiro.php`;
+            }
+        }
+    });
+</script>
+
 </body>
 </html>

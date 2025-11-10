@@ -13,7 +13,8 @@ include 'verificar_acesso.php';
     <link rel='stylesheet' type='text/css' media='screen' href='../style.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='paciente.css'>
     <!-- <link rel='stylesheet' type='text/css' media='screen' href='../form.css'> -->
-    </head>
+     <script src="../login.js"></script>
+</head>
 <body>
 
     <header>
@@ -30,21 +31,17 @@ include 'verificar_acesso.php';
             <div class="form-container">
                 <h2>👋 Bem-vindo(a), <?php echo htmlspecialchars($_SESSION['nome_completo']); ?>!</h2>
                 <h3>PACIENTE</h3>
-                <p>Precisamos que você insira os dados de seus cartões de CPF e SUS.
+                <p>Precisamos que você insira o número de seu cartão de CPF.
                 Também precisamos saber qual posto você costuma ir:</p>
             
                 <form action="">
                     <div class="input-group">
                         <label for="cpf">CPF</label>
-                        <input type="text" id="cpf" name="cpf" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="sus">SUS</label>
-                        <input type="text" id="sus" name="sus" required>
+                        <input autocomplete="off" type="text" id="cpf" name="cpf" required maxlength="14" placeholder="000.000.000-00">
                     </div>
                     <div class="input-group">
                         <label for="posto_saude">Posto de Saúde</label>
-                        <select id="posto_saude" name="posto_saude">
+                        <select id="posto_saude" name="posto_saude" required>
                             <option value="" disabled selected>Seu postinho de saúde</option>
                             <option value="posto1">Posto1</option>
                             <option value="posto2">Posto2</option>
@@ -58,5 +55,8 @@ include 'verificar_acesso.php';
         </section>
 
         </main>
+
+    <script src='paciente.js'></script>
+
 </body>
 </html>
