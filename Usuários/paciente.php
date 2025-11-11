@@ -31,10 +31,18 @@ include 'verificar_acesso.php';
             <div class="form-container">
                 <h2>👋 Bem-vindo(a), <?php echo htmlspecialchars($_SESSION['nome_completo']); ?>!</h2>
                 <h3>PACIENTE</h3>
-                <p>Precisamos que você insira o número de seu cartão de CPF.
-                Também precisamos saber qual posto você costuma ir:</p>
+                <!-- <p>Precisamos que você insira o número de seu cartão de CPF.
+                Também precisamos saber qual posto você costuma ir:</p> -->
+                <p>Por favor, antes de visualizar sua cardeneta, <a>clique</a> no botão abaixo para configurar 
+                seu local de atendimento e outros dados para validarmos suas vacinas de forma correta.</p>
+
+                <div class="form-section">
+                    <button onclick="alert('Funcionalidade ainda não implementada!')">
+                        Configurações
+                    </button>
+                </div>
             
-                <form action="">
+                <!-- <form action="">
                     <div class="input-group">
                         <label for="cpf">CPF</label>
                         <input autocomplete="off" type="text" id="cpf" name="cpf" required maxlength="14" placeholder="000.000.000-00">
@@ -50,7 +58,7 @@ include 'verificar_acesso.php';
                     </div>
                     
                     <button type="submit" class="submit-btn">Próximo</button>
-                </form>
+                </form> -->
             </div>
         </section>
 

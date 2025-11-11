@@ -13,7 +13,7 @@
 
 .form-container h2 {
     color: #333;
-    margin-bottom: 25px; /* Reduzido o espaço abaixo do título */
+    margin-bottom: 15px; /* Reduzido o espaço abaixo do título */
     font-family: sans-serif;
     border-bottom: 2px solid rgb(173, 204, 216);
     padding-bottom: 8px;
@@ -29,14 +29,14 @@
     margin-top: 5px;
 }
 
-main { 
+/* main { 
     padding: 20px; 
     max-width: 900px; 
     margin: 20px auto; 
     background-color: #fff; 
     border-radius: 8px; 
     box-shadow: 0 0 10px rgba(0,0,0,0.1); 
-}
+} */
 .form-section {
     margin-top: 20px;
      
@@ -51,7 +51,7 @@ main {
     margin-bottom: 10px;
 }
 .form-section button { 
-    background-color: #007bff; 
+    background-color: #3d8cb1; 
     color: white; 
     padding: 10px 15px; 
     border: none; 
@@ -60,5 +60,10 @@ main {
     font-size: 1em; 
 }
 .form-section button:hover { 
-    background-color: #0056b3; 
+    background-color: #2f6b86; 
+}
+
+#button_center{
+    text-align: center;
+    margin: 10px auto;
 }

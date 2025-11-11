@@ -29,10 +29,17 @@ include 'verificar_acesso.php';
     <main>
         <section class="form-section">
             <div class="form-container">
-                <h2>👨‍⚕️ Bem-vindo(a), Enfermeiro(a) <?php echo htmlspecialchars($_SESSION['nome_completo']); ?>!</h2>
+                <h2>👨‍⚕️ Bem-vindo(a), <?php echo htmlspecialchars($_SESSION['nome_completo']); ?>!</h2>
                 <h3>ENFERMEIRO</h3>
                 
-                <p>Aqui você gerencia agendamentos, registra aplicações e controla o estoque.</p>
+                <p>Por favor, antes de visualizar a cardeneta dos pacientes, <a>clique</a> no botão abaixo para configurar 
+                seu local de atendimento e outros dados para validarmos suas alterações e administrações feitas aqui posteriormente.</p>
+
+                <div class="form-section">
+                    <button onclick="alert('Funcionalidade ainda não implementada!')">
+                        Configurações
+                    </button>
+                </div>
             </div>
         </section>
     </main>

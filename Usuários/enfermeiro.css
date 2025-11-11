@@ -1,12 +1,5 @@
-.form-section {
-    width: 100vw;
-    /* MUDANÇA CRUCIAL: Mude 'height: 100vh;' para 'min-height: 100vh;' */
-    max-height: 100vh; /* Permite que o conteúdo do formulário empurre o container para baixo se necessário */
-    display: flex;
-    align-items: center; 
-    justify-content: start; 
-    padding: 20px 0; 
-}
+
+
 /* Estilo do container principal do formulário (o 'card') */
 .form-container {
     background-color: rgba(255, 255, 255, 0.95);
@@ -35,4 +28,110 @@
     text-align: justify;
     margin-bottom: 20px;
     margin-top: 5px;
+}
+
+/* Ajustes menores de espaçamento (input-group) */
+.input-group {
+    margin-bottom: 15px; /* Reduzido de 20px para 15px */
+    text-align: left;
+}
+
+/* Mantendo os estilos de input e botão inalterados */
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+    font-family: sans-serif;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: rgb(147, 207, 231);
+    outline: none;
+}
+.input-group select:focus {
+    border-color: rgb(147, 207, 231);
+    outline: none;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px; /* Levemente reduzido */
+    background-color: rgb(173, 204, 216);
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px; /* Levemente reduzido */
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px; /* Levemente reduzido */
+    transition: background-color 0.2s, transform 0.1s;
+    font-family: sans-serif;
+}
+
+.submit-btn:hover {
+    background-color: rgb(140, 180, 195);
+    transform: scale(1.01);
+}
+
+.submit-btn:active {
+    background-color: rgb(100, 140, 155);
+    transform: scale(0.99);
+}
+
+a{
+    display: inline;
+}
+
+.form-section {
+    margin-top: 20px;
+    text-align: center;
+    justify-content: start;
+}
+
+.form-section h4 {
+    color: #333; border-bottom: 1px solid #eee; 
+    padding-bottom: 10px; 
+    margin-bottom: 20px; 
+}
+.form-section p { 
+    color: #667; 
+    margin-bottom: 10px;
+}
+.form-section button { 
+    background-color: #3d8cb1; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1em; 
+    
+}
+.form-section button:hover { 
+    background-color: #2f6b86; 
+}
+
+#button_center{
+    text-align: center;
+    margin: 10px auto;
 }

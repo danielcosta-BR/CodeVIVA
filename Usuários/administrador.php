@@ -68,17 +68,18 @@ if (isset($_GET['status'])) {
         </div>
     </header>
 
-    <main>
+    <main class="form-container">
+
         <h2>👑 Painel do Administrador</h2>
         <h3>Bem-vindo(a), <?php echo htmlspecialchars($_SESSION['nome_completo']); ?>!</h3>
         
         <?php echo $feedback_message; // Exibe a mensagem de feedback/sucesso ?>
 
         <div class="form-section">
-            <h4>Gerar Código de Verificação para Enfermeiro</h4>
+            <h4>GERAR CÓDIGO DE VERIFICAÇÃO PARA ENFERMEIRO</h4>
             <p>Clique no botão abaixo para gerar um código de uso único. Este código deve ser fornecido ao novo Enfermeiro para que ele possa completar seu registro no sistema.</p>
             
-            <form action="processa_geracao_codigo.php" method="POST">
+            <form action="processa_geracao_codigo.php" method="POST"  id="button_center">
                 <button type="submit">
                     Gerar Novo Código
                 </button>
@@ -86,15 +87,19 @@ if (isset($_GET['status'])) {
         </div>
 
         <div class="form-section">
-            <h4>Gerenciar Postos de Saúde</h4>
+            <h4>GERENCIAR POSTOS DE SAÚDE</h4>
             <p>Listar, adicionar, editar ou remover postos de saúde.</p>
-            <button onclick="alert('Funcionalidade ainda não implementada!')">Acessar Gerenciamento de Postos</button>
+            <button onclick="alert('Funcionalidade ainda não implementada!')">
+                Acessar Gerenciamento de Postos
+            </button>
         </div>
 
         <div class="form-section">
-            <h4>Gerenciar Usuários</h4>
+            <h4>GERENCIAR USUÁRIOS</h4>
             <p>Visualizar e editar usuários (pacientes, enfermeiros).</p>
-            <button onclick="alert('Funcionalidade ainda não implementada!')">Acessar Gerenciamento de Usuários</button>
+            <button onclick="alert('Funcionalidade ainda não implementada!')">
+                Acessar Gerenciamento de Usuários
+            </button>
         </div>
 
     </main>
