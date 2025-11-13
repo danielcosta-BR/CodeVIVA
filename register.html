@@ -64,8 +64,8 @@
                 </form>
 
                 <p class="form-link">Já tem uma conta? <a href="login.html">Faça Login</a></p>
-                <div id="mensagem-verificacao">
-                    <p class="form-link">Seu pré-cadastro já foi realizado!</p>
+                <div id="mensagem-verificacao" style="display:none;">
+                    <p class="form-link msg-sucesso" style="margin-top: 20px;">Seu pré-cadastro já foi realizado!</p>
                     <p class="form-link">Deseja finalizar a verificação? <a href="verificacao_enfermeiro.php" id="link-verificacao">Clique aqui</a></p>
                 </div>
             </div>
@@ -77,13 +77,46 @@
         const urlParams = new URLSearchParams(window.location.search);
         const status = urlParams.get('status');
         const email = urlParams.get('email');
+        const erro = urlParams.get('erro');
         
-        // 1. Verifica se o status de sucesso no cadastro está na URL
+        const formContainer = document.querySelector('.form-container');
+
+        // 1. Tratamento de Erros
+        if (erro) {
+            let mensagemErro = "";
+            switch(erro) {
+                case 'campos_vazios':
+                    mensagemErro = "Por favor, preencha todos os campos obrigatórios.";
+                    break;
+                case 'senhas_nao_coincidem':
+                    mensagemErro = "As senhas digitadas não coincidem.";
+                    break;
+                case 'email_ja_existe':
+                    mensagemErro = "Este e-mail já está cadastrado no sistema.";
+                    break;
+                case 'falha_pre_cadastro':
+                    mensagemErro = "Erro interno ao tentar realizar o pré-cadastro.";
+                    break;
+                case 'funcao_invalida':
+                    mensagemErro = "Função de usuário inválida. Escolha Paciente ou Enfermeiro.";
+                    break;
+                default:
+                    mensagemErro = "Ocorreu um erro desconhecido durante o cadastro.";
+            }
+
+            // Cria e insere a mensagem de erro
+            const erroDiv = document.createElement('p');
+            erroDiv.classList.add('msg-erro');
+            erroDiv.textContent = mensagemErro;
+            formContainer.insertBefore(erroDiv, formContainer.querySelector('form'));
+        }
+
+        // 2. Verificação do Status de Sucesso (Exibir link de verificação para enfermeiros)
         if (status === 'cadastro_sucesso') {
             const mensagemDiv = document.getElementById('mensagem-verificacao');
             const linkVerificacao = document.getElementById('link-verificacao');
 
-            // 2. Exibe a mensagem escondida
+            // 2. Exibe a mensagem escondida (Corrigindo o bug)
             mensagemDiv.style.display = 'block';
 
             // 3. (Opcional, mas recomendado) Mantém o email no link de volta para a verificação

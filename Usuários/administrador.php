@@ -49,22 +49,9 @@ if (isset($_GET['status'])) {
     <script src="modal.js"></script>
 </head>
 <body>
-    <header>
-        <div class="cabeca">
-            <div><img class="logo" src="../Img/Logo 2.0 color.png" alt="Logo VIVA+"></div>
-            <div class="buttons buttonsR profile-menu-container">
-                <button id="profile-btn" class="profile-icon">
-                    <?php echo strtoupper(substr($_SESSION['nome_completo'], 0, 1)); ?> 
-                </button>
-                
-                <div id="profile-dropdown" class="dropdown-content">
-                    <a href="perfil.php">Perfil</a>
-                    <a href="configuracoes.php">Configurações</a>
-                    <a id="logout-trigger" href="#">Sair</a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <?php
+        include 'header.php';
+    ?>
 
     <main class="form-container">
 
@@ -84,7 +71,7 @@ if (isset($_GET['status'])) {
             </form>
             
         <div id="usermanage-btn">
-                <button onclick="window.location.href='gerenciar_usuarios.php'" >
+                <button onclick="window.location.href='adm/gerenciar_usuarios.php'" >
                     Gerenciar Usuários (Pacientes, Enfermeiros)
                 </button>
             </div>
@@ -94,22 +81,18 @@ if (isset($_GET['status'])) {
             <h4>GERENCIAMENTO DE INFRAESTRUTURA</h4>
             <p>Configure a base do sistema: Postos de Saúde e Vacinas disponíveis.</p>
             
-            <button onclick="window.location.href='gerenciar_postos.php'">
+            <button onclick="window.location.href='adm/gerenciar_postos.php'">
                 Gerenciar Postos de Saúde
             </button>
             
-            <button onclick="window.location.href='gerenciar_vacinas.php'">
+            <button onclick="window.location.href='adm/gerenciar_vacinas.php'">
                 Gerenciar Vacinas Cadastradas
             </button>
         </div>
 
     </main>
-    <div id="logout-modal" class="modal-logout">
-        <div class="modal-content-logout">
-            <h4 id="h4-logout">Tem certeza que deseja sair?</h4>
-            <button id="confirm-logout">Sim, Sair</button>
-            <button id="cancel-logout">Cancelar</button>
-        </div>
-    </div>
+    <?php 
+        include 'modal_logout.html'; 
+    ?>
 </body>
 </html>

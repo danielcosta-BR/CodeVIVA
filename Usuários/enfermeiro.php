@@ -19,22 +19,9 @@ include 'verificar_acesso.php';
 </head>
 <body>
 
-    <header>
-        <div class="cabeca">
-            <div><img class="logo" src="../Img/Logo 2.0 color.png"></div>
-            <div class="buttons buttonsR profile-menu-container">
-                <button id="profile-btn" class="profile-icon">
-                    <?php echo strtoupper(substr($_SESSION['nome_completo'], 0, 1)); ?> 
-                </button>
-                
-                <div id="profile-dropdown" class="dropdown-content">
-                    <a href="perfil.php">Perfil</a>
-                    <a href="configuracoes.php">Configurações</a>
-                    <a id="logout-trigger" href="#">Sair</a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <?php
+        include 'header.php';
+    ?>
 
     <main>
         <section class="form-section">
@@ -53,12 +40,9 @@ include 'verificar_acesso.php';
             </div>
         </section>
     </main>
-    <div id="logout-modal" class="modal-logout">
-    <div class="modal-content-logout">
-        <h4 id="h4-logout">Tem certeza que deseja sair?</h4>
-        <button id="confirm-logout">Sim, Sair</button>
-        <button id="cancel-logout">Cancelar</button>
-    </div>
+    <?php 
+        include 'modal_logout.html'; 
+    ?>
 </div>
 </body>
 </html>
