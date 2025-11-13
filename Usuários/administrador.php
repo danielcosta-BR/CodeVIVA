@@ -43,27 +43,25 @@ if (isset($_GET['status'])) {
 <head>
     <meta charset='utf-8'>
     <title>VIVA+ | Painel do Administrador</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='administrador.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../styleadm.css'>
-    <!-- <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
-        .cabeca { background-color: #333; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .cabeca .logo { height: 40px; }
-        .cabeca .buttonsR a { color: white; text-decoration: none; margin-left: 15px; }
-        main { padding: 20px; max-width: 900px; margin: 20px auto; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        .form-section { margin-top: 20px; }
-        .form-section h4 { color: #333; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
-        .form-section p { font-size: 0.9em; color: #666; }
-        .form-section button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; }
-        .form-section button:hover { background-color: #0056b3; }
-    </style> -->
+    <link rel='stylesheet' type='text/css' media='screen' href='administrador.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='styleprofile.css'>
+    <script src="modal.js"></script>
 </head>
 <body>
     <header>
         <div class="cabeca">
             <div><img class="logo" src="../Img/Logo 2.0 color.png" alt="Logo VIVA+"></div>
-            <div class="buttons buttonsR">
-                <a class="btn2" href="../logout.php">Sair</a>
+            <div class="buttons buttonsR profile-menu-container">
+                <button id="profile-btn" class="profile-icon">
+                    <?php echo strtoupper(substr($_SESSION['nome_completo'], 0, 1)); ?> 
+                </button>
+                
+                <div id="profile-dropdown" class="dropdown-content">
+                    <a href="perfil.php">Perfil</a>
+                    <a href="configuracoes.php">Configurações</a>
+                    <a id="logout-trigger" href="#">Sair</a>
+                </div>
             </div>
         </div>
     </header>
@@ -76,32 +74,42 @@ if (isset($_GET['status'])) {
         <?php echo $feedback_message; // Exibe a mensagem de feedback/sucesso ?>
 
         <div class="form-section">
-            <h4>GERAR CÓDIGO DE VERIFICAÇÃO PARA ENFERMEIRO</h4>
-            <p>Clique no botão abaixo para gerar um código de uso único. Este código deve ser fornecido ao novo Enfermeiro para que ele possa completar seu registro no sistema.</p>
+            <h4>GERENCIAMENTO DE ACESSO E USUÁRIOS</h4>
+            <p>Gere códigos de acesso para enfermeiros e visualize/edite a lista de todos os usuários.</p>
             
-            <form action="processa_geracao_codigo.php" method="POST"  id="button_center">
+            <form action="processa_geracao_codigo.php" method="POST" id="button_center">
                 <button type="submit">
-                    Gerar Novo Código
+                    Gerar Novo Código de Enfermeiro
                 </button>
             </form>
+            
+        <div id="usermanage-btn">
+                <button onclick="window.location.href='gerenciar_usuarios.php'" >
+                    Gerenciar Usuários (Pacientes, Enfermeiros)
+                </button>
+            </div>
         </div>
-
+        
         <div class="form-section">
-            <h4>GERENCIAR POSTOS DE SAÚDE</h4>
-            <p>Listar, adicionar, editar ou remover postos de saúde.</p>
-            <button onclick="alert('Funcionalidade ainda não implementada!')">
-                Acessar Gerenciamento de Postos
+            <h4>GERENCIAMENTO DE INFRAESTRUTURA</h4>
+            <p>Configure a base do sistema: Postos de Saúde e Vacinas disponíveis.</p>
+            
+            <button onclick="window.location.href='gerenciar_postos.php'">
+                Gerenciar Postos de Saúde
             </button>
-        </div>
-
-        <div class="form-section">
-            <h4>GERENCIAR USUÁRIOS</h4>
-            <p>Visualizar e editar usuários (pacientes, enfermeiros).</p>
-            <button onclick="alert('Funcionalidade ainda não implementada!')">
-                Acessar Gerenciamento de Usuários
+            
+            <button onclick="window.location.href='gerenciar_vacinas.php'">
+                Gerenciar Vacinas Cadastradas
             </button>
         </div>
 
     </main>
+    <div id="logout-modal" class="modal-logout">
+        <div class="modal-content-logout">
+            <h4 id="h4-logout">Tem certeza que deseja sair?</h4>
+            <button id="confirm-logout">Sim, Sair</button>
+            <button id="cancel-logout">Cancelar</button>
+        </div>
+    </div>
 </body>
 </html>
