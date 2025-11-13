@@ -6,7 +6,7 @@
 // -----------------------------------------------------
 
 $host = 'localhost';
-$db   = 'viva_db';
+$db = 'viva_db';
 $user = 'root';
 $pass = 'b@N¢0_|)Ad05'; // SUA SENHA
 
@@ -37,7 +37,7 @@ $stmt_user->execute([$email]);
 $user_exists = $stmt_user->fetchColumn();
 
 if ($user_exists == 0) {
-     // Redireciona para o sucesso simulado, por segurança
+     // Redireciona para o sucesso simulado, por segurança (não diz se o email existe ou não)
      header('Location: forgot-password.html?status=processo_iniciado');
      exit;
 }
@@ -47,7 +47,8 @@ if ($user_exists == 0) {
 // -----------------------------------------------------
 
 $token = bin2hex(random_bytes(32)); 
-$expira_em = date("Y-m-d H:i:s", time() + 3600); // 1 hora
+// 3600 segundos = 1 hora
+$expira_em = date("Y-m-d H:i:s", time() + 3600); 
 
 try {
      $pdo->beginTransaction();
@@ -72,11 +73,41 @@ try {
 // 5. SIMULAÇÃO DE ENVIO DE E-MAIL E REDIRECIONAMENTO
 // -----------------------------------------------------
 
-// ATENÇÃO: Se for usar redefinir_senha.html, precisa renomeá-lo para .php
-$recuperacao_url = "http://localhost/seu-projeto/redefinir_senha.php?email=" . urlencode($email) . "&token=" . $token;
+// Construindo o caminho REAL da URL do seu projeto!
+// Substitua "redefinir_senha.php" pelo nome do seu arquivo de redefinição
+$url_base = "http://localhost/projetoviva+/CodeVIVA/"; 
+$recuperacao_url = $url_base . "redefinir_senha.php?email=" . urlencode($email) . "&token=" . $token;
 
 // [Função de Envio de E-mail entra aqui]
 
-header('Location: forgot-password.html?status=instrucoes_enviadas');
-exit;
+// -------------------------------------------------------------------------------------------------
+// ✅ MUDANÇA CRUCIAL: Exibir o link se não for possível enviar o e-mail (ambiente local)
+// -------------------------------------------------------------------------------------------------
+
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Link de Recuperação de Senha</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='recuperacao.css'>
+</head>
+<body>
+
+    <div class="box">
+        <h2>Simulação de Envio de E-mail para Recuperação de Senha</h2>
+        <p class="alert-success">Instruções de redefinição enviadas para <span id="emailstyle"><?php echo htmlspecialchars($email); ?></span>.</p>
+        
+        <p><strong>ATENÇÃO:</strong> Como esta é uma simulação, você deve copiar o link abaixo e colar na barra de endereços do seu navegador para continuar o processo de redefinição:</p>
+        
+        <p><strong>LINK DE REDEFINIÇÃO:</strong></p>
+        <p><a href="<?php echo htmlspecialchars($recuperacao_url); ?>"><?php echo htmlspecialchars($recuperacao_url); ?></a></p>
+        
+        <p>O token expira em <?php echo $expira_em; ?>.</p>
+    </div>
+</body>
+</html>
+<?php
+// O exit é removido aqui para que o HTML seja exibido em vez de redirecionar
+exit; 
 ?>

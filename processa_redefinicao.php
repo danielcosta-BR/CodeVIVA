@@ -1,40 +1,46 @@
 <?php
+// processa_redefinicao.php
 
 // -----------------------------------------------------
-// 1. CONFIGURAÇÃO DO BANCO DE DADOS (Simulação - Preencher depois)
+// 1. CONFIGURAÇÃO DO BANCO DE DADOS
+// ... (código de conexão PDO) ...
 // -----------------------------------------------------
 
-// Substitua estas variáveis pelos seus dados reais de conexão
 $host = 'localhost';
-$db   = 'viva_db';
+$db = 'viva_db';
 $user = 'root';
 $pass = 'b@N¢0_|)Ad05';
 
 try {
-     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
-     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-     die("Erro de conexão com o banco de dados."); 
+    die("Erro de conexão com o banco de dados."); 
 }
 
 // -----------------------------------------------------
 // 2. RECEBIMENTO E VALIDAÇÃO DE DADOS DO FORMULÁRIO
 // -----------------------------------------------------
 
+// ATENÇÃO: Os dados 'email' e 'token' virão do formulário, que devem ser campos HIDDEN na redefinir_senha.php
 $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_SPECIAL_CHARS);
 $nova_senha = $_POST['nova_senha']; 
 $confirma_senha = $_POST['confirma_senha']; 
 
+// URL de retorno em caso de erro (com o email e token já passados)
+$return_url = 'redefinir_senha.php?email=' . urlencode($email) . '&token=' . urlencode($token);
+
 // Validação básica
 if (!$email || !$token || empty($nova_senha) || empty($confirma_senha)) {
-    header('Location: login.html?erro=dados_incompletos');
+    // Redireciona de volta para a redefinição, não para o login
+    header('Location: ' . $return_url . '&erro=dados_incompletos');
     exit;
 }
 
 if ($nova_senha !== $confirma_senha) {
-    // Retorna para a página de redefinição com erro (manter email e token na URL)
-    header('Location: redefinir_senha.html?email=' . urlencode($email) . '&token=' . urlencode($token) . '&erro=senhas_diferentes');
+    // Retorna para a página de redefinição com erro
+    header('Location: ' . $return_url . '&erro=senhas_diferentes');
     exit;
 }
 
@@ -56,7 +62,7 @@ $stmt_token->execute([$email, $token]);
 $token_data = $stmt_token->fetch(PDO::FETCH_ASSOC);
 
 if (!$token_data) {
-    // Token inválido, expirado ou já usado
+    // Token inválido, expirado ou já usado. Manda para a página de login final.
     header('Location: login.html?erro=token_invalido_ou_expirado');
     exit;
 }
@@ -75,21 +81,19 @@ try {
     $stmt_update_senha = $pdo->prepare("UPDATE Usuario SET senha = ? WHERE email = ?");
     $stmt_update_senha->execute([$senha_hash, $email]);
 
-    // 4B. Marca o token como usado (para não poder ser reutilizado)
+    // 4B. Marca o token como usado
     $stmt_mark_used = $pdo->prepare("UPDATE RecuperacaoSenha SET usado = 1 WHERE id_recuperacao = ?");
     $stmt_mark_used->execute([$id_recuperacao]);
 
-    $pdo->commit();
-    
-    // Sucesso: Redireciona para o login com mensagem de sucesso
+    $pdo->commit(); 
+    // Sucesso
     header('Location: login.html?status=senha_redefinida_sucesso');
     exit;
 
 } catch (PDOException $e) {
     $pdo->rollBack();
-    // Em caso de erro do banco de dados
-    header('Location: login.html?erro=falha_redefinicao');
-    // Em debug: die("Erro: " . $e->getMessage());
+    // Em caso de erro do banco de dados, retorna para a redefinição (e o token ainda não foi marcado como usado)
+    header('Location: ' . $return_url . '&erro=falha_redefinicao');
     exit;
 }
 

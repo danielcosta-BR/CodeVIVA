@@ -1,0 +1,30 @@
+html{
+    background-color: aliceblue;
+}
+
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 50px; 
+}
+.box { 
+    border: 1px solid #ccc; 
+    background-color: white;
+    padding: 20px; 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    max-width: 600px; 
+    margin: 0 auto; 
+}
+.alert-success { 
+    background-color: rgb(222, 235, 240); 
+    color: #285f79; 
+    padding: 10px; 
+    border-radius: 5px; 
+}
+a { 
+    word-break: break-all; 
+}
+
+#emailstyle{
+    text-decoration: underline;
+    font-weight: bolder;
+}
