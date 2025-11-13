@@ -1,6 +1,6 @@
 <header>
     <div class="cabeca">
-        <div><img class="logo" src="../Img/Logo 2.0 color.png" alt="Logo VIVA+"></div>
+        <div><img class="logo" src="../../Img/Logo 2.0 color.png" alt="Logo VIVA+"></div>
         
         <div class="buttons buttonsR profile-menu-container">
             <button id="profile-btn" class="profile-icon">
@@ -8,9 +8,9 @@
             </button>
             
             <div id="profile-dropdown" class="dropdown-content">
-                <a href="adm/perfil.php">Perfil</a>
-                <a href="adm/configuracoes.php">Configurações</a>
-                <a id="logout-trigger" href="logout.php">Sair</a>
+                <a href="perfil.php">Perfil</a>
+                <a href="configuracoes.php">Configurações</a>
+                <a id="logout-trigger" href="../logout.php">Sair</a>
             </div>
         </div>
     </div>

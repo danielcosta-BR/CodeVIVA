@@ -80,13 +80,13 @@ $conn->close();
 <head>
     <meta charset='utf-8'>
     <title>VIVA+ | Gerenciar Postos</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='../../style.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../../form.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
 </head>
 <body>
 
     <?php 
-        include '../header.php'; 
+        include 'header.php'; 
     ?>
 
     <main>

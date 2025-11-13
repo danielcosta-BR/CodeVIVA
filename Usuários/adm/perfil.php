@@ -2,7 +2,7 @@
 // Define a função permitida para esta página (acesso universal)
 $funcao_permitida = ['paciente', 'enfermeiro', 'administrador'];
 // Inclui o script de verificação
-include 'verificar_acesso.php'; 
+include '../verificar_acesso.php'; 
 ?>
 
 <!DOCTYPE html>
@@ -10,13 +10,13 @@ include 'verificar_acesso.php';
 <head>
     <meta charset='utf-8'>
     <title>VIVA+ | Meu Perfil</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='../../style.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../../form.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
 </head>
 <body>
 
     <?php 
-        include '../header.php'; // Inclui o cabeçalho com o menu de perfil 
+        include 'header.php'; // Inclui o cabeçalho com o menu de perfil 
     ?>
 
     <main>
@@ -41,7 +41,7 @@ include 'verificar_acesso.php';
     </main>
     
     <?php 
-        include 'modal_logout.html'; // Inclui o modal de logout 
+        include '../modal_logout.html'; // Inclui o modal de logout 
     ?>
     <script src="../modal.js"></script>
 </body>
