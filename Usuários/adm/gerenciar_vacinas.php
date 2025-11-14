@@ -82,6 +82,7 @@ $conn->close();
     <title>VIVA+ | Gerenciar Vacinas</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='tables.css'>
 </head>
 <body>
 
@@ -90,7 +91,7 @@ $conn->close();
     ?>
 
     <main>
-        <section class="form-section">
+        <section class="form-section-G">
             <div class="form-container">
                 <h2>💉 Gerenciar Vacinas</h2>
                 
@@ -137,7 +138,7 @@ $conn->close();
                                 <th>Nome da Vacina</th>
                                 <th>Recomendação</th>
                                 <th>Intervalo (Dias)</th>
-                                <th>Ações</th>
+                                <th id="actions">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -147,7 +148,7 @@ $conn->close();
                                     <td><?php echo htmlspecialchars($vacina['nome_vacina']); ?></td>
                                     <td><?php echo htmlspecialchars($vacina['recomendacao_idade'] ?? 'N/A'); ?></td>
                                     <td><?php echo htmlspecialchars($vacina['intervalo_dias'] ?? 'Dose Única'); ?></td>
-                                    <td>
+                                    <td class="btns-edit">
                                         <button class="btn-editar" 
                                             data-id="<?php echo $vacina['id_vacina_modelo']; ?>"
                                             data-nome="<?php echo htmlspecialchars($vacina['nome_vacina']); ?>"

@@ -82,6 +82,7 @@ $conn->close();
     <!-- Caminhos CSS ajustados para estar em Usuarios/adm/ -->
     <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='tables.css'>
 </head>
 <body>
 
@@ -115,7 +116,7 @@ $conn->close();
                                 <th>Email</th>
                                 <th>Função</th>
                                 <th>Posto Associado</th>
-                                <th>Ações</th>
+                                <th id="actions">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -125,7 +126,7 @@ $conn->close();
                                     <td><?php echo htmlspecialchars($usuario['email']); ?></td>
                                     <td><?php echo ucfirst(htmlspecialchars($usuario['funcao'])); ?></td>
                                     <td><?php echo htmlspecialchars($usuario['nome_posto'] ?? 'N/A'); ?></td>
-                                    <td>
+                                    <td class="btns-edit">
                                         <button class="btn-editar" 
                                             data-id="<?php echo $usuario['id_usuario']; ?>"
                                             data-funcao="<?php echo $usuario['funcao']; ?>"

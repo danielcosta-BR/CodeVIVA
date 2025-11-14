@@ -1,8 +1,16 @@
 <?php
 // Define a função permitida para esta página (acesso universal)
-$funcao_permitida = ['paciente', 'enfermeiro', 'administrador'];
+// $funcao_permitida = ['paciente', 'enfermeiro', 'administrador'];
+$funcao_permitida = 'administrador';
 // Inclui o script de verificação
 include '../verificar_acesso.php'; 
+
+
+$id_usuario = $_SESSION['id_usuario'] ?? '0';
+$nome_completo = $_SESSION['nome_completo'] ?? 'Usuário Desconhecido';
+$funcao = $_SESSION['funcao'] ?? 'Função Não Definida';
+$email_usuario = $_SESSION['email'] ?? 'E-mail não disponível';
+
 ?>
 
 <!DOCTYPE html>
@@ -27,10 +35,11 @@ include '../verificar_acesso.php';
                 <p>Aqui você verá suas informações básicas cadastradas.</p>
                 
                 <div class="data-display">
-                    <p><strong>Nome Completo:</strong> <?php echo htmlspecialchars($_SESSION['nome_completo']); ?></p>
-                    <p><strong>E-mail:</strong> <?php echo htmlspecialchars($_SESSION['email']); ?></p>
-                    <p><strong>Função:</strong> <?php echo ucfirst(htmlspecialchars($_SESSION['funcao'])); ?></p>
-                    </div>
+                    <p><strong>ID de Usuário:</strong> <?php echo htmlspecialchars($id_usuario); ?></p>
+                    <p><strong>Nome Completo:</strong> <?php echo htmlspecialchars($nome_completo); ?></p>
+                    <p><strong>Função:</strong> <?php echo ucfirst(htmlspecialchars($funcao)); ?></p>
+                    <p><strong>E-mail:</strong> <?php echo htmlspecialchars($email_usuario); ?></p>
+                </div>
 
                 <p style="margin-top: 30px;">
                     Para alterar seus dados, acesse a seção **Configurações**.

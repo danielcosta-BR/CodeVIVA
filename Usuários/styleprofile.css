@@ -39,6 +39,10 @@ header{
     height: 90px ;
 }
 
+main{
+    height: calc(100vh - 160px);
+}
+
 section{
     width: 100vw;
     height: 80vh;

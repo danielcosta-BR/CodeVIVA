@@ -1,6 +1,7 @@
 <?php
 // Define a função permitida (acesso universal)
-$funcao_permitida = ['paciente', 'enfermeiro', 'administrador'];
+// $funcao_permitida = ['paciente', 'enfermeiro', 'administrador'];
+$funcao_permitida = 'administrador';
 // Inclui o script de verificação
 include '../verificar_acesso.php'; 
 ?>
@@ -12,6 +13,7 @@ include '../verificar_acesso.php';
     <title>VIVA+ | Configurações</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='../../form.css'> -->
 </head>
 <body>
 
@@ -28,13 +30,13 @@ include '../verificar_acesso.php';
 
                 <form action="processa_configuracoes.php" method="POST">
                     
-                    <h4>Dados Pessoais</h4>
+                    <!-- <h4>Dados Pessoais</h4>
                     <div class="input-group">
                         <label for="cpf">CPF</label>
                         <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00">
-                    </div>
+                    </div> -->
 
-                    <h4>Local de Atendimento</h4>
+                    <h4>LOCAL DE ATENDIMENTO:</h4>
                     <div class="input-group">
                         <label for="posto_saude">Posto de Saúde</label>
                         <select id="posto_saude" name="posto_saude">

@@ -1,0 +1,40 @@
+.table-responsive{
+    
+    width: 100%;
+}
+
+td{
+    border: 1px solid black;
+}
+
+tr > #actions{
+    width: 100px;
+}
+
+th{
+    border: 1px solid black;
+}
+
+.data-table{
+    width: 100%;
+    border: 1px solid black;
+}
+
+.btns-edit{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+
+}
+
+.btn-excluir{
+    font-family: arial;
+}
+
+.btn-editar{
+    font-family: Arial;
+}
+
+/* .modal-content-logout{
+    height: 400px;
+} */

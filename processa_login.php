@@ -51,7 +51,8 @@ try {
           $_SESSION['id_usuario'] = $usuario['id_usuario'];
           $_SESSION['nome_completo'] = $usuario['nome_completo'];
           $_SESSION['funcao'] = $usuario['funcao'];
-          
+          $_SESSION['email'] = $email;
+
           $funcao = $usuario['funcao'];
 
           if ($funcao === 'administrador') {

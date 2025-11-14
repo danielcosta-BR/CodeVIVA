@@ -82,6 +82,7 @@ $conn->close();
     <title>VIVA+ | Gerenciar Postos</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='tables.css'>
 </head>
 <body>
 
@@ -90,7 +91,7 @@ $conn->close();
     ?>
 
     <main>
-        <section class="form-section">
+        <section class="form-section-G">
             <div class="form-container">
                 <h2>🏥 Gerenciar Postos de Saúde</h2>
                 
@@ -137,7 +138,7 @@ $conn->close();
                                 <th>Nome</th>
                                 <th>Endereço</th>
                                 <th>Telefone</th>
-                                <th>Ações</th>
+                                <th id="actions">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -147,7 +148,7 @@ $conn->close();
                                     <td><?php echo htmlspecialchars($posto['nome_posto']); ?></td>
                                     <td><?php echo htmlspecialchars($posto['endereco'] ?? 'N/A'); ?></td>
                                     <td><?php echo htmlspecialchars($posto['telefone'] ?? 'N/A'); ?></td>
-                                    <td>
+                                    <td class="btns-edit">
                                         <button class="btn-editar" 
                                             data-id="<?php echo $posto['id_posto']; ?>"
                                             data-nome="<?php echo htmlspecialchars($posto['nome_posto']); ?>"
