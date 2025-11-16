@@ -82,7 +82,9 @@ $conn->close();
     <title>VIVA+ | Gerenciar Vacinas</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../styleadm.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='tables.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='modal.css'>
 </head>
 <body>
 
@@ -124,80 +126,57 @@ $conn->close();
                         <button type="submit" class="submit-btn">Adicionar Vacina</button>
                     </form>
                 </div>
-                
                 <!-- Tabela de Vacinas (READ) -->
-                <h4 style="margin-top: 40px;">Modelos de Vacina Cadastrados</h4>
-                <?php if (empty($vacinas)): ?>
-                    <p>Nenhum modelo de vacina cadastrado.</p>
-                <?php else: ?>
-                    <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome da Vacina</th>
-                                <th>Recomendação</th>
-                                <th>Intervalo (Dias)</th>
-                                <th id="actions">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($vacinas as $vacina): ?>
+                <div class="table-responsive">
+                    <h4 style="margin-top: 40px;">Modelos de Vacina Cadastrados</h4>
+                    <?php if (empty($vacinas)): ?>
+                        <p>Nenhum modelo de vacina cadastrado.</p>
+                    <?php else: ?>
+                        <table class="data-table">
+                            <thead>
                                 <tr>
-                                    <td><?php echo $vacina['id_vacina_modelo']; ?></td>
-                                    <td><?php echo htmlspecialchars($vacina['nome_vacina']); ?></td>
-                                    <td><?php echo htmlspecialchars($vacina['recomendacao_idade'] ?? 'N/A'); ?></td>
-                                    <td><?php echo htmlspecialchars($vacina['intervalo_dias'] ?? 'Dose Única'); ?></td>
-                                    <td class="btns-edit">
-                                        <button class="btn-editar" 
-                                            data-id="<?php echo $vacina['id_vacina_modelo']; ?>"
-                                            data-nome="<?php echo htmlspecialchars($vacina['nome_vacina']); ?>"
-                                            data-idade="<?php echo htmlspecialchars($vacina['recomendacao_idade']); ?>"
-                                            data-intervalo="<?php echo htmlspecialchars($vacina['intervalo_dias']); ?>"
-                                        >Editar</button>
-                                        <a href="?excluir=<?php echo $vacina['id_vacina_modelo']; ?>" 
-                                           onclick="return confirm('ATENÇÃO: Excluir este modelo pode afetar as cadernetas existentes. Deseja continuar?')"
-                                           class="btn-excluir">Excluir</a>
-                                    </td>
+                                    <th>ID</th>
+                                    <th>Nome da Vacina</th>
+                                    <th>Recomendação</th>
+                                    <th>Intervalo (Dias)</th>
+                                    <th id="actions">Ações</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                    </div>
-                <?php endif; ?>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($vacinas as $vacina): ?>
+                                    <tr>
+                                        <td><?php echo $vacina['id_vacina_modelo']; ?></td>
+                                        <td><?php echo htmlspecialchars($vacina['nome_vacina']); ?></td>
+                                        <td><?php echo htmlspecialchars($vacina['recomendacao_idade'] ?? 'N/A'); ?></td>
+                                        <td><?php echo htmlspecialchars($vacina['intervalo_dias'] ?? 'Dose Única'); ?></td>
+                                        <td class="btns-edit">
+                                            <button class="btn-editar" 
+                                                data-id="<?php echo $vacina['id_vacina_modelo']; ?>"
+                                                data-nome="<?php echo htmlspecialchars($vacina['nome_vacina']); ?>"
+                                                data-idade="<?php echo htmlspecialchars($vacina['recomendacao_idade']); ?>"
+                                                data-intervalo="<?php echo htmlspecialchars($vacina['intervalo_dias']); ?>"
+                                            >Editar</button>
+                                            <a href="?excluir=<?php echo $vacina['id_vacina_modelo']; ?>" 
+                                            onclick="return confirm('ATENÇÃO: Excluir este modelo pode afetar as cadernetas existentes. Deseja continuar?')"
+                                            class="btn-excluir">Excluir</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                </div>
+                
                 
             </div>
         </section>
     </main>
 
     <!-- Modal de Edição de Vacina -->
-    <div id="modal-editar" class="modal-logout" style="display:none;">
-        <div class="modal-content-logout">
-            <h3>Editar Modelo de Vacina</h3>
-            <form id="form-editar-vacina" method="POST" action="">
-                <input type="hidden" name="acao" value="editar_vacina">
-                <input type="hidden" name="id_vacina_modelo" id="edit-id-vacina">
-
-                <div class="input-group">
-                    <label for="nome_vacina_edit">Nome da Vacina</label>
-                    <input type="text" name="nome_vacina_edit" id="nome_vacina_edit" required>
-                </div>
-                <div class="input-group">
-                    <label for="recomendacao_idade_edit">Recomendação/Idade</label>
-                    <input type="text" name="recomendacao_idade_edit" id="recomendacao_idade_edit">
-                </div>
-                <div class="input-group">
-                    <label for="intervalo_dias_edit">Intervalo entre doses (dias)</label>
-                    <input type="number" name="intervalo_dias_edit" id="intervalo_dias_edit" placeholder="Deixe em branco para dose única">
-                </div>
-
-                <button type="submit" class="submit-btn" style="margin-top: 20px;">Salvar Alterações</button>
-                <button type="button" class="btn-cancelar" onclick="document.getElementById('modal-editar').style.display='none'">Cancelar</button>
-            </form>
-        </div>
-    </div>
     
-    <?php include '../modal_logout.html'; ?>
+    <?php include 'modal_vacina.html'; ?>
+    
+    <?php include 'modal_logout.html'; ?>
     <script src="../modal.js"></script>
 
     <!-- Script JS para manipular o Modal de Edição -->

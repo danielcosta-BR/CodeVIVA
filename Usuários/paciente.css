@@ -1,5 +1,3 @@
-
-
 /* Estilo do container principal do formulário (o 'card') */
 .form-container {
     background-color: rgba(255, 255, 255, 0.95);
@@ -7,14 +5,16 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     width: 100%;
-    max-width: 1200px; /* REDUZIDO de 400px para 350px (Desktop) */
-    max-height: 1000px; /* REDUZIDO de 400px para 350px (Desktop) */
+    max-width: 1200px;
+    height: 100%;
+    overflow: auto;
+    /* max-height: 1000px; <--- LINHA REMOVIDA PARA PERMITIR QUE O CONTEÚDO EXPANDA */
     margin: 20px auto;
 }
 
 .form-container h2 {
     color: #333;
-    margin-bottom: 25px; /* Reduzido o espaço abaixo do título */
+    margin-bottom: 15px; /* Reduzido o espaço abaixo do título */
     font-family: sans-serif;
     border-bottom: 2px solid rgb(173, 204, 216);
     padding-bottom: 8px;
@@ -30,7 +30,73 @@
     margin-top: 5px;
 }
 
-/* Ajustes menores de espaçamento (input-group) */
+/* main { 
+    padding: 20px; 
+    max-width: 900px; 
+    margin: 20px auto; 
+    background-color: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+} */
+.form-section {
+    margin-top: 20px;
+      
+}
+.form-section-G {
+    /* Mantive o cálculo de altura aqui, mas a remoção do max-height no container é a chave. */
+    min-height: 100vh;
+    max-height: 200vh;
+      
+}
+.form-section h4, .form-section-G h4 {
+    color: #333; 
+    border-bottom: 1px solid #eee; 
+    padding-bottom: 10px; 
+    margin-bottom: 20px; 
+}
+.form-section p, .form-section-G p{ 
+    color: #667; 
+    margin-bottom: 10px;
+}
+.form-section button, .form-section-G button { 
+    background-color: #3d8cb1; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1em; 
+}
+.form-section a, .form-section-G a { 
+    background-color: #b13d3d; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1em; 
+}
+.form-section button:hover, .form-section-G button:hover { 
+    background-color: #2f6b86; 
+}
+.form-section a:hover, .form-section-G a:hover { 
+    background-color: #862f2f; 
+}
+
+#button_center{
+    text-align: center;
+    margin: 10px auto;
+}
+
+#usermanage-btn{
+    border-top: 1px solid #eee; 
+    padding-top: 10px; 
+    border-bottom: 1px solid #eee; 
+    padding-bottom: 20px; 
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
 .input-group {
     margin-bottom: 15px; /* Reduzido de 20px para 15px */
     text-align: left;
@@ -46,6 +112,15 @@
 }
 
 .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+.input-group input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -98,40 +173,60 @@
     transform: scale(0.99);
 }
 
-a{
+.form-link {
+    margin-top: 15px; /* Reduzido de 20px para 15px */
+    font-size: 14px;
+    color: #666;
+    font-family: sans-serif;
+}
+
+.form-link a {
+    color: rgb(70, 100, 110);
+    text-decoration: underline;
     display: inline;
+    width: auto;
+    height: auto;
+    font-weight: bold;
 }
 
-.form-section {
-    margin-top: 20px;
-    text-align: center;
-    justify-content: start;
+.form-link a:hover {
+    color: rgb(40, 60, 70);
 }
 
-.form-section h4 {
-    color: #333; border-bottom: 1px solid #eee; 
-    padding-bottom: 10px; 
-    margin-bottom: 20px; 
-}
-.form-section p { 
-    color: #667; 
-    margin-bottom: 10px;
-}
-.form-section button { 
-    background-color: #3d8cb1; 
-    color: white; 
-    padding: 10px 15px; 
-    border: none; 
-    border-radius: 5px; 
-    cursor: pointer; 
-    font-size: 1em; 
-    
-}
-.form-section button:hover { 
-    background-color: #2f6b86; 
+.instruction-text {
+    margin-bottom: 25px;
+    color: #665;
+    font-size: 15px;
+    font-family: sans-serif;
+    line-height: 1.4;
 }
 
-#button_center{
-    text-align: center;
-    margin: 10px auto;
+/* Contêiner para posicionar o ícone dentro do campo de input */
+.input-senha-container {
+    position: relative;
+    width: 100%;
 }
+
+/* Garante que o input dentro do contêiner ocupe 100% da largura, mantendo o padding */
+.input-senha-container input {
+    width: 100%;
+    padding-right: 40px; /* Adiciona espaço à direita para o ícone */
+}
+
+/* Estilo e posicionamento do ícone (botão de alternar) */
+.toggle-password {
+    position: absolute;
+    right: 12px; /* Distância da borda direita */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Ajuste fino para o centro exato */
+    cursor: pointer;
+    color: #888; /* Cor suave para o ícone */
+    font-size: 18px; /* Tamanho do ícone (o olho) */
+    /* Remove a seleção de texto acidental ao clicar no ícone */
+    user-select: none; 
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+

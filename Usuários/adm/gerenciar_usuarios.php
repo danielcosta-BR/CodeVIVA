@@ -82,7 +82,9 @@ $conn->close();
     <!-- Caminhos CSS ajustados para estar em Usuarios/adm/ -->
     <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../styleadm.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='tables.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='modal.css'>
 </head>
 <body>
 
@@ -150,36 +152,8 @@ $conn->close();
     </main>
 
     <!-- Modal de Edição (Escondido por padrão) -->
-    <div id="modal-editar" class="modal-logout" style="display:none;">
-        <div class="modal-content-logout">
-            <h3>Editar Usuário</h3>
-            <form id="form-editar-usuario" method="POST" action="">
-                <input type="hidden" name="acao" value="editar_usuario">
-                <input type="hidden" name="id_usuario" id="edit-id-usuario">
-
-                <div class="input-group">
-                    <label>Função</label>
-                    <select name="funcao" id="edit-funcao" required>
-                        <option value="paciente">Paciente</option>
-                        <option value="enfermeiro">Enfermeiro</option>
-                    </select>
-                </div>
-                
-                <div class="input-group">
-                    <label>Posto de Saúde</label>
-                    <select name="id_posto" id="edit-id-posto">
-                        <option value="">Nenhum Posto (Geral)</option>
-                        <?php foreach ($postos as $posto): ?>
-                            <option value="<?php echo $posto['id_posto']; ?>"><?php echo htmlspecialchars($posto['nome_posto']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <button type="submit" class="submit-btn" style="margin-top: 20px;">Salvar</button>
-                <button type="button" class="btn-cancelar" onclick="document.getElementById('modal-editar').style.display='none'">Cancelar</button>
-            </form>
-        </div>
-    </div>
+    
+    <?php include 'modal_usuario.html'; ?>
     
     <?php include '../modal_logout.html'; ?>
     <script src="../modal.js"></script>

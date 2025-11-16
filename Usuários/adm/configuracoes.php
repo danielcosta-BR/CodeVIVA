@@ -13,6 +13,8 @@ include '../verificar_acesso.php';
     <title>VIVA+ | Configurações</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../styleadm.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='modal.css'>
     <!-- <link rel='stylesheet' type='text/css' media='screen' href='../../form.css'> -->
 </head>
 <body>

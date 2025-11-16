@@ -17,18 +17,12 @@ a:visited{
 }
 
 html{
-    /* width: 100vw; */
-    /* height: 100vh; */
-    background-image: url(Img/postobg4.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    background-color: aliceblue;
 }
 
 body{
     width: 100%; 
-    /* min-height: 100vh; */
-    height: 100%;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
     overflow-x: hidden; /* 👈 Esta linha corrige o scroll horizontal! */
@@ -38,10 +32,6 @@ body{
 header{
     width: 100vw;
     height: 90px ;
-}
-
-main{
-    height: 100%;
 }
 
 section{
@@ -146,70 +136,6 @@ h1{
         display: none;
     }
 
-/* Esconde o botão 'Sair' antigo se a nova div 'buttons' for usada */
-.cabeca .buttonsR {
-    position: relative; /* Essencial para posicionar o dropdown */
-    margin-right: 4vw;
-    /* Ajuste ou remova estilos antigos do .buttons se necessário */
-    background-color: transparent; /* Remove o fundo que você tinha */
-    padding: 0;
-}
-
-/* 1. O Ícone/Botão de Perfil */
-.profile-icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%; /* Bolinha */
-    background-color: rgb(130, 222, 243); /* Cor de destaque */
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    border: 3px solid rgb(163, 221, 255); /* Borda branca para destacar */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-}
-
-.profile-icon:hover {
-    background-color: #73c9f1;
-    /* background-color: #73c9f1; */
-}
-
-/* 2. O Menu Dropdown (Conteúdo) */
-.dropdown-content {
-    display: none; /* Começa escondido */
-    position: absolute;
-    right: -2vw; /* Alinha o menu à direita do ícone */
-    top: 50px; /* Desce um pouco abaixo do ícone */
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 100; /* Garante que fique acima de outros elementos */
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block; /* Cada link ocupa a linha toda */
-    text-align: left;
-    transition: background-color 0.2s;
-}
-
-.dropdown-content a:hover {
-    background-color: #ddd;
-}
-
-/* Classe para mostrar o dropdown via JavaScript */
-.show-dropdown {
-    display: block;
-}
-
-
 
 @media (max-width: 500px){
 
@@ -298,4 +224,3 @@ h1{
         height: 50vh;
     }
 }
-    

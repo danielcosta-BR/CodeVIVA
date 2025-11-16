@@ -82,7 +82,9 @@ $conn->close();
     <title>VIVA+ | Gerenciar Postos</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../styleadm.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='tables.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='modal.css'>
 </head>
 <body>
 
@@ -171,33 +173,10 @@ $conn->close();
     </main>
 
     <!-- Modal de Edição de Posto -->
-    <div id="modal-editar" class="modal-logout" style="display:none;">
-        <div class="modal-content-logout">
-            <h3>Editar Posto de Saúde</h3>
-            <form id="form-editar-posto" method="POST" action="">
-                <input type="hidden" name="acao" value="editar_posto">
-                <input type="hidden" name="id_posto" id="edit-id-posto">
+         
+    <?php include 'modal_posto.html'; ?>
 
-                <div class="input-group">
-                    <label for="nome_posto_edit">Nome do Posto</label>
-                    <input type="text" name="nome_posto_edit" id="nome_posto_edit" required>
-                </div>
-                <div class="input-group">
-                    <label for="endereco_edit">Endereço</label>
-                    <input type="text" name="endereco_edit" id="endereco_edit">
-                </div>
-                <div class="input-group">
-                    <label for="telefone_edit">Telefone</label>
-                    <input type="text" name="telefone_edit" id="telefone_edit">
-                </div>
-
-                <button type="submit" class="submit-btn" style="margin-top: 20px;">Salvar Alterações</button>
-                <button type="button" class="btn-cancelar" onclick="document.getElementById('modal-editar').style.display='none'">Cancelar</button>
-            </form>
-        </div>
-    </div>
-    
-    <?php include '../modal_logout.html'; ?>
+    <?php include 'modal_logout.html'; ?>
     <script src="../modal.js"></script>
 
     <!-- Script JS para manipular o Modal de Edição -->

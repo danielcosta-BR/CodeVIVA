@@ -46,11 +46,12 @@ if (isset($_GET['status'])) {
     <link rel='stylesheet' type='text/css' media='screen' href='../styleadm.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='administrador.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='styleprofile.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='modal.css'>
     <script src="modal.js"></script>
 </head>
 <body>
     <?php
-        include 'header.php';
+        include 'header_adm.php';
     ?>
 
     <main class="form-container">
