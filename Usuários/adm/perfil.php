@@ -33,7 +33,9 @@ $email_usuario = $_SESSION['email'] ?? 'E-mail não disponível';
                 <h2>👤 Meu Perfil</h2>
                 
                 <p>Aqui você verá suas informações básicas cadastradas.</p>
-                
+                <div>
+                    
+                </div>
                 <div class="data-display">
                     <p><strong>ID de Usuário:</strong> <?php echo htmlspecialchars($id_usuario); ?></p>
                     <p><strong>Nome Completo:</strong> <?php echo htmlspecialchars($nome_completo); ?></p>
