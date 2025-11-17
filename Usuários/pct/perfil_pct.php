@@ -100,8 +100,8 @@ $conn->close();
                 </div>
                 
                 <?php if ($mensagem_alerta): ?>
-                    <div class="alerta-config" style="background-color: #ffe0b2; border-color: #ff9800; color: #333; margin-bottom: 20px;">
-                        <p style="margin: 0; padding: 10px 0;">
+                    <div class="alerta-config" style=" margin-top: 20px; background-color: #c7e3e6ff; border-color: #869a9cff; border-radius: 15px; color: #333; margin-bottom: 20px;">
+                        <p style="padding: 10px 0;">
                             <i class="fas fa-exclamation-triangle" style="color: #ff9800; margin-right: 10px;"></i>
                             <?php echo htmlspecialchars($mensagem_alerta); ?>
                         </p>

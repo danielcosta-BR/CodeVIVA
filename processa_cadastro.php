@@ -75,7 +75,7 @@ if ($funcao === 'paciente') {
         $_SESSION['funcao'] = 'paciente';
         
         // 4. Redireciona DIRETAMENTE para o painel do Paciente
-        header('Location: Usuarios/paciente.php');
+        header('Location: Usuários/paciente.php');
         exit;
         
     } catch (PDOException $e) {

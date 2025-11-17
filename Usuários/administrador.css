@@ -87,6 +87,18 @@
     border-radius: 5px; 
     cursor: pointer; 
     font-size: 1em; 
+    font-family: arial;
+}
+.form-section a.submit-btn{ 
+    background-color: #3d8cb1; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1em; 
+    display: inline-block;
+    width: 25vw;
 }
 .form-section button:hover, .form-section-G button:hover { 
     background-color: #2f6b86; 
@@ -96,6 +108,9 @@
 }
 .form-section a.btn-secundario:hover { 
     background-color: #27776a; 
+}
+.form-section a.submit-btn:hover { 
+    background-color: #2f6b86; 
 }
 
 #button_center{
@@ -247,6 +262,7 @@
 
 .card-cardeneta{
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .card-apoio{

@@ -74,9 +74,11 @@ if ($id_usuario) {
                             <i class="fas fa-exclamation-circle" ></i> 
                             Por favor, antes de visualizar sua caderneta, clique no botão abaixo para configurar seu <b>local de atendimento (Posto de Saúde)</b> e outros dados essenciais para validarmos suas vacinas de forma correta.
                         </p>
-                        <a href="pct/configuracoes_pct.php" class="submit-btn">
-                            <i class="fas fa-cog"></i> Configurações
-                        </a>
+                        <div id="button_center">
+                            <a href="pct/configuracoes_pct.php" class="submit-btn">
+                                <i class="fas fa-cog"></i> Configurações
+                            </a>
+                        </div>
                     </div>
                 
                 <?php 
