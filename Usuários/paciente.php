@@ -141,7 +141,7 @@ if ($id_usuario) {
                 <!-- CABEÇALHO DE BOAS-VINDAS E INFO POSTO -->
                 <div class="header-paciente">
                     <p class="posto-info"><i class="fas fa-hospital"></i> Posto de Saúde: <strong><?php echo htmlspecialchars($posto_saude_paciente); ?></strong></p>
-                    <a href="pct/configuracoes_pct.php" class="btn-secundario"><i class="fas fa-cog"></i> Alterar Configurações</a>
+                    
                 </div>
 
                 <!-- GRUPO DE FUNCIONALIDADES -->

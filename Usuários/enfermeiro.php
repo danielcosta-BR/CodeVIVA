@@ -11,16 +11,17 @@ include 'verificar_acesso.php';
     <meta charset='utf-8'>
     <title>VIVA+ | Painel do Enfermeiro</title>
     <!-- <link rel='stylesheet' type='text/css' media='screen' href='../style.css'> -->
-    <link rel='stylesheet' type='text/css' media='screen' href='enfermeiro.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='administrador.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='styleprofile.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='modal.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='adm/tables.css'>
     <!-- <link rel='stylesheet' type='text/css' media='screen' href='../form.css'> -->
     <script src="../login.js"></script>
-    <script src="modal.js"></script>
 </head>
 <body>
 
     <?php
-        include 'header.php';
+        include 'header_enf.php';
     ?>
 
     <main>
@@ -33,9 +34,11 @@ include 'verificar_acesso.php';
                 seu local de atendimento e outros dados para validarmos suas alterações e administrações feitas aqui posteriormente.</p>
 
                 <div class="form-section">
-                    <button onclick="alert('Funcionalidade ainda não implementada!')">
-                        Configurações
-                    </button>
+                    <div id="button_center">
+                        <button onclick="alert('Funcionalidade ainda não implementada!')" >
+                            Configurações
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -43,6 +46,7 @@ include 'verificar_acesso.php';
     <?php 
         include 'modal_logout.html'; 
     ?>
+    <script src='modal.js'></script>
 </div>
 </body>
 </html>
