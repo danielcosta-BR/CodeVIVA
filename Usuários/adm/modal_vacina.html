@@ -1,0 +1,25 @@
+<div id="modal-editar" class="modal-logout2" style="display:none;">
+    <div class="modal-content-logout2">
+        <h3>Editar Modelo de Vacina</h3>
+        <form id="form-editar-vacina" method="POST" action="">
+            <input type="hidden" name="acao" value="editar_vacina">
+            <input type="hidden" name="id_vacina_modelo" id="edit-id-vacina">
+
+            <div class="input-group">
+                <label for="nome_vacina_edit">Nome da Vacina</label>
+                <input type="text" name="nome_vacina_edit" id="nome_vacina_edit" required>
+            </div>
+            <div class="input-group">
+                <label for="recomendacao_idade_edit">Recomendação/Idade</label>
+                <input type="text" name="recomendacao_idade_edit" id="recomendacao_idade_edit">
+            </div>
+            <div class="input-group">
+                <label for="intervalo_dias_edit">Intervalo entre doses (dias)</label>
+                <input type="number" name="intervalo_dias_edit" id="intervalo_dias_edit" placeholder="Deixe em branco para dose única">
+            </div>
+
+            <button type="submit" class="submit-btn" style="margin-top: 20px;">Salvar Alterações</button>
+            <button type="button" class="btn-cancelar" onclick="document.getElementById('modal-editar').style.display='none'">Cancelar</button>
+        </form>
+    </div>
+</div>

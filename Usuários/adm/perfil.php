@@ -20,6 +20,8 @@ $email_usuario = $_SESSION['email'] ?? 'E-mail não disponível';
     <title>VIVA+ | Meu Perfil</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../styleadm.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='modal.css'>
 </head>
 <body>
 
@@ -33,9 +35,16 @@ $email_usuario = $_SESSION['email'] ?? 'E-mail não disponível';
                 <h2>👤 Meu Perfil</h2>
                 
                 <p>Aqui você verá suas informações básicas cadastradas.</p>
+<<<<<<< HEAD
                 <div>
                     
                 </div>
+=======
+                <div class="profile-icon-2">
+                    <?php echo $inicial_nome; ?> 
+                </div>
+                <h3>Dados de Acesso</h3>
+>>>>>>> 3792aa76528efdcbae90934ab93bace73c363231
                 <div class="data-display">
                     <p><strong>ID de Usuário:</strong> <?php echo htmlspecialchars($id_usuario); ?></p>
                     <p><strong>Nome Completo:</strong> <?php echo htmlspecialchars($nome_completo); ?></p>
@@ -44,7 +53,7 @@ $email_usuario = $_SESSION['email'] ?? 'E-mail não disponível';
                 </div>
 
                 <p style="margin-top: 30px;">
-                    Para alterar seus dados, acesse a seção **Configurações**.
+                    Para alterar seus dados, acesse a seção <b>Configurações</b>.
                 </p>
                 
             </div>

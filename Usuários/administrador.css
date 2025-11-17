@@ -1,4 +1,3 @@
-
 /* Estilo do container principal do formulário (o 'card') */
 .form-container {
     background-color: rgba(255, 255, 255, 0.95);
@@ -6,10 +5,11 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     width: 100%;
-    max-width: 1200px; /* REDUZIDO de 400px para 350px (Desktop) */
-    max-height: 1000px; /* REDUZIDO de 400px para 350px (Desktop) */
+    max-width: 1200px;
+    height: 100%;
+    overflow: auto;
+    /* max-height: 1000px; <--- LINHA REMOVIDA PARA PERMITIR QUE O CONTEÚDO EXPANDA */
     margin: 20px auto;
-
 }
 
 .form-container h2 {
@@ -40,11 +40,13 @@
 } */
 .form-section {
     margin-top: 20px;
-     
+      
 }
 .form-section-G {
-    height: calc(100vh - -120px);
-     
+    /* Mantive o cálculo de altura aqui, mas a remoção do max-height no container é a chave. */
+    min-height: 100vh;
+    max-height: 200vh;
+      
 }
 .form-section h4, .form-section-G h4 {
     color: #333; 
@@ -65,8 +67,20 @@
     cursor: pointer; 
     font-size: 1em; 
 }
+.form-section button.profile-icon-2{  
+    display: none; 
+}
 .form-section a, .form-section-G a { 
     background-color: #b13d3d; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1em; 
+}
+.form-section a.btn-secundario{ 
+    background-color: #3db19e; 
     color: white; 
     padding: 10px 15px; 
     border: none; 
@@ -79,6 +93,9 @@
 }
 .form-section a:hover, .form-section-G a:hover { 
     background-color: #862f2f; 
+}
+.form-section a.btn-secundario:hover { 
+    background-color: #27776a; 
 }
 
 #button_center{
@@ -226,4 +243,32 @@
 
 .toggle-password:hover {
     color: #333;
+}
+
+.card-cardeneta{
+    margin-bottom: 20px;
+}
+
+.card-apoio{
+    margin-bottom: 40px;
+}
+
+a .btn-secundario{
+    background-color: #3d8cb1;
+}
+
+div.profile-icon-2 {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%; /* Bolinha */
+    background-color: rgb(130, 222, 243); /* Cor de destaque */
+    color: white;
+    font-size: 5em;
+    font-family: arial;
+    font-weight: bold;
+    border: 10px solid rgb(163, 221, 255); /* Borda branca para destacar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
 }
