@@ -75,7 +75,10 @@ try {
 
 // Construindo o caminho REAL da URL do seu projeto!
 // Substitua "redefinir_senha.php" pelo nome do seu arquivo de redefinição
-$url_base = "http://localhost/projetoviva+/CodeVIVA/"; 
+
+$url_base = "http://localhost/projetoviva+/CodeVIVA/"; // Use este no computador de casa    *
+// $url_base = "http://localhost/projetoviva+/";       // Use este no computador da escola  *
+
 $recuperacao_url = $url_base . "redefinir_senha.php?email=" . urlencode($email) . "&token=" . $token;
 
 // [Função de Envio de E-mail entra aqui]
