@@ -1,5 +1,5 @@
 <div id="modal-editar" class="modal-logout2" style="display:none;">
-    <div class="modal-content-logout2">
+    <div class="modal-content-logout2" style="height: auto; max-height: 90vh; overflow-y: auto;">
         <h3>Editar Modelo de Vacina</h3>
         <form id="form-editar-vacina" method="POST" action="">
             <input type="hidden" name="acao" value="editar_vacina">
@@ -16,6 +16,23 @@
             <div class="input-group">
                 <label for="intervalo_dias_edit">Intervalo entre doses (dias)</label>
                 <input type="number" name="intervalo_dias_edit" id="intervalo_dias_edit" placeholder="Deixe em branco para dose única">
+            </div>
+            
+            <div class="input-group">
+                <label for="id_proxima_vacina_edit">Próxima Dose (Encadeamento)</label>
+                <select id="id_proxima_vacina_edit" name="id_proxima_vacina_edit">
+                    <option value="">-- Fim do Ciclo --</option>
+                    <!-- 
+                         No PHP do gerenciar_vacinas.php, nós já populamos uma variável $vacinas.
+                         Como este arquivo é um include, ele tem acesso às variáveis do arquivo pai.
+                    -->
+                    <?php foreach ($vacinas as $v_opt): ?>
+                        <option value="<?php echo $v_opt['id_vacina_modelo']; ?>">
+                            <?php echo htmlspecialchars($v_opt['nome_vacina']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <p class="hint" style="font-size: 11px; color: #555;">Ao aplicar esta vacina, a próxima selecionada será agendada automaticamente.</p>
             </div>
 
             <button type="submit" class="submit-btn" style="margin-top: 20px;">Salvar Alterações</button>

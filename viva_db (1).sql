@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 15/11/2025 às 21:25
+-- Tempo de geração: 20/11/2025 às 20:31
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -63,6 +63,43 @@ INSERT INTO `codigoverificacao` (`id_codigo`, `codigo`, `funcao_alvo`, `usado`, 
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `enfermeiros`
+--
+
+CREATE TABLE `enfermeiros` (
+  `id_enfermeiro` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_posto_saude` int(11) DEFAULT NULL COMMENT 'ID do posto onde o enfermeiro atua.',
+  `cpf` varchar(14) DEFAULT NULL,
+  `telefone` varchar(15) DEFAULT NULL,
+  `endereco` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `pacientes`
+--
+
+CREATE TABLE `pacientes` (
+  `id_paciente_data` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `cpf` varchar(14) DEFAULT NULL,
+  `telefone` varchar(15) DEFAULT NULL,
+  `endereco` varchar(255) DEFAULT NULL,
+  `id_posto_saude` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `pacientes`
+--
+
+INSERT INTO `pacientes` (`id_paciente_data`, `id_usuario`, `cpf`, `telefone`, `endereco`, `id_posto_saude`) VALUES
+(3, 3, '14679958600', '35988760674', 'Rua 14, 188, Jardim Califórnia', 2);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `postodesaude`
 --
 
@@ -91,7 +128,8 @@ CREATE TABLE `postosaude` (
 --
 
 INSERT INTO `postosaude` (`id_posto`, `nome_posto`, `endereco`, `telefone`) VALUES
-(1, 'UBS Central VIVA+', 'Rua da Saúde, 100, Centro', NULL);
+(1, 'UBS Central VIVA+', 'Rua da Saúde, 100, Centro', ''),
+(2, 'ESF COLINAS I, II e III', 'Rua Serenidade, nº 318 - Parque das Colinas', '');
 
 -- --------------------------------------------------------
 
@@ -113,7 +151,8 @@ CREATE TABLE `recuperacaosenha` (
 
 INSERT INTO `recuperacaosenha` (`id_recuperacao`, `email_usuario`, `token`, `expira_em`, `usado`) VALUES
 (52, 'danielcosta.10d@gmail.com', '50c0b4a30a89d0c5e3075e23d67b9452ecbd1eb52a921dcea3382d4aa704d7b7', '2025-11-13 03:22:50', 1),
-(53, 'danielcosta.10d@gmail.com', 'ded21520501c6d64f5b569082def6e5f9ab09274fdce63fa9a54fedaaf81b94c', '2025-11-13 03:40:02', 0);
+(54, 'danielcosta.10d@gmail.com', 'e1f5e63ad0ab368d1ee3196791f5e59a802a153508ddccc24346c3537b03ac55', '2025-11-18 01:57:58', 1),
+(55, 'danielpolinfo@gmail.com', 'fa29995f5fa33ab2e1e4b201c84247be4962e77cfbad7f7577e0fb80e94958a5', '2025-11-18 01:58:30', 1);
 
 -- --------------------------------------------------------
 
@@ -137,8 +176,8 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `nome_completo`, `email`, `senha`, `funcao`, `id_posto`, `data_cadastro`) VALUES
 (1, 'Admin Geral', 'vivaplus.3inf@gmail.com', '$2y$10$FkCWB.omXJvvJUzunnAso.C378QJ7Etno5fSti1s4e/1IrFtMam7q', 'administrador', 1, '2025-11-04 00:04:31'),
-(3, 'Daniel Joás da Costa', 'danielcosta.10d@gmail.com', '$2y$10$.q5FljoeQhGpXxo7xreQ/upVJB8WCundLVoR5byK/vLVM9GAH9RqG', 'paciente', NULL, '2025-11-05 00:21:27'),
-(7, 'Wagner Soares Dionísio Cardoso', 'danielpolinfo@gmail.com', '$2y$10$EyG.2P3jWz7PdXtsPs1vsewX8v1BZJLt4JhXfyibmNXSv11yrlNF6', 'enfermeiro', NULL, '2025-11-13 22:50:03');
+(3, 'Daniel Joás da Costa', 'danielcosta.10d@gmail.com', '$2y$10$btUuG.RXNcg4uGRakRkCj.8jR7I6d9P.zmTttI97x8SMlhNwu.WY6', 'paciente', NULL, '2025-11-05 00:21:27'),
+(7, 'Wagner Soares Dionísio Cardoso', 'danielpolinfo@gmail.com', '$2y$10$trf0fyLw.EFPKnhCWBteQOS9Xtu3RlYIuTe073O.0p74rqnLWht.y', 'enfermeiro', NULL, '2025-11-13 22:50:03');
 
 -- --------------------------------------------------------
 
@@ -196,6 +235,22 @@ ALTER TABLE `caderneta`
 ALTER TABLE `codigoverificacao`
   ADD PRIMARY KEY (`id_codigo`),
   ADD UNIQUE KEY `codigo` (`codigo`);
+
+--
+-- Índices de tabela `enfermeiros`
+--
+ALTER TABLE `enfermeiros`
+  ADD PRIMARY KEY (`id_enfermeiro`),
+  ADD UNIQUE KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_posto_saude` (`id_posto_saude`);
+
+--
+-- Índices de tabela `pacientes`
+--
+ALTER TABLE `pacientes`
+  ADD PRIMARY KEY (`id_paciente_data`),
+  ADD UNIQUE KEY `id_usuario` (`id_usuario`),
+  ADD KEY `pacientes_ibfk_2` (`id_posto_saude`);
 
 --
 -- Índices de tabela `postodesaude`
@@ -256,6 +311,18 @@ ALTER TABLE `codigoverificacao`
   MODIFY `id_codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT de tabela `enfermeiros`
+--
+ALTER TABLE `enfermeiros`
+  MODIFY `id_enfermeiro` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `pacientes`
+--
+ALTER TABLE `pacientes`
+  MODIFY `id_paciente_data` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de tabela `postodesaude`
 --
 ALTER TABLE `postodesaude`
@@ -265,13 +332,13 @@ ALTER TABLE `postodesaude`
 -- AUTO_INCREMENT de tabela `postosaude`
 --
 ALTER TABLE `postosaude`
-  MODIFY `id_posto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_posto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `recuperacaosenha`
 --
 ALTER TABLE `recuperacaosenha`
-  MODIFY `id_recuperacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id_recuperacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
@@ -302,6 +369,20 @@ ALTER TABLE `caderneta`
   ADD CONSTRAINT `caderneta_ibfk_1` FOREIGN KEY (`id_paciente`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE,
   ADD CONSTRAINT `caderneta_ibfk_2` FOREIGN KEY (`id_vacina_modelo`) REFERENCES `vacinamodelo` (`id_vacina_modelo`),
   ADD CONSTRAINT `caderneta_ibfk_3` FOREIGN KEY (`id_enfermeiro_aplicador`) REFERENCES `usuario` (`id_usuario`) ON DELETE SET NULL;
+
+--
+-- Restrições para tabelas `enfermeiros`
+--
+ALTER TABLE `enfermeiros`
+  ADD CONSTRAINT `enfermeiros_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE,
+  ADD CONSTRAINT `enfermeiros_ibfk_2` FOREIGN KEY (`id_posto_saude`) REFERENCES `postosaude` (`id_posto`) ON DELETE SET NULL;
+
+--
+-- Restrições para tabelas `pacientes`
+--
+ALTER TABLE `pacientes`
+  ADD CONSTRAINT `pacientes_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE,
+  ADD CONSTRAINT `pacientes_ibfk_2` FOREIGN KEY (`id_posto_saude`) REFERENCES `postosaude` (`id_posto`) ON DELETE SET NULL;
 
 --
 -- Restrições para tabelas `usuario`

@@ -2,7 +2,7 @@
 // Configurações do Banco de Dados
 define('DB_SERVER', 'localhost'); // Geralmente 'localhost'
 define('DB_USERNAME', 'root');   // Seu usuário do MySQL
-define('DB_PASSWORD', 'b@N¢0_|)Ad05');       // Sua senha do MySQL
+define('DB_PASSWORD', 'b@N¢0_|)Ad05'); // Sua senha do MySQL
 define('DB_NAME', 'viva_db');    // O nome do seu banco de dados
 
 // Tenta conectar ao banco de dados MySQL

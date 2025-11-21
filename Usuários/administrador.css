@@ -21,8 +21,13 @@
     text-align: center;
 }
 
+
 .form-container h3{
     text-align: center;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.116);
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+
 }
 .form-container p{
     text-align: justify;
@@ -288,3 +293,4 @@ div.profile-icon-2 {
     justify-content: center;
     transition: background-color 0.2s;
 }
+

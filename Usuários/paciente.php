@@ -53,14 +53,42 @@ if ($id_usuario) {
     <link rel='stylesheet' type='text/css' media='screen' href='adm/tables.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../stylepct.css'>
     <script src="https://kit.fontawesome.com/e878368812.js" crossorigin="anonymous"></script>
-
+    <style>
+        /* Estilos adicionais para os novos status */
+        .status-aguardando {
+            color: #007bff; /* Azul */
+            font-weight: bold;
+            background-color: #e7f1ff;
+            padding: 5px;
+            /* border-radius: 5px; */
+            text-align: center;
+        }
+        .status-pendente {
+            color: #dc3545; /* Vermelho */
+            font-weight: bold;
+            background-color: #ffe6e6;
+            padding: 5px;
+            /* border-radius: 5px; */
+            text-align: center;
+        }
+        .status-aplicada {
+            color: #28a745; /* Verde */
+            font-weight: bold;
+            background-color: #d4edda;
+            padding: 5px;
+            /* border-radius: 5px; */
+            text-align: center;
+        }
+        .status-neutro {
+            color: #6c757d; /* Cinza */
+            text-align: center;
+            padding: 5px;
+        }
+    </style>
 </head>
 <body>
 
-    <?php
-        // O header.php já tem a lógica para o link "Início" e o dropdown de perfil
-        include 'header_pct.php';
-    ?>
+    <?php include 'header_pct.php'; ?>
 
     <main>
         <section class="form-section">
@@ -82,16 +110,12 @@ if ($id_usuario) {
                     </div>
                 
                 <?php 
-                // Se a configuração estiver completa, exibe o dashboard
                 else: 
-                // =========================================================================
-                // 2. LÓGICA DO DASHBOARD COMPLETO (AJUSTADO PARA O DDL)
-                // =========================================================================
                 
                 $vacinas_do_paciente = [];
                 $posto_saude_paciente = "Não Definido"; 
 
-                // 2.1. Buscar nome do posto de saúde (USANDO postosaude)
+                // 2.1. Buscar nome do posto
                 if ($id_posto_saude) {
                     $sql_posto = "SELECT nome_posto FROM postosaude WHERE id_posto = ?";
                     $stmt_posto = $conn->prepare($sql_posto);
@@ -104,17 +128,20 @@ if ($id_usuario) {
                     $stmt_posto->close();
                 }
                 
-                // 2.2. Buscar Vacinas (USANDO vacinamodelo e caderneta)
+                // 2.2. Buscar Vacinas
                 $sql_vacinas = "
                     SELECT 
                         vm.nome_vacina, 
                         vm.recomendacao_idade, 
                         c.data_tomada,
-                        c.data_prevista
+                        c.data_prevista,
+                        u_enf.nome_completo AS nome_enfermeiro
                     FROM 
                         vacinamodelo vm
                     LEFT JOIN 
                         caderneta c ON vm.id_vacina_modelo = c.id_vacina_modelo AND c.id_paciente = ?
+                    LEFT JOIN
+                        usuario u_enf ON c.id_enfermeiro_aplicador = u_enf.id_usuario
                     ORDER BY 
                         vm.nome_vacina ASC
                 ";
@@ -124,35 +151,26 @@ if ($id_usuario) {
                     $stmt_vacinas->bind_param("i", $id_usuario);
                     $stmt_vacinas->execute();
                     $result_vacinas = $stmt_vacinas->get_result();
-                    
-                    if ($result_vacinas->num_rows > 0) {
-                        while ($row = $result_vacinas->fetch_assoc()) {
-                            $vacinas_do_paciente[] = $row;
-                        }
+                    while ($row = $result_vacinas->fetch_assoc()) {
+                        $vacinas_do_paciente[] = $row;
                     }
                     $stmt_vacinas->close();
-                } else {
-                    error_log("Erro ao preparar a busca de vacinas: " . $conn->error);
                 }
 
-                // Fecha a conexão após todas as buscas
                 $conn->close();
                 ?>
-                <!-- CABEÇALHO DE BOAS-VINDAS E INFO POSTO -->
+                
                 <div class="header-paciente">
                     <p class="posto-info"><i class="fas fa-hospital"></i> Posto de Saúde: <strong><?php echo htmlspecialchars($posto_saude_paciente); ?></strong></p>
-                    
                 </div>
 
-                <!-- GRUPO DE FUNCIONALIDADES -->
                 <div class="painel-funcionalidades">
                     
-                    <!-- 1. CARDENETA DE VACINAÇÃO (VISUALIZAÇÃO CENTRAL) -->
+                    <!-- CARDENETA DE VACINAÇÃO -->
                     <div class="card-cardeneta">
                         <h3><i class="fas fa-syringe"></i> Minha Caderneta de Vacinação</h3>
                         <p class="intro-text">Aqui você pode visualizar todas as vacinas recomendadas e o seu status de aplicação.</p>
 
-                        <!-- Tabela de Vacinas -->
                         <div class="tabela-vacinas-container table-responsive">
                             <table class="tabela-vacinas data-table">
                                 <thead>
@@ -162,31 +180,51 @@ if ($id_usuario) {
                                         <th>Status</th>
                                         <th>Data Aplicação</th>
                                         <th>Próxima Dose</th>
+                                        <th>Enfermeiro Aplicador</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php if (count($vacinas_do_paciente) > 0): ?>
                                         <?php foreach ($vacinas_do_paciente as $vacina): 
                                             
-                                            // Lógica de Status (baseada em data_tomada e data_prevista)
                                             $data_aplicacao = $vacina['data_tomada'];
                                             $data_prevista = $vacina['data_prevista'];
+                                            $nome_enfermeiro = $vacina['nome_enfermeiro'];
+                                            $hoje = date('Y-m-d');
 
+                                            // --- LÓGICA DE STATUS ATUALIZADA ---
                                             if (!empty($data_aplicacao)) {
+                                                // Cenário 1: Vacina Tomada
                                                 $status = 'Aplicada';
                                                 $status_class = 'status-aplicada';
                                                 $data_aplicacao_formatada = date('d/m/Y', strtotime($data_aplicacao));
-                                            } elseif (!empty($data_prevista)) {
-                                                $status = 'Agendada';
-                                                $status_class = 'status-agendada';
-                                                $data_aplicacao_formatada = 'N/A';
-                                            } else {
-                                                $status = 'Pendente';
-                                                $status_class = 'status-pendente';
-                                                $data_aplicacao_formatada = 'N/A';
-                                            }
+                                                $proxima_dose_formatada = '-'; // Se já tomou, não tem próxima dose para ESTA vacina específica
+                                                $enfermeiro_display = !empty($nome_enfermeiro) ? htmlspecialchars($nome_enfermeiro) : 'Não informado';
                                             
-                                            $proxima_dose_formatada = !empty($data_prevista) ? date('d/m/Y', strtotime($data_prevista)) : 'N/A';
+                                            } elseif (!empty($data_prevista)) {
+                                                // Cenário 2: Vacina Agendada (mas não tomada)
+                                                $data_aplicacao_formatada = 'N/A';
+                                                $proxima_dose_formatada = date('d/m/Y', strtotime($data_prevista));
+                                                $enfermeiro_display = '-';
+
+                                                if ($hoje < $data_prevista) {
+                                                    // Se hoje é ANTES da data prevista
+                                                    $status = 'Aguardando';
+                                                    $status_class = 'status-aguardando';
+                                                } else {
+                                                    // Se hoje é IGUAL ou DEPOIS da data prevista (e não tomou)
+                                                    $status = 'Pendente';
+                                                    $status_class = 'status-pendente';
+                                                }
+
+                                            } else {
+                                                // Cenário 3: Nem tomada, nem agendada (ex: doses futuras não desbloqueadas)
+                                                $status = 'Não Tomada';
+                                                $status_class = 'status-neutro';
+                                                $data_aplicacao_formatada = '-';
+                                                $proxima_dose_formatada = '-';
+                                                $enfermeiro_display = '-';
+                                            }
                                         ?>
                                             <tr>
                                                 <td><?php echo htmlspecialchars($vacina['nome_vacina']); ?></td>
@@ -194,72 +232,52 @@ if ($id_usuario) {
                                                 <td class="<?php echo $status_class; ?>"><?php echo htmlspecialchars($status); ?></td>
                                                 <td><?php echo htmlspecialchars($data_aplicacao_formatada); ?></td>
                                                 <td><?php echo htmlspecialchars($proxima_dose_formatada); ?></td>
+                                                <td><?php echo $enfermeiro_display; ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="5" class="text-center">Nenhuma vacina encontrada ou seu cadastro está incompleto.</td>
+                                            <td colspan="6" class="text-center">Nenhuma vacina encontrada.</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
-                    </div> <!-- Fim Cardeneta -->
+                    </div> 
                     
-                    <!-- 2. SOLICITAR AJUDA E LEMBRETES (CARDS LATERAIS) -->
                     <div class="cards-laterais">
-                        
-                        <!-- 2.1. Solicitar Apoio / Ajuda -->
                         <div class="card-apoio">
                             <h4><i class="fas fa-headset"></i> Solicitar Apoio do Enfermeiro</h4>
-                            <p>Envie uma mensagem direta ao enfermeiro responsável pelo seu posto de saúde. Exponha dúvidas ou solicite um agendamento.</p>
+                            <p>Envie uma mensagem direta ao enfermeiro responsável pelo seu posto de saúde.</p>
                             <div id="button_center"><button id="abrir-apoio-modal" class="btn-principal"><i class="fas fa-paper-plane"></i> Enviar Solicitação</button></div>
                         </div>
 
-                        <!-- 2.2. Lembretes e Notificações -->
                         <div class="card-lembretes">
-                            <h4><i class="fas fa-bell"></i> Lembretes e Notificações</h4>
-                            <!-- Lógica de Lembretes Simplificada -->
+                            <h4><i class="fas fa-bell"></i> Lembretes</h4>
                             <?php 
                             $proximo_compromisso = 'Nenhum lembrete ativo.';
-                            $lembrete_encontrado = false;
-                            
                             foreach ($vacinas_do_paciente as $vacina) {
-                                // Verifica se há uma próxima dose e se ela ainda não foi tomada
+                                // Só mostra lembrete se estiver pendente ou aguardando (prevista existe e tomada não)
                                 if (!empty($vacina['data_prevista']) && empty($vacina['data_tomada'])) {
                                     $data_proxima_dose = date('d/m/Y', strtotime($vacina['data_prevista']));
-                                    $proximo_compromisso = "Você tem uma dose agendada da vacina <strong>{$vacina['nome_vacina']}</strong> em <strong>{$data_proxima_dose}</strong>.";
-                                    $lembrete_encontrado = true;
+                                    $proximo_compromisso = "Você tem uma dose agendada da vacina <strong>{$vacina['nome_vacina']}</strong> para <strong>{$data_proxima_dose}</strong>.";
                                     break; 
                                 }
                             }
                             ?>
                             <p><?php echo $proximo_compromisso; ?></p>
-                            <a href="#" class="btn-secundario"><i class="fas fa-list-ul"></i> Ver todos os lembretes</a>
                         </div>
-                        
-                    </div> <!-- Fim Cards Laterais -->
+                    </div>
 
-                </div> <!-- Fim Painel Funcionalidades -->
+                </div>
 
                 <?php endif; ?>
                 
             </div>
         </section>
-
     </main>
 
-    <?php 
-        include 'modal_logout.html'; 
-        
-        // Inclui o modal de solicitação APENAS se o dashboard estiver visível
-        if ($config_completa) {
-            // OBS: Você precisa criar o modal_solicitacao_apoio.html e paciente.js
-            // Por enquanto, apenas os scripts globais são inclusos.
-            // include 'modal_solicitacao_apoio.html'; 
-            // echo "<script src='paciente.js'></script>";
-        }
-    ?>
+    <?php include 'modal_logout.html'; ?>
     <script src='modal.js'></script>
 </body>
 </html>

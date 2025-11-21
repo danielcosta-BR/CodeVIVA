@@ -6,7 +6,6 @@ include '../verificar_acesso.php';
 // Inclui a conexão com o banco de dados
 include '../conexao.php'; // Adicionado para a conexão
 
-
 $id_usuario = $_SESSION['id_usuario'] ?? '0';
 $nome_completo = $_SESSION['nome_completo'] ?? 'Usuário Desconhecido';
 $funcao = $_SESSION['funcao'] ?? 'Função Não Definida';
@@ -78,11 +77,11 @@ $conn->close();
 <head>
     <meta charset='utf-8'>
     <title>VIVA+ | Meu Perfil</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../../styleadm.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='modal.css'>
-    <script src="https://kit.fontawesome.com/e878368812.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
@@ -94,6 +93,18 @@ $conn->close();
         <section class="form-section">
             <div class="form-container"> <!-- Reduzindo a largura para um visual de perfil -->
                 <h2><i class="fas fa-user-circle"></i> Meu Perfil</h2>
+                <div class="title_function" 
+                    style="padding: 10px;
+                    background-color: #5ab4c086;
+                    text-align: center;
+                    border-radius: 5px;">
+                    <h3 
+                        style="border-bottom: 0px; 
+                        margin-bottom: 0px; 
+                        padding-bottom: 0px;">
+                        PACIENTE
+                    </h3>
+                </div>
                 <p>Aqui estão seus dados básicos de acesso e as informações complementares.</p>
                 <div class="profile-icon-2">
                     <?php echo $inicial_nome; ?> 
@@ -112,7 +123,7 @@ $conn->close();
                     <h3>Dados de Acesso</h3>
                     <div class="data-display">
                         <p><strong><i class="fas fa-id-badge"></i> ID de Usuário:</strong> <?php echo htmlspecialchars($id_usuario); ?></p>
-                        <p><strong><i class="fas fa-user"></i> Nome Completo:</strong> <?php echo htmlspecialchars($nome_completo); ?></p>
+                        <p><strong><i class="fas fa-user-circle"></i> Nome Completo:</strong> <?php echo htmlspecialchars($nome_completo); ?></p>
                         <p><strong><i class="fas fa-at"></i> E-mail:</strong> <?php echo htmlspecialchars($email_usuario); ?></p>
                         <p><strong><i class="fas fa-user-tag"></i> Função:</strong> <?php echo ucfirst(htmlspecialchars($funcao)); ?></p>
                     </div>
@@ -124,7 +135,7 @@ $conn->close();
                         <p><strong><i class="fas fa-id-card"></i> CPF:</strong> <?php echo $cpf_paciente; ?></p>
                         <p><strong><i class="fas fa-phone"></i> Telefone:</strong> <?php echo $telefone_paciente; ?></p>
                         <p><strong><i class="fas fa-map-marker-alt"></i> Endereço:</strong> <?php echo $endereco_paciente; ?></p>
-                        <p><strong><i class="fas fa-hospital"></i> Posto de Saúde:</strong> <?php echo $posto_saude_nome; ?></p>
+                        <p><strong><i class="fas fa-hospital-symbol"></i></i> Posto de Saúde:</strong> <?php echo $posto_saude_nome; ?></p>
                     </div>
                 </div>
 

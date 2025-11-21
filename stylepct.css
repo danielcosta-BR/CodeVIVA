@@ -136,6 +136,12 @@ h1{
         display: none;
     }
 
+.form-container .title_function{
+    padding: 10px;
+    background-color: #5ab4c086;
+    text-align: center;
+    border-radius: 5px;
+}
 
 @media (max-width: 500px){
 
