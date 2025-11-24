@@ -1,0 +1,22 @@
+<div id="modal-editar-doenca" class="modal-logout2" style="display:none;">
+    <div class="modal-content-logout2" style="height: auto; max-height: 90vh; overflow-y: auto;">
+        <h3>Editar Doença</h3>
+        <form id="form-editar-doenca" method="POST" action="">
+            <input type="hidden" name="acao" value="editar_doenca">
+            <input type="hidden" name="id_doenca" id="edit-id-doenca">
+
+            <div class="input-group">
+                <label for="nome_doenca_edit">Nome da Doença</label>
+                <input type="text" name="nome_doenca_edit" id="nome_doenca_edit" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="mensagem_alerta_edit">Mensagem de Alerta</label>
+                <textarea name="mensagem_alerta_edit" id="mensagem_alerta_edit" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" style="margin-top: 20px;">Salvar Alterações</button>
+            <button type="button" class="btn-cancelar" onclick="document.getElementById('modal-editar-doenca').style.display='none'">Cancelar</button>
+        </form>
+    </div>
+</div>

@@ -47,6 +47,7 @@ if (isset($_GET['status'])) {
     <link rel='stylesheet' type='text/css' media='screen' href='administrador.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='modal.css'>
+    <script src="https://kit.fontawesome.com/e878368812.js" crossorigin="anonymous"></script>
     <script src="modal.js"></script>
 </head>
 <body>
@@ -71,7 +72,7 @@ if (isset($_GET['status'])) {
                 </button>
             </form>
             
-        <div id="usermanage-btn">
+            <div id="usermanage-btn">
                 <button onclick="window.location.href='adm/gerenciar_usuarios.php'" >
                     Gerenciar Usuários (Pacientes, Enfermeiros)
                 </button>
@@ -80,14 +81,19 @@ if (isset($_GET['status'])) {
         
         <div class="form-section">
             <h4>GERENCIAMENTO DE INFRAESTRUTURA</h4>
-            <p>Configure a base do sistema: Postos de Saúde e Vacinas disponíveis.</p>
+            <p>Configure a base do sistema: Postos, Vacinas e Alertas de Saúde.</p>
             
             <button onclick="window.location.href='adm/gerenciar_postos.php'">
-                Gerenciar Postos de Saúde
+                <i class="fas fa-hospital"></i> Gerenciar Postos de Saúde
             </button>
             
             <button onclick="window.location.href='adm/gerenciar_vacinas.php'">
-                Gerenciar Vacinas Cadastradas
+                <i class="fas fa-syringe"></i> Gerenciar Vacinas Cadastradas
+            </button>
+
+            <!-- NOVO BOTÃO ADICIONADO AQUI -->
+            <button onclick="window.location.href='adm/gerenciar_doencas.php'" style="background-color: #5bc0de;">
+                <i class="fas fa-virus"></i> Gerenciar Doenças e Alertas
             </button>
         </div>
 
