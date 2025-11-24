@@ -173,9 +173,11 @@ $conn->close();
                                     <td>
                                         <!-- Tag visual para a função -->
                                         <span style="
-                                            padding: 3px 8px; 
+                                            padding: 10px 5px; 
                                             border-radius: 4px; 
                                             font-size: 0.9em;
+                                            text-align: center;
+                                            display: block;
                                             background-color: <?php echo ($usuario['funcao'] == 'enfermeiro') ? '#e3f2fd' : '#fff3cd'; ?>;
                                             color: <?php echo ($usuario['funcao'] == 'enfermeiro') ? '#0d47a1' : '#856404'; ?>;
                                         ">
