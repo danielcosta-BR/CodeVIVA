@@ -235,7 +235,7 @@ $conn->close(); // Fecha a conexão
                         </div>
 
                         <!-- SEÇÃO EXCLUSIVA DE PACIENTE (DOENÇAS) -->
-                        <div class="input-group">
+                        <div class="input-group" id="secao-doencas" style="display: none;">
                             <label for="doencas">Doenças / Condições Existentes <span style="font-weight: normal; font-size: 0.9em; color: #555;">(Selecione ao menos uma ou 'Nenhuma')</span></label>
                             
                             <button type="button" class="btn-secundario" id="btn-modal-doencas" style="width: 100%; margin-top: 5px;" onclick="abrirModalDoencas()">

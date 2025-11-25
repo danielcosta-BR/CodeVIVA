@@ -12,7 +12,13 @@ $config_completa = false;
 $id_posto_enfermeiro = null;
 $nome_posto_enfermeiro = "Não definido";
 
-$sql_check = "SELECT e.id_posto_saude, p.nome_posto FROM enfermeiros e LEFT JOIN postosaude p ON e.id_posto_saude = p.id_posto WHERE e.id_usuario = ?";
+// Tenta buscar na tabela de enfermeiros
+$sql_check = "
+    SELECT e.id_posto_saude, p.nome_posto 
+    FROM enfermeiros e 
+    LEFT JOIN postosaude p ON e.id_posto_saude = p.id_posto 
+    WHERE e.id_usuario = ?
+";
 $stmt_check = $conn->prepare($sql_check);
 $stmt_check->bind_param("i", $id_usuario);
 $stmt_check->execute();
@@ -20,13 +26,21 @@ $result_check = $stmt_check->get_result();
 
 if ($result_check->num_rows > 0) {
     $dados_enf = $result_check->fetch_assoc();
+    // Se encontrou registro e tem posto, está configurado
     if (!empty($dados_enf['id_posto_saude'])) {
         $config_completa = true;
         $id_posto_enfermeiro = $dados_enf['id_posto_saude'];
-        $nome_posto_enfermeiro = $dados_enf['nome_posto'];
+        $nome_posto_enfermeiro = $dados_enf['nome_posto'] ?? "Posto não encontrado";
     }
+} else {
+    // Se não encontrou registro em 'enfermeiros', tenta criar um registro vazio
+    // Isso é uma medida de segurança para casos de migração falha
+    // (Mas o ideal é que o processo de verificação já tenha criado isso)
 }
 $stmt_check->close();
+
+// Se ainda assim não estiver configurado, vamos verificar se o usuário acabou de ser criado
+// e tentar forçar a leitura do id_posto se ele existir em outro lugar (opcional)
 
 // Dados para o Dashboard
 $lista_pacientes = [];
