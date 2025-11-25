@@ -2,9 +2,7 @@
 
 let dadosCarregados = false;
 
-// =========================================================================
-// MÁSCARAS E UTILIDADES
-// =========================================================================
+// === MÁSCARAS E UTILIDADES ===
 function maskCPF(el) {
     el.value = el.value.replace(/\D/g, '').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})(\d{1,2})$/, '$1-$2').substring(0, 14);
 }
@@ -19,9 +17,7 @@ function togglePasswordVisibility(id, icon) {
     else if (input) { input.type = 'password'; icon.innerText = '👁️'; }
 }
 
-// =========================================================================
-// NAVEGAÇÃO
-// =========================================================================
+// === NAVEGAÇÃO ===
 function goToStep2() {
     const nome = document.getElementById('nome').value.trim();
     const email = document.getElementById('email').value.trim();
@@ -63,7 +59,6 @@ function ajustarStep2() {
     if (divDoencas) {
         if(funcao === 'paciente') {
             divDoencas.style.display = 'block';
-            // Ativa listeners para abrir o modal
             const btnModal = document.getElementById('btn-modal-doencas');
             if(btnModal) btnModal.onclick = abrirModalDoencas;
         } else {
@@ -72,9 +67,7 @@ function ajustarStep2() {
     }
 }
 
-// =========================================================================
-// CARREGAMENTO DE DADOS (CRIAÇÃO MANUAL DOS CHECKBOXES)
-// =========================================================================
+// === CARREGAMENTO DE DADOS ===
 function carregarDadosExternos() {
     fetch('get_dados_cadastro.php')
         .then(response => {
@@ -98,30 +91,27 @@ function carregarDadosExternos() {
                 }
             }
             
-            // 2. Preenche Doenças (Resetando e Criando na Marra)
+            // 2. Preenche Doenças (Cria na Marra)
             const divList = document.getElementById('lista-doencas');
             if (divList) {
-                divList.innerHTML = ''; // Limpa tudo
+                divList.innerHTML = ''; 
                 
-                // --- A. CRIA A OPÇÃO "NENHUMA" MANUALMENTE ---
+                // A. Cria "Nenhuma" manualmente
                 const itemNenhuma = document.createElement('div');
                 itemNenhuma.className = 'checkbox-item';
-                // Usamos um ID específico 'chk_nenhuma_js' para facilitar a busca depois
                 itemNenhuma.innerHTML = `
                     <input type="checkbox" id="chk_nenhuma_js" class="chk-doenca" value="0" data-nome="Nenhuma">
                     <label for="chk_nenhuma_js" style="font-weight: bold;">Nenhuma</label>
                 `;
                 const chkNenhuma = itemNenhuma.querySelector('input');
-                // Adiciona evento
                 chkNenhuma.addEventListener('change', function() {
                     gerenciarSelecaoDoencas(this, 'Nenhuma');
                 });
                 divList.appendChild(itemNenhuma);
 
-                // --- B. CRIA AS DOENÇAS DO BANCO ---
+                // B. Lista do Banco
                 if (data.doencas) {
                     data.doencas.forEach(d => {
-                        // Pula se vier "Nenhuma" do banco pra não duplicar
                         if (d.nome_doenca === 'Nenhuma') return;
 
                         const item = document.createElement('div');
@@ -129,13 +119,12 @@ function carregarDadosExternos() {
                         
                         const chk = document.createElement('input');
                         chk.type = 'checkbox';
-                        chk.name = 'doencas[]'; // Array para o PHP pegar depois
+                        chk.name = 'doencas[]'; 
                         chk.value = d.id_doenca;
                         chk.id = 'doenca_' + d.id_doenca;
-                        chk.className = 'chk-doenca'; // Classe para seleção em grupo
+                        chk.className = 'chk-doenca'; 
                         chk.setAttribute('data-nome', d.nome_doenca);
                         
-                        // Adiciona evento
                         chk.addEventListener('change', function() {
                             gerenciarSelecaoDoencas(this, d.nome_doenca);
                         });
@@ -156,35 +145,26 @@ function carregarDadosExternos() {
         .catch(err => console.error("Erro JS:", err));
 }
 
-// =========================================================================
-// LÓGICA DE EXCLUSÃO MÚTUA (NENHUMA vs OUTRAS)
-// =========================================================================
+// === LÓGICA DE SELEÇÃO MÚTUA ===
 function gerenciarSelecaoDoencas(checkbox, nome) {
     const todosChecks = document.querySelectorAll('.chk-doenca');
     
     if (nome === 'Nenhuma') {
-        // SE CLICOU EM "NENHUMA"
         if (checkbox.checked) {
-            // Desmarca todas as outras (que não sejam ela mesma)
             todosChecks.forEach(c => {
                 if (c !== checkbox) c.checked = false;
             });
         }
     } else {
-        // SE CLICOU EM UMA DOENÇA REAL
         if (checkbox.checked) {
-            // Desmarca a opção "Nenhuma" (usando o ID que criamos manualmente)
             const chkNenhuma = document.getElementById('chk_nenhuma_js');
             if (chkNenhuma) chkNenhuma.checked = false;
         }
     }
-    
     atualizarContagemDoencas();
 }
 
-// =========================================================================
-// MODAL E CONTAGEM
-// =========================================================================
+// === MODAL E CONTAGEM ===
 const modalDoencas = document.getElementById('modal-doencas');
 const btnModalDoencas = document.getElementById('btn-modal-doencas'); 
 
@@ -209,7 +189,7 @@ function atualizarContagemDoencas() {
 }
 
 // =========================================================================
-// SUBMIT
+// SUBMIT (CORRIGIDO - O PULO DO GATO ESTÁ AQUI)
 // =========================================================================
 document.getElementById('cadastroForm').addEventListener('submit', function(e) {
     const funcao = document.getElementById('funcao_usuario').value;
@@ -228,12 +208,18 @@ document.getElementById('cadastroForm').addEventListener('submit', function(e) {
         if (!cpf || id_posto === "") {
             e.preventDefault();
             alert("Preencha CPF e Posto de Saúde.");
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
             return;
         }
 
-        // Prepara inputs hidden para envio
-        document.querySelectorAll('input[name="doencas[]"]').forEach(el => el.remove());
+        // CORREÇÃO: Removemos APENAS os inputs hidden dentro do form, 
+        // NÃO removemos os checkboxes do modal (que têm o mesmo name)
+        this.querySelectorAll('input[type="hidden"][name="doencas[]"]').forEach(el => el.remove());
+        
+        // Agora podemos ler os checkboxes porque eles AINDA EXISTEM
         const checks = document.querySelectorAll('.chk-doenca:checked');
+        
         checks.forEach(c => {
             const input = document.createElement('input');
             input.type = 'hidden';
@@ -244,14 +230,14 @@ document.getElementById('cadastroForm').addEventListener('submit', function(e) {
     } 
 });
 
-// Inicialização
+// === INICIALIZAÇÃO ===
 document.addEventListener('DOMContentLoaded', () => {
-    // Botão confirmar do modal
     const btnConfirmar = document.getElementById('btn-confirmar-selecao');
     if (btnConfirmar) {
         btnConfirmar.addEventListener('click', fecharModalDoencas);
     }
-    
-    // Ajusta passo inicial se necessário
+    if (btnModalDoencas) {
+        btnModalDoencas.addEventListener('click', abrirModalDoencas);
+    }
     ajustarStep2();
 });
