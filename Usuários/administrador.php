@@ -92,7 +92,7 @@ if (isset($_GET['status'])) {
             </button>
 
             <!-- NOVO BOTÃO ADICIONADO AQUI -->
-            <button onclick="window.location.href='adm/gerenciar_doencas.php'" style="background-color: #5bc0de;">
+            <button onclick="window.location.href='adm/gerenciar_doencas.php'">
                 <i class="fas fa-virus"></i> Gerenciar Doenças e Alertas
             </button>
         </div>

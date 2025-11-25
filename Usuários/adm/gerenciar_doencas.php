@@ -97,7 +97,7 @@ while($row = $res->fetch_assoc()) $doencas[] = $row;
                     </form>
                 </div>
 
-                <div class="table-responsive">
+                <div class="table-responsive" style="margin-top: 20px;">
                     <table class="data-table">
                         <thead><tr><th>Doença</th><th>Mensagem de Alerta</th><th>Ação</th></tr></thead>
                         <tbody>
@@ -117,7 +117,7 @@ while($row = $res->fetch_assoc()) $doencas[] = $row;
                                         <form method="POST" onsubmit="return confirm('Tem certeza que deseja EXCLUIR a doença \'<?php echo addslashes($d['nome_doenca']); ?>\'?');">
                                             <input type="hidden" name="acao" value="excluir">
                                             <input type="hidden" name="id_doenca" value="<?php echo $d['id_doenca']; ?>">
-                                            <button class="btn-excluir">Excluir</button>
+                                            <button class="btn-excluir" style="background-color: #b13d3d">Excluir</button>
                                         </form>
                                     </div>
                                     <?php else: echo "<i>Padrão</i>"; endif; ?>
