@@ -289,6 +289,11 @@ $conn->close();
                                 </tbody>
                             </table>
                         </div>
+                        <div style="text-align: right; margin-top: 15px;">
+                            <button id="btn-gerar-pdf" class="btn-principal" onclick="gerarPDF()">
+                                <i class="fas fa-file-pdf"></i> Baixar Caderneta em PDF
+                            </button>
+                        </div>
                     </div>
                     
                     <!-- 2. MENSAGENS RECEBIDAS -->
@@ -391,6 +396,8 @@ $conn->close();
 
     <?php include 'modal_logout.html'; ?>
     <script src='modal.js'></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <script>
         // Função Acordeão para abrir/fechar mensagens
@@ -441,6 +448,34 @@ $conn->close();
                 btn.disabled = false;
             });
         });
+
+        // NOVA FUNÇÃO: Gerar PDF
+        function gerarPDF() {
+            // Seleciona o elemento que queremos converter (sua tabela)
+            const elemento = document.querySelector(".tabela-vacinas");
+            
+            // Configurações do PDF
+            const options = {
+                margin:       [10, 10, 10, 10], // Margens (topo, esq, baixo, dir)
+                filename:     'Minha_Carteira_Vacinacao_VivaMais.pdf', // Nome do arquivo
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 }, // Aumenta a escala para melhorar qualidade
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' } // Formato A4
+            };
+
+            // Oculta o botão temporariamente para dar feedback visual (opcional)
+            const btn = document.getElementById('btn-gerar-pdf');
+            const textoOriginal = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gerando...';
+            btn.disabled = true;
+
+            // Gera o PDF
+            html2pdf().set(options).from(elemento).save().then(function(){
+                // Restaura o botão após o download iniciar
+                btn.innerHTML = textoOriginal;
+                btn.disabled = false;
+            });
+        }
     </script>
 </body>
 </html>
