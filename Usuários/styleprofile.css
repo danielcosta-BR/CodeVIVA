@@ -16,14 +16,7 @@ a:visited{
     color: black;
 }
 
-html{
-    /* width: 100vw; */
-    /* height: 100vh; */
-    background-image: url(Img/postobg4.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
+
 
 body{
     width: 100%; 

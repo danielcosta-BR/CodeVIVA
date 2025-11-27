@@ -77,7 +77,6 @@ $conn->close();
     <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../../styleenf.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../modal.css'>
-
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -89,11 +88,17 @@ $conn->close();
         <section class="form-section">
             <div class="form-container">
                 <h2><i class="fas fa-user-circle"></i> Meu Perfil</h2>
-                <div class="title_function" style="padding: 10px;
-                            background-color: #5ab4c086;
-                            text-align: center;
-                            border-radius: 5px;">
-                    <h3>ENFERMEIRO</h3>
+                <div class="title_function" 
+                    style="padding: 10px;
+                    background-color: #5ab4c086;
+                    text-align: center;
+                    border-radius: 5px;">
+                    <h3 
+                        style="border-bottom: 0px; 
+                        margin-bottom: 0px; 
+                        padding-bottom: 0px;">
+                        ENFERMEIRO
+                    </h3>
                 </div>
                 <p>Aqui estão seus dados básicos de acesso e as informações complementares.</p>
                 <div class="profile-icon-2">

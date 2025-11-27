@@ -34,11 +34,17 @@ $email_usuario = $_SESSION['email'] ?? 'E-mail não disponível';
         <section class="form-section">
             <div class="form-container">
                 <h2><i class="fas fa-user-circle"></i> Meu Perfil</h2>
-                <div class="title_function" style="padding: 10px;
-                            background-color: #5ab4c086;
-                            text-align: center;
-                            border-radius: 5px;">
-                    <h3>ADMINISTRADOR</h3>
+                <div class="title_function" 
+                    style="padding: 10px;
+                    background-color: #5ab4c086;
+                    text-align: center;
+                    border-radius: 5px;">
+                    <h3 
+                        style="border-bottom: 0px; 
+                        margin-bottom: 0px; 
+                        padding-bottom: 0px;">
+                        ADMINISTRADOR
+                    </h3>
                 </div>
                 <p>Aqui você verá suas informações básicas cadastradas.</p>
                 <div class="profile-icon-2">
