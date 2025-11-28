@@ -373,3 +373,11 @@ div.profile-icon-2 {
         transform:translateY(0); 
     } 
 }
+
+/* MAIS EXTRAS */
+
+#h4-alert{
+    margin-top:0; 
+    margin-bottom:5px;   
+}
+

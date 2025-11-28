@@ -157,7 +157,7 @@ $conn->close();
     <link rel='stylesheet' type='text/css' media='screen' href='../stylepct.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='mensagens.css'>
     <script src="https://kit.fontawesome.com/e878368812.js" crossorigin="anonymous"></script>
-    
+
 </head>
 <body>
 
@@ -185,10 +185,10 @@ $conn->close();
                 <!-- ALERT BOX ALEATÓRIO (DOENÇA) -->
                 <!-- Só aparece se estiver configurado -->
                 <div class="alert-box alert-<?php echo $alerta_classe; ?>">
-                    <h4 style="margin-top:0; margin-bottom:5px;">
+                    <h4 id="h4-alert">
                         <i class="fas fa-info-circle"></i> <?php echo $alerta_titulo; ?>
                     </h4>
-                    <p style="margin-bottom:0;"><?php echo $alerta_msg; ?></p>
+                    <p><?php echo $alerta_msg; ?></p>
                 </div>
 
                 <!-- HEADER DO DASHBOARD -->
