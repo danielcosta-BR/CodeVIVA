@@ -150,42 +150,14 @@ $conn->close();
     <meta charset='utf-8'>
     <title>VIVA+ | Painel do Paciente</title>
     <!-- Estilos -->
-    <link rel='stylesheet' type='text/css' media='screen' href='administrador.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='styleprofile.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='paciente.css'>
+    <!-- <link rel='stylesheet' type='text/css' media='screen' href='styleprofile.css'> -->
     <link rel='stylesheet' type='text/css' media='screen' href='modal.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='adm/tables.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../stylepct.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='mensagens.css'> <!-- Novo CSS de Mensagens -->
+    <link rel='stylesheet' type='text/css' media='screen' href='mensagens.css'>
     <script src="https://kit.fontawesome.com/e878368812.js" crossorigin="anonymous"></script>
-
-    <style>
-        /* Status visuais para vacinas */
-        .status-aguardando { color: #007bff; background-color: #e7f1ff; font-weight: bold; text-align: center; padding: 5px; border-radius: 5px; }
-        .status-pendente { color: #dc3545; background-color: #ffe6e6; font-weight: bold; text-align: center; padding: 5px; border-radius: 5px; }
-        .status-aplicada { color: #28a745; background-color: #d4edda; font-weight: bold; text-align: center; padding: 5px; border-radius: 5px; }
-        .status-neutro { color: #6c757d; text-align: center; }
-
-        /* ALERT BOX NO TOPO (Estilo do Alerta de Doença) */
-        .alert-box {
-            margin: 20px auto;
-            max-width: 1200px;
-            padding: 15px;
-            border-radius: 8px;
-            position: relative;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            animation: fadeInDown 0.5s;
-            border: 1px solid transparent;
-        }
-        /* Cores baseadas no tipo de alerta */
-        .alert-warning { background-color: #fff3cd; border-left: 6px solid #ffc107; color: #856404; }
-        .alert-success { background-color: #d4edda; border-left: 6px solid #28a745; color: #155724; }
-        .alert-info { background-color: #e2e3e5; border-left: 6px solid #383d41; color: #383d41; }
-        
-        @keyframes fadeInDown { 
-            from { opacity:0; transform:translateY(-20px); } 
-            to { opacity:1; transform:translateY(0); } 
-        }
-    </style>
+    
 </head>
 <body>
 
@@ -359,9 +331,10 @@ $conn->close();
                         </div>
                         
                     </div>
-
+                    
                 </div> <!-- Fim Painel -->
                 <?php endif; ?>
+
             </div>
         </section>
     </main>
@@ -477,5 +450,6 @@ $conn->close();
             });
         }
     </script>
+
 </body>
 </html>

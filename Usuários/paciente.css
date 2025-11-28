@@ -21,8 +21,13 @@
     text-align: center;
 }
 
+
 .form-container h3{
     text-align: center;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.116);
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+
 }
 .form-container p{
     text-align: justify;
@@ -38,9 +43,17 @@
     border-radius: 8px; 
     box-shadow: 0 0 10px rgba(0,0,0,0.1); 
 } */
-.form-section {
+
+.form-section{
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    flex-direction: column;
     margin-top: 20px;
-      
 }
 .form-section-G {
     /* Mantive o cálculo de altura aqui, mas a remoção do max-height no container é a chave. */
@@ -67,6 +80,9 @@
     cursor: pointer; 
     font-size: 1em; 
 }
+.form-section button.profile-icon-2{  
+    display: none; 
+}
 .form-section a, .form-section-G a { 
     background-color: #b13d3d; 
     color: white; 
@@ -76,11 +92,38 @@
     cursor: pointer; 
     font-size: 1em; 
 }
+.form-section a.btn-secundario{ 
+    background-color: #3db19e; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1em; 
+    font-family: arial;
+}
+.form-section a.submit-btn{ 
+    background-color: #3d8cb1; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1em; 
+    display: inline-block;
+    width: 25vw;
+}
 .form-section button:hover, .form-section-G button:hover { 
     background-color: #2f6b86; 
 }
 .form-section a:hover, .form-section-G a:hover { 
     background-color: #862f2f; 
+}
+.form-section a.btn-secundario:hover { 
+    background-color: #27776a; 
+}
+.form-section a.submit-btn:hover { 
+    background-color: #2f6b86; 
 }
 
 #button_center{
@@ -88,21 +131,21 @@
     margin: 10px auto;
 }
 
-#usermanage-btn{
+/* #usermanage-btn{
     border-top: 1px solid #eee; 
     padding-top: 10px; 
     border-bottom: 1px solid #eee; 
     padding-bottom: 20px; 
     margin-top: 20px;
     margin-bottom: 10px;
-}
+} */
 
+/* INPUTS GERAIS */
 .input-group {
     margin-bottom: 15px; /* Reduzido de 20px para 15px */
     text-align: left;
 }
 
-/* Mantendo os estilos de input e botão inalterados */
 .input-group label {
     display: block;
     margin-bottom: 5px;
@@ -230,3 +273,103 @@
     color: #333;
 }
 
+.card-cardeneta{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.card-apoio{
+    margin-bottom: 40px;
+}
+
+a .btn-secundario{
+    background-color: #3d8cb1;
+}
+
+div.profile-icon-2 {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%; /* Bolinha */
+    background-color: rgb(130, 222, 243); /* Cor de destaque */
+    color: white;
+    font-size: 5em;
+    font-family: arial;
+    font-weight: bold;
+    border: 10px solid rgb(163, 221, 255); /* Borda branca para destacar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+
+/* PACIENTE EXTRAS */
+
+/* Status visuais para vacinas */
+.status-aguardando { 
+    color: #007bff; 
+    background-color: #e7f1ff; 
+    font-weight: bold; 
+    text-align: center; 
+    padding: 5px; 
+    border-radius: 5px; 
+}
+.status-pendente { 
+    color: #dc3545; 
+    background-color: #ffe6e6; 
+    font-weight: bold; 
+    text-align: center; 
+    padding: 5px; 
+    border-radius: 5px; 
+}
+.status-aplicada { 
+    color: #28a745; 
+    background-color: #d4edda; 
+    font-weight: bold; 
+    text-align: center; 
+    padding: 5px; 
+    border-radius: 5px; 
+}
+.status-neutro { 
+    color: #6c757d; 
+    text-align: center; 
+}
+
+/* ALERT BOX NO TOPO (Estilo do Alerta de Doença) */
+.alert-box {
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    animation: fadeInDown 0.5s;
+    border: 1px solid transparent;
+}
+/* Cores baseadas no tipo de alerta */
+.alert-warning { 
+    background-color: #fff3cd; 
+    border-left: 6px solid #ffc107; 
+    color: #856404; 
+}
+.alert-success { 
+    background-color: #d4edda; 
+    border-left: 6px solid #28a745; 
+    color: #155724; 
+}
+.alert-info { 
+    background-color: #e2e3e5; 
+    border-left: 6px solid #383d41; 
+    color: #383d41; 
+}
+
+@keyframes fadeInDown { 
+    from { 
+        opacity:0; 
+        transform:translateY(-20px); 
+    } 
+    to { 
+        opacity:1; 
+        transform:translateY(0); 
+    } 
+}
