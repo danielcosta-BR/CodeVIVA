@@ -76,3 +76,28 @@
 #h4-logout{
     padding: 20px;
 }
+
+@media (max-width: 500px) {
+    
+    .modal-content-logout, 
+    .modal-content-logout2,
+    .modal-vacinas {
+        width: 90% !important; /* Quase largura total */
+        margin: 20% auto !important; /* Mais margem do topo */
+        padding: 15px !important;
+        max-height: 80vh; /* Evita que o modal seja maior que a tela */
+        overflow-y: auto; /* Scroll dentro do modal se necessário */
+    }
+
+    .input-group input, 
+    .input-group textarea {
+        width: 100%;
+    }
+    
+    /* Botões do modal empilhados */
+    .modal-content-logout button,
+    .modal-content-logout2 button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}

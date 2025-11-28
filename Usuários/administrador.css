@@ -294,3 +294,75 @@ div.profile-icon-2 {
     transition: background-color 0.2s;
 }
 
+@media (max-width: 500px) {
+    
+    /* Container principal (Card Branco) */
+    .form-container {
+        width: 95% !important; /* Ocupa quase toda a largura */
+        margin: 10px auto !important;
+        padding: 15px !important; /* Reduz padding interno */
+        height: auto !important;
+        max-height: none !important; /* Remove limite de altura */
+    }
+
+    /* Títulos dentro do formulário */
+    .form-container h2, 
+    .form-container h3, 
+    .form-container h4 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    /* Botões ocupando largura total para facilitar o toque */
+    .form-section button, 
+    .form-section a, 
+    .form-section a.submit-btn {
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    
+    /* Inputs do formulário */
+    .input-group input, 
+    .input-group select, 
+    .input-group textarea {
+        font-size: 16px; /* Evita zoom automático no iPhone */
+        width: 100%;
+    }
+
+    /* Ajuste dos cards do Dashboard do Paciente (.cards-laterais) */
+    .painel-funcionalidades {
+        display: flex;
+        flex-direction: column; /* Empilha um abaixo do outro */
+    }
+
+    .card-cardeneta, 
+    .cards-laterais, 
+    .card-apoio, 
+    .card-lembretes {
+        width: 100%;
+        margin: 0 0 20px 0; /* Margem apenas embaixo */
+    }
+
+    /* Tabelas Responsivas (Cria barra de rolagem horizontal se necessário) */
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Ajuste de botões de ação dentro da tabela */
+    .btns-edit {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .btns-edit button {
+        margin: 0 !important;
+        width: 100%;
+    }
+}
+

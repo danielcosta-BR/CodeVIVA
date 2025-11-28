@@ -109,6 +109,31 @@ if ($config_completa) {
         .action-btn:hover { background-color: #2f8c7d; }
         .status-check { color: green; font-weight: bold; }
         .loading { text-align: center; padding: 20px; color: #666; }
+
+        @media (max-width: 500px) {
+    
+            .modal-content-logout, 
+            .modal-content-logout2,
+            .modal-vacinas {
+                width: 90% !important; /* Quase largura total */
+                margin: 20% auto !important; /* Mais margem do topo */
+                padding: 15px !important;
+                max-height: 80vh; /* Evita que o modal seja maior que a tela */
+                overflow-y: auto; /* Scroll dentro do modal se necessário */
+            }
+
+            .input-group input, 
+            .input-group textarea {
+                width: 100%;
+            }
+            
+            /* Botões do modal empilhados */
+            .modal-content-logout button,
+            .modal-content-logout2 button {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
     </style>
     <style>
         /* Pequenos ajustes inline */
@@ -117,6 +142,42 @@ if ($config_completa) {
         .btn-atender { background-color: #f0ad4e; color: white; border:none; padding: 5px 10px; border-radius:4px; cursor:pointer; }
         .btn-atender:hover { background-color: #ec971f; }
         .info-atendida { color: #2e7d32; font-weight: bold; font-size: 0.9em; }
+
+        @media (max-width: 500px) {
+    
+            .message-header {
+                flex-direction: column; /* Empilha Assunto e Info */
+                align-items: flex-start; /* Alinha à esquerda */
+                gap: 8px;
+            }
+
+            .message-header .subject {
+                width: 100%;
+                font-size: 1rem;
+                margin-right: 0;
+            }
+
+            .message-header .meta-info {
+                width: 100%;
+                justify-content: space-between; /* Espalha data e status */
+                font-size: 0.8em;
+            }
+
+            /* Ajuste das badges para não quebrar linha */
+            .tag-enfermeiro, .status-badge {
+                white-space: nowrap; 
+            }
+            
+            /* Área de botões dentro da mensagem */
+            .atendimento-area {
+                text-align: center; /* Centraliza botão */
+            }
+            
+            .atendimento-area button {
+                width: 100%;
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>

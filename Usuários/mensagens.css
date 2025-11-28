@@ -93,3 +93,39 @@
     border-top: 1px solid #eee;
     text-align: right;
 }
+
+@media (max-width: 500px) {
+    
+    .message-header {
+        flex-direction: column; /* Empilha Assunto e Info */
+        align-items: flex-start; /* Alinha à esquerda */
+        gap: 8px;
+    }
+
+    .message-header .subject {
+        width: 100%;
+        font-size: 1rem;
+        margin-right: 0;
+    }
+
+    .message-header .meta-info {
+        width: 100%;
+        justify-content: space-between; /* Espalha data e status */
+        font-size: 0.8em;
+    }
+
+    /* Ajuste das badges para não quebrar linha */
+    .tag-enfermeiro, .status-badge {
+        white-space: nowrap; 
+    }
+    
+    /* Área de botões dentro da mensagem */
+    .atendimento-area {
+        text-align: center; /* Centraliza botão */
+    }
+    
+    .atendimento-area button {
+        width: 100%;
+        padding: 12px;
+    }
+}

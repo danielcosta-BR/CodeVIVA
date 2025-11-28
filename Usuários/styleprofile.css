@@ -211,91 +211,76 @@ h1{
 
 
 
-@media (max-width: 500px){
+@media (max-width: 500px) {
 
-    .title{
-        text-align: center;
-    }
-
-    html{
+    /* Ajuste do Fundo e Rolagem */
+    html {
         background-image: url(Img/postobg4.jpg);
         background-repeat: no-repeat;
-        background-position: -80px;
-        background-size: cover; /* Garante que a imagem cubra toda a área */
-        background-attachment: fixed; /* FIXA o fundo na viewport, resolvendo o problema de tela branca ao rolar */ 
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
     }
 
-
-    h1{
-        text-decoration: none;
-        /* color:rgb(0,0,0); */
-        color: white;
-        font-size: 20px;
-        margin: auto 10px;
+    body {
+        overflow-x: hidden; /* Evita rolagem lateral */
     }
 
-    section{
+    /* Ajuste da Seção Principal para permitir rolagem */
+    section {
         display: flex;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-        justify-items: center;
         flex-direction: column;
-        margin-top: 0px;
-        overflow: hidden;
+        justify-content: flex-start; /* Começa do topo */
         width: 100vw;
+        height: auto; /* Permite que a altura cresça com o conteúdo */
+        min-height: 100vh;
+        padding-top: 100px; /* Espaço para o header fixo */
+        margin: 0;
     }
 
-    .cabeca{
-        display: flex;
-        background-color: rgb(173, 204, 216);
-        height: 90px;
-        justify-content:center;
-        align-items: center;
-        flex-direction: row;
-        position: fixed;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        width: 100vw;
+    h1, h2 {
+        font-size: 1.5em; /* Reduz tamanho da fonte */
+        margin: 10px;
+        word-wrap: break-word; /* Quebra palavras longas */
     }
 
-    .buttonsR{
-        display: none;
+    /* --- CABEÇALHO (HEADER) --- */
+    .cabeca {
+        width: 100%;
+        height: 70px; /* Header mais fino no mobile */
+        padding: 0 15px; /* Espaçamento lateral */
+        justify-content: space-between; /* Logo na esq, Perfil na dir */
     }
 
-    .buttonsDownR{
-        align-items: center;
-        display: flex;
-        flex-direction: row;
-        background-color: rgba(0, 0, 0, 0.150);
-        border-radius: 5px;
-        flex-wrap: nowrap;
-        /* padding: 7px 14px; */
-        position: static;
-        padding: 5px;
-        margin-bottom: 100px;
+    .logo {
+        width: 60px; /* Logo menor */
+        height: auto;
     }
 
-    .btn1{
-        width: 80px;
+    /* REVELAR o botão de perfil que estava oculto */
+    .cabeca .buttonsR {
+        display: flex !important; /* Força exibição */
+        margin-right: 0; /* Remove margem antiga */
+        position: relative;
     }
-    .btn2{
-        width: 80px;
+
+    /* Ícone de perfil menor */
+    .profile-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
     }
-    .content-down-mobile1{
-        display: flex;
-        justify-content: end;
-        align-content: end;
-        justify-items: center;
-        align-items: end;
-        height: 50vh;
+
+    /* Dropdown ajustado para não vazar a tela */
+    .dropdown-content {
+        right: 0; /* Alinha à direita da tela */
+        top: 50px;
+        width: 200px; /* Largura fixa segura */
     }
-    .content-down-mobile2{
-        display: flex;
-        justify-content: end;
-        align-content: end;
-        justify-items: end;
-        align-items: end;
-        height: 50vh;
+
+    /* Esconder botões antigos se houver, mas manter o profile-menu-container */
+    .buttonsDownR {
+        display: none; /* Se não estiver usando os botões inferiores, esconda */
     }
 }
     
