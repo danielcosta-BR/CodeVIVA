@@ -1,0 +1,46 @@
+/* Container: Garante que o conteúdo não seja cortado */
+.tabela-vacinas-container {
+    overflow: visible !important; 
+    width: 90% !important;
+}
+
+/* Tabela: Garante largura total e layout fixo */
+.data-table {
+    margin-top: 0px;
+    width: 100% !important; 
+    border: 1px solid black;
+    border-collapse: collapse;
+    table-layout: fixed; /* Essencial para que as colunas se ajustem */
+}
+
+/* Células (TD e TH): Compactação Agressiva */
+td, th {
+    border: 1px solid black;
+    height: 2em;
+    /* Reduz padding ao MÁXIMO */
+    padding: 1px 2px; 
+    /* Reduz a fonte ao MÍNIMO */
+    font-size: 8px; 
+    /* Permite quebra de linha para evitar largura excessiva */
+    white-space: normal !important; 
+    vertical-align: top;
+    word-wrap: break-word; /* Força quebra de palavras longas */
+}
+
+th {
+    /* Mantém as cores do cabeçalho */
+    background-color: #3d8cb133; 
+}
+
+/* Ocultar Colunas de Ação (Se existirem) */
+.btns-edit, .btn-excluir, .btn-editar, tr > #actions {
+    display: none; 
+}
+
+/* Ajuste Fino em Colunas Específicas: Define larguras em porcentagem para 6 colunas */
+.data-table thead tr th:nth-child(1) { width: 25%; } /* Vacina */
+.data-table thead tr th:nth-child(2) { width: 15%; } /* Recomendação */
+.data-table thead tr th:nth-child(3) { width: 10%; } /* Status */
+.data-table thead tr th:nth-child(4) { width: 15%; } /* Data Aplicação */
+.data-table thela tr th:nth-child(5) { width: 15%; } /* Próxima Dose */
+.data-table thead tr th:nth-child(6) { width: 20%; } /* Enfermeiro */

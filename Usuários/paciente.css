@@ -92,6 +92,11 @@
     cursor: pointer; 
     font-size: 1em; 
 }
+.form-section #a-none{
+    background-color: transparent;
+    padding: 0px;
+    margin: 0px;
+}
 .form-section a.btn-secundario{ 
     background-color: #3db19e; 
     color: white; 
@@ -153,6 +158,15 @@
     color: #555;
     font-family: sans-serif;
 }
+.input-group textarea {
+    width:100%; 
+    padding:10px; 
+    border:1px solid #ccc; 
+    border-radius:5px;
+    resize: none;
+    height: 120px;
+    font-family: sans-serif;
+}
 
 .input-group input {
     width: 100%;
@@ -190,7 +204,16 @@
     border-color: rgb(147, 207, 231);
     outline: none;
 }
-
+.submit-box{
+    text-align:center; 
+    margin-top:15px;
+}
+.buttons-box-pdf{
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: right;
+}
 .submit-btn {
     width: 100%;
     padding: 10px; /* Levemente reduzido */
@@ -205,21 +228,31 @@
     transition: background-color 0.2s, transform 0.1s;
     font-family: sans-serif;
 }
-
 .submit-btn:hover {
     background-color: rgb(140, 180, 195);
     transform: scale(1.01);
 }
-
 .submit-btn:active {
     background-color: rgb(100, 140, 155);
+    transform: scale(0.99);
+}
+.btn-cancelar{
+    background-color: #cc4848;
+    color: white;
+}
+.btn-cancelar:hover{
+    background-color: #a83b3b;
+    transform: scale(1.01);
+}
+.btn-cancelar:active{
+    background-color: #862f2f;
     transform: scale(0.99);
 }
 
 .form-link {
     margin-top: 15px; /* Reduzido de 20px para 15px */
     font-size: 14px;
-    color: #666;
+    color: #667;
     font-family: sans-serif;
 }
 
@@ -275,7 +308,7 @@
 
 .card-cardeneta{
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .card-apoio{
@@ -381,3 +414,20 @@ div.profile-icon-2 {
     margin-bottom:5px;   
 }
 
+.button-pdf{
+    text-align: right; 
+    margin-top: 15px;
+}
+
+#recive-msg-pct{
+    color:#667; 
+    padding: 10px;
+    background-color: #3d8cb133;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.subject{
+    color:#3d8cb1; 
+    margin-right:5px;
+}

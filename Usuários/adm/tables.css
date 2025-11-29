@@ -4,6 +4,8 @@
 
 td{
     border: 1px solid black;
+    padding: 5px 5px;
+    white-space: nowrap;
 }
 
 tr > #actions{
@@ -12,18 +14,22 @@ tr > #actions{
 
 th{
     border: 1px solid black;
+    background-color: #3d8cb133;
+    padding: 5px 5px;
+    white-space: nowrap;
 }
 
 .data-table{
     width: 100%;
     border: 1px solid black;
+    border-collapse: collapse;
 }
 
-.btns-edit{
+/* .btns-edit{
     display: flex;
     gap: 10px;
     width: 100%;
-}
+} */
 
 
 .btn-excluir{
@@ -37,3 +43,39 @@ th{
 /* .modal-content-logout{
     height: 400px;
 } */
+
+@media (max-width: 900px){
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto; /* Cria a barra de rolagem horizontal se necessário */
+        -webkit-overflow-scrolling: touch; /* Garante rolagem suave em iPhones */
+        margin-bottom: 15px; /* Um respiro abaixo da tabela */
+    }
+}
+
+@media (max-width: 500px){
+    /* Container que permite o scroll lateral apenas na tabela */
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto; /* Cria a barra de rolagem horizontal se necessário */
+        -webkit-overflow-scrolling: touch; /* Garante rolagem suave em iPhones */
+        margin-bottom: 15px; /* Um respiro abaixo da tabela */
+    }
+
+    /* Ajustes visuais para a tabela não quebrar */
+    .data-table {
+        width: 100%;
+        border-collapse: collapse; /* Tira espaços duplos entre bordas */
+        min-width: 600px; /* Força a tabela a ter um tamanho mínimo, ativando o scroll no celular */
+    }
+
+    /* Espaçamento interno para facilitar a leitura no celular */
+    .data-table th, 
+    .data-table td {
+        padding: 5px 5px; /* Mais espaço para o dedo tocar */
+        white-space: nowrap; /* IMPEDIR que o texto quebre linha e fique "espremido" */
+        font-size: 0.95em; /* Tamanho de fonte legível */
+    }
+}
