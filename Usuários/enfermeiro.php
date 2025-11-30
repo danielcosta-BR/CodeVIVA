@@ -211,7 +211,7 @@ if ($config_completa) {
     <!-- MODAL DE VACINAS (JÁ EXISTENTE) -->
     <div id="modal-vacinas" class="modal-logout">
         <div class="modal-content-logout3 modal-vacinas">
-            <h3 id="modal-paciente-nome">Vacinação</h3>
+            <h3 id="modal-paciente-nome" >Vacinação</h3>
             <div id="modal-body-content"></div>
             <div class="submit-box">
                 <button onclick="document.getElementById('modal-vacinas').style.display='none'" class="btn-cancelar">Fechar</button>

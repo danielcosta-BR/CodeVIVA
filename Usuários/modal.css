@@ -117,6 +117,24 @@
     margin-bottom: 10px;
 }
 
+/* Aumenta a largura do Modal de Vacinas para caber a tabela */
+#modal-vacinas .modal-content-logout3 {
+    max-width: 900px; /* Aumenta de 500px para 900px no PC */
+    width: 95%;       /* No celular, ocupa 95% da tela para aproveitar espaço */
+    padding: 25px;    /* Um pouco mais de respiro interno */
+    margin: 5vh auto;
+}
+
+/* Garante que o conteúdo role se for muito alto (ex: muitas vacinas) */
+#modal-vacinas .modal-content-logout3 #modal-body-content {
+    max-height: 70vh; /* Limita a altura da área da tabela */
+    overflow-y: auto; /* Cria rolagem vertical se necessário */
+}
+
+#modal-paciente-nome{
+    margin-bottom: 10px;
+}
+
 @media (max-width: 500px){
     .modal-logout {
         display: none; /* Escondido por padrão */

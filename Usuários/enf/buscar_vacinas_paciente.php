@@ -34,6 +34,8 @@ while($row = $res_cad->fetch_assoc()) {
 $stmt->close();
 
 // Montar Tabela HTML
+// ADICIONE A DIV RESPONSIVA AQUI:
+echo '<div class="table-responsive">'; 
 echo '<table class="data-table" style="width:100%">';
 echo '<thead><tr><th>Vacina</th><th>Recomendação</th><th>Situação Atual</th><th>Ação</th></tr></thead>';
 echo '<tbody>';
@@ -73,4 +75,6 @@ foreach ($vacinas_modelo as $vacina) {
 }
 
 echo '</tbody></table>';
+// FECHE A DIV RESPONSIVA AQUI:
+echo '</div>';
 ?>
