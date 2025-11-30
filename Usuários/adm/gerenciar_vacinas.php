@@ -104,8 +104,8 @@ $conn->close();
 <html>
 <head>
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIVA+ | Gerenciar Vacinas</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../../styleadm.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='tables.css'>
@@ -231,7 +231,7 @@ $conn->close();
                     const selectProxima = document.getElementById('id_proxima_vacina_edit');
                     selectProxima.value = proxima || ""; 
 
-                    modal.style.display = 'flex';
+                    modal.style.display = 'block';
                 });
             });
         });

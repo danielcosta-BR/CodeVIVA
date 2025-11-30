@@ -188,13 +188,15 @@ if ($config_completa) {
                                         <td><?php echo htmlspecialchars($paciente['nome_completo']); ?></td>
                                         <td><?php echo htmlspecialchars($paciente['cpf']); ?></td>
                                         <td><?php echo htmlspecialchars($paciente['telefone']); ?></td>
-                                        <td class="btns-edit">
-                                            <button class="action-btn" onclick="abrirCaderneta(<?php echo $paciente['id_usuario']; ?>, '<?php echo $paciente['nome_completo']; ?>')">
-                                                <i class="fas fa-syringe"></i> Gerenciar
-                                            </button>
-                                            <button class="btn-mensagem" onclick="abrirModalMensagem(<?php echo $paciente['id_usuario']; ?>, '<?php echo $paciente['nome_completo']; ?>')">
-                                                <i class="fas fa-envelope"></i> Mensagem
-                                            </button>
+                                        <td>
+                                            <div class="btns-edit">
+                                                <button class="action-btn" onclick="abrirCaderneta(<?php echo $paciente['id_usuario']; ?>, '<?php echo $paciente['nome_completo']; ?>')">
+                                                    <i class="fas fa-syringe"></i> Gerenciar
+                                                </button>
+                                                <button class="btn-mensagem" onclick="abrirModalMensagem(<?php echo $paciente['id_usuario']; ?>, '<?php echo $paciente['nome_completo']; ?>')">
+                                                    <i class="fas fa-envelope"></i> Mensagem
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

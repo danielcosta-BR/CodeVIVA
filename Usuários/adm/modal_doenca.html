@@ -1,6 +1,6 @@
-<div id="modal-editar-doenca" class="modal-logout2" style="display:none;">
-    <div class="modal-content-logout2" style="height: auto; max-height: 90vh; overflow-y: auto;">
-        <h3>Editar Doença</h3>
+<div id="modal-editar-doenca" class="modal-logout2">
+    <div class="modal-content-logout2">
+        <h3 class="msg-title">Editar Doença</h3>
         <form id="form-editar-doenca" method="POST" action="">
             <input type="hidden" name="acao" value="editar_doenca">
             <input type="hidden" name="id_doenca" id="edit-id-doenca">
@@ -15,8 +15,10 @@
                 <textarea name="mensagem_alerta_edit" id="mensagem_alerta_edit" rows="4" required style="width: 100%; height: 100px; resize: none;"></textarea>
             </div>
 
-            <button type="submit" class="submit-btn" style="margin-top: 20px;">Salvar Alterações</button>
-            <button type="button" class="btn-cancelar" onclick="document.getElementById('modal-editar-doenca').style.display='none'">Cancelar</button>
+            <div style="text-align:center; margin-top:15px;">
+                <button type="submit" class="submit-btn" style="margin-top: 20px;">Salvar Alterações</button>
+                <button type="button" class="btn-cancelar" style="text-align:center; margin-top:15px;"onclick="document.getElementById('modal-editar-doenca').style.display='none'">Cancelar</button>
+            </div>
         </form>
     </div>
 </div>

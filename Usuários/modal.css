@@ -17,7 +17,7 @@
     padding: 20px;
     border: 1px solid #888;
     max-width: 300px;
-    height: 400px;
+    max-height: 100rem;
     border-radius: 8px;
     text-align: center;
     /* height:auto;  */
@@ -25,7 +25,7 @@
 }
 .modal-content-logout3 {
     background-color: #fefefe;
-    margin: 20vh 10px; /* 15% do topo e centralizado */
+    margin: 20vh auto; /* 15% do topo e centralizado */
     padding: 20px;
     border: 1px solid #888;
     max-height: 100rem;
@@ -36,7 +36,20 @@
     max-width:500px; 
 }
 
-.modal-content-logout2 button, .modal-content-logout3 button {
+.modal-content-logout4 {
+    background-color: #fefefe;
+    margin: 20vh auto; /* 15% do topo e centralizado */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%; 
+    max-width: 600px; 
+    /* height: auto;  */
+    max-height: 90vh;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.modal-content-logout2 button, .modal-content-logout3 button, .modal-content-logout4 button {
     margin: 5px;
     padding: 8px 15px;
     border: none;

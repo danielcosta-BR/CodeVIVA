@@ -125,8 +125,8 @@ $conn->close();
 <html>
 <head>
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIVA+ | Gerenciar Usuários</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../../styleadm.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='tables.css'>
@@ -170,31 +170,34 @@ $conn->close();
                                 <tr>
                                     <td><?php echo htmlspecialchars($usuario['nome_completo']); ?></td>
                                     <td><?php echo htmlspecialchars($usuario['email']); ?></td>
-                                    <td>
-                                        <!-- Tag visual para a função -->
-                                        <span style="
-                                            padding: 10px 5px; 
-                                            border-radius: 4px; 
-                                            font-size: 0.9em;
-                                            text-align: center;
-                                            display: block;
-                                            background-color: <?php echo ($usuario['funcao'] == 'enfermeiro') ? '#e3f2fd' : '#fff3cd'; ?>;
-                                            color: <?php echo ($usuario['funcao'] == 'enfermeiro') ? '#0d47a1' : '#856404'; ?>;
-                                        ">
-                                            <?php echo ucfirst(htmlspecialchars($usuario['funcao'])); ?>
-                                        </span>
+                                    <td class="user-function-box" style="background-color: <?php echo ($usuario['funcao'] == 'enfermeiro') ? '#e3f2fd' : '#fff3cd'; ?>; ">
+                                        <div>
+                                            <!-- Tag visual para a função -->
+                                            <span class="user-function" 
+                                                style="
+                                                    color: <?php echo ($usuario['funcao'] == 'enfermeiro') ? '#0d47a1' : '#856404'; ?>;
+                                                ">
+                                                <?php echo ucfirst(htmlspecialchars($usuario['funcao'])); ?>
+                                            </span>
+
+                                        </div>
                                     </td>
                                     <td><?php echo htmlspecialchars($usuario['nome_posto'] ?? 'Sem Posto Definido'); ?></td>
-                                    <td class="btns-edit">
-                                        <button class="btn-editar" 
-                                            data-id="<?php echo $usuario['id_usuario']; ?>"
-                                            data-funcao="<?php echo $usuario['funcao']; ?>"
-                                            data-posto-id="<?php echo $usuario['id_posto_real'] ?? ''; ?>"
-                                        >Editar</button>
-                                        
-                                        <a href="?excluir=<?php echo $usuario['id_usuario']; ?>" 
-                                           onclick="return confirm('Tem certeza que deseja excluir o usuário <?php echo $usuario['nome_completo']; ?>?')"
-                                           class="btn-excluir">Excluir</a>
+                                    <td>
+                                        <div class="btns-edit">
+                                            <button class="btn-editar" 
+                                                data-id="<?php echo $usuario['id_usuario']; ?>"
+                                                data-funcao="<?php echo $usuario['funcao']; ?>"
+                                                data-posto-id="<?php echo $usuario['id_posto_real'] ?? ''; ?>"
+                                                >Editar
+                                            </button>
+                                            
+                                            <a href="?excluir=<?php echo $usuario['id_usuario']; ?>" 
+                                               onclick="return confirm('Tem certeza que deseja excluir o usuário <?php echo $usuario['nome_completo']; ?>?')"
+                                               class="btn-excluir">Excluir
+                                            </a>
+
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -235,7 +238,7 @@ $conn->close();
                          postoSelect.value = ''; // N/A
                     }
 
-                    modal.style.display = 'flex';
+                    modal.style.display = 'block';
                 });
             });
         });

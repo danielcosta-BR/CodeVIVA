@@ -1,6 +1,6 @@
-<div id="modal-editar" class="modal-logout2" style="display:none;">
+<div id="modal-editar" class="modal-logout2">
     <div class="modal-content-logout2">
-        <h3>Editar Posto de Saúde</h3>
+        <h3 class="msg-title">Editar Posto de Saúde</h3>
         <form id="form-editar-posto" method="POST" action="">
             <input type="hidden" name="acao" value="editar_posto">
             <input type="hidden" name="id_posto" id="edit-id-posto">
@@ -17,9 +17,10 @@
                 <label for="telefone_edit">Telefone</label>
                 <input type="text" name="telefone_edit" id="telefone_edit">
             </div>
-
-            <button type="submit" class="submit-btn" style="margin-top: 20px;">Salvar Alterações</button>
-            <button type="button" class="btn-cancelar" onclick="document.getElementById('modal-editar').style.display='none'">Cancelar</button>
+            <div style="text-align:center; margin-top:15px;">
+                <button type="submit" class="submit-btn" style="margin-top: 20px;">Salvar Alterações</button>
+                <button type="button" class="btn-cancelar" onclick="document.getElementById('modal-editar').style.display='none'">Cancelar</button>
+            </div>
         </form>
     </div>
 </div>

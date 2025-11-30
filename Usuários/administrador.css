@@ -45,7 +45,12 @@
 } */
 .form-section {
     margin-top: 20px;
-      
+}
+.form-sectionR{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    /* justify-content: space-evenly; */
 }
 .form-section-G {
     /* Mantive o cálculo de altura aqui, mas a remoção do max-height no container é a chave. */
@@ -208,6 +213,19 @@
     transform: scale(0.99);
 }
 
+.btn-cancelar{
+    background-color: #cc4848;
+    color: white;
+}
+.btn-cancelar:hover{
+    background-color: #a83b3b;
+    transform: scale(1.01);
+}
+.btn-cancelar:active{
+    background-color: #862f2f;
+    transform: scale(0.99);
+}
+
 .form-link {
     margin-top: 15px; /* Reduzido de 20px para 15px */
     font-size: 14px;
@@ -294,4 +312,22 @@ div.profile-icon-2 {
     transition: background-color 0.2s;
 }
 
+.user-function{
+    /* padding: 10px 5px;  */
+    border-radius: 4px; 
+    font-size: 0.9em;
+    text-align: center;
+    display: block;
+}
 
+/* .user-function-box{
+    display: block;
+} */
+
+@media (max-width: 550px){
+    .form-sectionR{
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+    }
+}

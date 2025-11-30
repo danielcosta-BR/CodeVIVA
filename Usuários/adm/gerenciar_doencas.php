@@ -63,8 +63,8 @@ while($row = $res->fetch_assoc()) $doencas[] = $row;
 <html>
 <head>
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIVA+ | Doenças e Alertas</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='../../styleadm.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='tables.css'>
@@ -153,7 +153,7 @@ while($row = $res->fetch_assoc()) $doencas[] = $row;
                     document.getElementById('mensagem_alerta_edit').value = mensagem;
 
                     // 3. Exibe o modal (usa display: flex para centralização CSS)
-                    modal.style.display = 'flex';
+                    modal.style.display = 'block';
                 });
             });
 

@@ -348,6 +348,7 @@ div.profile-icon-2 {
 .modal-vacinas {
     max-width: 800px;
     width: 90%;
+    overflow-x: auto;
 }
 .action-btn {
     background-color: #3db19e; 
@@ -414,4 +415,6 @@ div.profile-icon-2 {
     max-height: 60vh; 
     margin: 20px 0;
     overflow-y: auto; 
+    overflow-x: auto;
 }
+

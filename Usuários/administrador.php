@@ -42,10 +42,10 @@ if (isset($_GET['status'])) {
 <html>
 <head>
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIVA+ | Painel do Administrador</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../styleadm.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='administrador.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='styleprofile.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='modal.css'>
     <script src="https://kit.fontawesome.com/e878368812.js" crossorigin="anonymous"></script>
     <script src="modal.js"></script>
@@ -83,18 +83,20 @@ if (isset($_GET['status'])) {
             <h4>GERENCIAMENTO DE INFRAESTRUTURA</h4>
             <p>Configure a base do sistema: Postos, Vacinas e Alertas de Saúde.</p>
             
-            <button onclick="window.location.href='adm/gerenciar_postos.php'">
-                <i class="fas fa-hospital"></i> Gerenciar Postos de Saúde
-            </button>
-            
-            <button onclick="window.location.href='adm/gerenciar_vacinas.php'">
-                <i class="fas fa-syringe"></i> Gerenciar Vacinas Cadastradas
-            </button>
-
-            <!-- NOVO BOTÃO ADICIONADO AQUI -->
-            <button onclick="window.location.href='adm/gerenciar_doencas.php'">
-                <i class="fas fa-virus"></i> Gerenciar Doenças e Alertas
-            </button>
+            <div class="form-sectionR">
+                <button onclick="window.location.href='adm/gerenciar_postos.php'">
+                    <i class="fas fa-hospital"></i> Gerenciar Postos de Saúde
+                </button>
+                
+                <button onclick="window.location.href='adm/gerenciar_vacinas.php'">
+                    <i class="fas fa-syringe"></i> Gerenciar Vacinas Cadastradas
+                </button>
+    
+                <!-- NOVO BOTÃO ADICIONADO AQUI -->
+                <button onclick="window.location.href='adm/gerenciar_doencas.php'">
+                    <i class="fas fa-virus"></i> Gerenciar Doenças e Alertas
+                </button>
+            </div>
         </div>
 
     </main>
