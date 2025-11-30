@@ -348,7 +348,7 @@ $conn->close();
     <!-- MODAL DE SOLICITAÇÃO (Envia para o Posto) -->
     <div id="modal-solicitacao" class="modal-logout2">
         <div class="modal-content-logout3">
-            <h3 class="msg-title">Nova Solicitação</h3>
+            <h3 class="msg-title">NOVA SOLICITAÇÃO</h3>
             <p class="msg-info">Sua mensagem será visível para <strong>todos os enfermeiros</strong> do seu posto.</p>
             
             <form id="form-solicitacao">

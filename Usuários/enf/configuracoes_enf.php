@@ -48,10 +48,11 @@ if (isset($_GET['msg']) && $_GET['status'] == 'erro') {
 <html>
 <head>
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIVA+ | Configurações Enfermeiro</title>
-    <link rel='stylesheet' type='text/css' href='../administrador.css'>
-    <link rel='stylesheet' type='text/css' href='../styleprofile.css'>
     <link rel='stylesheet' type='text/css' href='../modal.css'>
+    <link rel='stylesheet' type='text/css' href='../enfermeiro.css'>
+    <link rel='stylesheet' type='text/css' href='../../styleenf.css'>
     <script src="https://kit.fontawesome.com/e878368812.js" crossorigin="anonymous"></script>
     <!-- Script de Máscaras -->
     <script>

@@ -83,47 +83,16 @@ if ($config_completa) {
 <html lang="pt-br">
 <head>
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIVA+ | Enfermeiro</title>
-    <link rel='stylesheet' type='text/css' href='administrador.css'>
+    <link rel='stylesheet' type='text/css' href='enfermeiro.css'>
     <link rel='stylesheet' type='text/css' href='../styleenf.css'>
-    <link rel='stylesheet' type='text/css' href='styleprofile.css'>
     <link rel='stylesheet' type='text/css' href='modal.css'>
     <link rel='stylesheet' type='text/css' href='mensagens.css'> <!-- NOVO CSS -->
     <link rel='stylesheet' type='text/css' href='adm/tables.css'>
     <script src="https://kit.fontawesome.com/e878368812.js" crossorigin="anonymous"></script>
-    <style>
-        /* Ajustes específicos para o modal de vacinas */
-        .modal-vacinas {
-            max-width: 800px;
-            width: 90%;
-        }
-        .action-btn {
-            background-color: #3db19e; 
-            padding: 5px 10px; 
-            color: white; 
-            border-radius: 4px; 
-            font-size: 0.9em;
-            border:none;
-            cursor: pointer;
-        }
-        .action-btn:hover { background-color: #2f8c7d; }
-        .status-check { color: green; font-weight: bold; }
-        .loading { text-align: center; padding: 20px; color: #666; }
-
-        
-        
-    </style>
-    <style>
-        /* Pequenos ajustes inline */
-        .btn-mensagem { background-color: #5bc0de; color: white; margin-left: 5px; border:none; padding: 5px 10px; border-radius:4px; cursor:pointer; }
-        .btn-mensagem:hover { background-color: #31b0d5; }
-        .btn-atender { background-color: #f0ad4e; color: white; border:none; padding: 5px 10px; border-radius:4px; cursor:pointer; }
-        .btn-atender:hover { background-color: #ec971f; }
-        .info-atendida { color: #2e7d32; font-weight: bold; font-size: 0.9em; }
-
-        
-    </style>
 </head>
+
 <body>
 
     <?php include 'header_enf.php'; ?>
@@ -135,7 +104,7 @@ if ($config_completa) {
 
                 <?php if (!$config_completa): ?>
                     <!-- ALERTA DE CONFIGURAÇÃO -->
-                    <div class="alerta-config" style="text-align: center; padding: 40px;">
+                    <div class="alerta-config">
                         <i class="fas fa-user-nurse" style="font-size: 50px; color: #3d8cb1; margin-bottom: 20px;"></i>
                         <h3>Configuração Necessária</h3>
                         <p>Configure seu Posto de Saúde para começar.</p>
@@ -239,18 +208,20 @@ if ($config_completa) {
 
     <!-- MODAL DE VACINAS (JÁ EXISTENTE) -->
     <div id="modal-vacinas" class="modal-logout">
-        <div class="modal-content-logout modal-vacinas">
+        <div class="modal-content-logout3 modal-vacinas">
             <h3 id="modal-paciente-nome">Vacinação</h3>
-            <div id="modal-body-content" style="max-height: 60vh; overflow-y: auto; margin: 20px 0;"></div>
-            <button onclick="document.getElementById('modal-vacinas').style.display='none'" style="background-color:#666;color:white;">Fechar</button>
+            <div id="modal-body-content"></div>
+            <div class="submit-box">
+                <button onclick="document.getElementById('modal-vacinas').style.display='none'" class="btn-cancelar">Fechar</button>
+            </div>
         </div>
     </div>
 
     <!-- MODAL ENVIAR MENSAGEM -->
     <div id="modal-mensagem" class="modal-logout2">
-        <div class="modal-content-logout2" style="height:auto; text-align:left;">
-            <h3 style="text-align: center; margin-bottom: 10px; text-decoration: underline; font-family: calibri;">NOVA MENSAGEM</h3>
-            <p style="margin-bottom: 10px; font-family: calibri;">Para: <strong id="msg-destinatario-nome">Paciente</strong></p>
+        <div class="modal-content-logout3">
+            <h3 class="msg-title">NOVA MENSAGEM</h3>
+            <p class="msg-info">Para: <strong id="msg-destinatario-nome">Paciente</strong></p>
             <form id="form-mensagem">
                 <input type="hidden" name="acao" value="enviar">
                 <input type="hidden" name="tipo" value="privada">
