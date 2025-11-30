@@ -59,48 +59,12 @@ $res_d_all->close();
 <html>
 <head>
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIVA+ | Configurações</title>
-    <link rel='stylesheet' href='../administrador.css'>
-    <link rel='stylesheet' href='../styleprofile.css'>
-    <link rel='stylesheet' href='modal.css'> <link rel='stylesheet' href='../../stylepct.css'>
+    <link rel='stylesheet' href='modal.css'> 
+    <link rel='stylesheet' href='../paciente.css'>
+    <link rel='stylesheet' href='../../stylepct.css'>
     <script src="https://kit.fontawesome.com/e878368812.js" crossorigin="anonymous"></script>
-    <style>
-        /* Estilos Específicos para o Modal de Doenças */
-        .checkbox-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 10px;
-            max-height: 300px;
-            overflow-y: auto;
-            text-align: left;
-            margin: 15px 0;
-            padding: 10px;
-            border: 1px solid #eee;
-            border-radius: 5px;
-        }
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            background: #f9f9f9;
-            padding: 8px;
-            border-radius: 4px;
-        }
-        .checkbox-item input { margin-right: 8px; transform: scale(1.2); cursor: pointer; }
-        .checkbox-item label { cursor: pointer; font-size: 0.95em; color: #333; width: 100%; }
-        
-        .btn-doencas {
-            background-color: #ff9800;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 10px;
-        }
-        .btn-doencas:hover { background-color: #e68900; }
-    </style>
 </head>
 <body>
 
@@ -113,10 +77,10 @@ $res_d_all->close();
                 <p>Mantenha seus dados e condições de saúde atualizados para um melhor acompanhamento.</p>
                 
                 <?php if ($erro): ?>
-                    <p class="feedback-erro" style="color:red; background:#ffe6e6; padding:10px; border-radius:5px;"><?php echo htmlspecialchars($erro); ?></p>
+                    <p class="feedback-erro"><?php echo htmlspecialchars($erro); ?></p>
                 <?php endif; ?>
                 <?php if ($sucesso): ?>
-                    <p class="feedback-sucesso" style="color:green; background:#d4edda; padding:10px; border-radius:5px;"><?php echo htmlspecialchars($sucesso); ?></p>
+                    <p class="feedback-sucesso"><?php echo htmlspecialchars($sucesso); ?></p>
                 <?php endif; ?>
 
                 <form action="salvar_configuracoes_pct.php" method="POST">
@@ -135,7 +99,7 @@ $res_d_all->close();
 
                     <div class="input-group" style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 20px;">
                         <label>Condições de Saúde</label>
-                        <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">
+                        <p>
                             Selecione as doenças que você possui para receber alertas personalizados.
                         </p>
                         <button type="button" class="btn-doencas" onclick="document.getElementById('modal-doencas').style.display='block'">
@@ -146,7 +110,7 @@ $res_d_all->close();
                         </p>
                     </div>
 
-                    <h4 style="margin-top:30px; border-bottom:1px solid #ddd;">Dados de Contato</h4>
+                    <h4 >Dados de Contato</h4>
                     <div class="input-group">
                         <label>CPF</label>
                         <input type="text" id="cpf" name="cpf" value="<?php echo htmlspecialchars($dados_paciente['cpf']); ?>" oninput="maskCPF(this)">
@@ -160,16 +124,16 @@ $res_d_all->close();
                         <input type="text" name="endereco" value="<?php echo htmlspecialchars($dados_paciente['endereco']); ?>">
                     </div>
                     
-                    <button type="submit" class="submit-btn" style="margin-top:20px;">Salvar Tudo</button>
+                    <button type="submit" class="submit-btn">Salvar Tudo</button>
                 </form>
             </div>
         </section>
     </main>
 
     <div id="modal-doencas" class="modal-logout2">
-        <div class="modal-content-logout2" style="width: 90%; max-width: 600px; height: auto; max-height: 90vh;">
-            <h3>Gerenciar Condições</h3>
-            <p>Marque o que se aplica a você. Se não tiver condições, marque "Nenhuma".</p>
+        <div class="modal-content-logout4">
+            <h3 class="msg-title">Gerenciar Condições</h3>
+            <p class="msg-info">Marque o que se aplica a você. Se não tiver condições, marque "Nenhuma".</p>
             
             <div class="doencas-list checkbox-grid">
                 <?php 
@@ -195,7 +159,7 @@ $res_d_all->close();
             </div>
 
             <div style="text-align: right; margin-top: 10px;">
-                <button type="button" class="submit-btn" style="width: auto; display: inline-block;" onclick="document.getElementById('modal-doencas').style.display='none'">
+                <button type="button" class="submit-btn" onclick="document.getElementById('modal-doencas').style.display='none'">
                     Confirmar e Fechar
                 </button>
             </div>

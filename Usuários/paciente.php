@@ -148,7 +148,7 @@ $conn->close();
 <html>
 <head>
     <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Esse cara aqui comanda a responsividade para os dispositivos -->
     <title>VIVA+ | Painel do Paciente</title>
     <!-- Estilos -->
     <link rel='stylesheet' type='text/css' media='screen' href='paciente.css'>
@@ -188,7 +188,7 @@ $conn->close();
                     <h4 id="h4-alert">
                         <i class="fas fa-info-circle"></i> <?php echo $alerta_titulo; ?>
                     </h4>
-                    <p><?php echo $alerta_msg; ?></p>
+                    <p id="p-alert"><?php echo $alerta_msg; ?></p>
                 </div>
 
                 <!-- HEADER DO DASHBOARD -->

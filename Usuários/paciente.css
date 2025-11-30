@@ -27,7 +27,14 @@
     border-bottom: 2px solid rgba(0, 0, 0, 0.116);
     margin-bottom: 25px;
     padding-bottom: 10px;
+}
 
+.form-container h3:first-child{
+    padding-top: 10px;
+    border-bottom: 0px;
+    background-color: #5ab4c086;
+    text-align: center;
+    border-radius: 5px;
 }
 .form-container p{
     text-align: justify;
@@ -413,6 +420,9 @@ div.profile-icon-2 {
     margin-top:0; 
     margin-bottom:5px;   
 }
+#p-alert{
+    text-align: left;
+}
 
 .button-pdf{
     text-align: right; 
@@ -430,4 +440,86 @@ div.profile-icon-2 {
 .subject{
     color:#3d8cb1; 
     margin-right:5px;
+}
+
+.alerta-config{
+    margin-top: 20px; 
+    background-color: #c7e3e6ff; 
+    border-color: #869a9cff; 
+    border-radius: 15px; 
+    color: #333; 
+    margin-bottom: 20px;
+}
+
+.p-alerta-config{
+    padding: 10px 0;
+}
+
+.data-group{
+    margin-top: 30px;
+}
+
+.msg-alter-config{
+    margin-top: 30px;
+}
+
+/* CONFIGURAÇÕES DO PACIENTE */
+/* Estilos Específicos para o Modal de Doenças */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    text-align: left;
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 8px;
+    border-radius: 4px;
+}
+.checkbox-item input { 
+    margin-right: 8px; 
+    transform: scale(1.2); 
+    cursor: pointer; 
+}
+.checkbox-item label { 
+    cursor: pointer; 
+    font-size: 0.95em; 
+    color: #333; 
+    width: 100%; 
+}
+
+.btn-doencas {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+}
+.btn-doencas:hover { 
+    background-color: #e68900; 
+}
+
+.feedback-erro{
+    color:red; 
+    background:#ffe6e6; 
+    padding:10px; 
+    border-radius:5px;
+}
+.feedback-sucesso{
+    color:green; 
+    background:#d4edda; 
+    padding:10px; 
+    border-radius:5px;
 }

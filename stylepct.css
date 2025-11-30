@@ -87,6 +87,9 @@ header{
     justify-content: center;
     transition: background-color 0.2s;
 }
+.profile-icon-2{
+    margin-bottom: 10px;
+}
 
 .profile-icon:hover {
     background-color: #73c9f1;
@@ -187,6 +190,9 @@ header{
         align-items: center;
         justify-content: center;
         transition: background-color 0.2s;
+    }
+    #profile-data{
+        margin-top: 20px;
     }
 
     .profile-icon:hover {

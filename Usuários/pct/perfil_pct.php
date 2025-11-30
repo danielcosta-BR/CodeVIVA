@@ -76,11 +76,11 @@ $conn->close();
 <html>
 <head>
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIVA+ | Meu Perfil</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='../administrador.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../styleprofile.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../../styleadm.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='modal.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../paciente.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../stylepct.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -93,15 +93,8 @@ $conn->close();
         <section class="form-section">
             <div class="form-container"> <!-- Reduzindo a largura para um visual de perfil -->
                 <h2><i class="fas fa-user-circle"></i> Meu Perfil</h2>
-                <div class="title_function" 
-                    style="padding: 10px;
-                    background-color: #5ab4c086;
-                    text-align: center;
-                    border-radius: 5px;">
-                    <h3 
-                        style="border-bottom: 0px; 
-                        margin-bottom: 0px; 
-                        padding-bottom: 0px;">
+                <div class="title_function">
+                    <h3 class="h3_function">
                         PACIENTE
                     </h3>
                 </div>
@@ -111,8 +104,8 @@ $conn->close();
                 </div>
                 
                 <?php if ($mensagem_alerta): ?>
-                    <div class="alerta-config" style=" margin-top: 20px; background-color: #c7e3e6ff; border-color: #869a9cff; border-radius: 15px; color: #333; margin-bottom: 20px;">
-                        <p style="padding: 10px 0;">
+                    <div class="alerta-config">
+                        <p id="p-alerta-config">
                             <i class="fas fa-exclamation-triangle" style="color: #ff9800; margin-right: 10px;"></i>
                             <?php echo htmlspecialchars($mensagem_alerta); ?>
                         </p>
@@ -120,7 +113,7 @@ $conn->close();
                 <?php endif; ?>
 
                 <div class="data-group">
-                    <h3>Dados de Acesso</h3>
+                    <h3 id="profile-data">Dados de Acesso</h3>
                     <div class="data-display">
                         <p><strong><i class="fas fa-id-badge"></i> ID de Usuário:</strong> <?php echo htmlspecialchars($id_usuario); ?></p>
                         <p><strong><i class="fas fa-user-circle"></i> Nome Completo:</strong> <?php echo htmlspecialchars($nome_completo); ?></p>
@@ -129,7 +122,7 @@ $conn->close();
                     </div>
                 </div>
 
-                <div class="data-group" style="margin-top: 30px;">
+                <div class="data-group">
                     <h3>Dados Complementares (Paciente)</h3>
                     <div class="data-display">
                         <p><strong><i class="fas fa-id-card"></i> CPF:</strong> <?php echo $cpf_paciente; ?></p>
@@ -139,7 +132,7 @@ $conn->close();
                     </div>
                 </div>
 
-                <p style="margin-top: 30px;">
+                <p class="msg-alter-config">
                     Para alterar seus dados, acesse a seção <b>Configurações</b>.
                 </p>
                 

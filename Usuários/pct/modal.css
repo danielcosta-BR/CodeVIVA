@@ -22,6 +22,19 @@
     text-align: center;
     
 }
+.modal-content-logout4 {
+    background-color: #fefefe;
+    margin: 20vh auto; /* 15% do topo e centralizado */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%; 
+    max-width: 600px; 
+    height: auto; 
+    max-height: 90vh;
+    border-radius: 8px;
+    text-align: center;
+
+}
 
 .modal-content-logout2 button {
     margin: 5px;
@@ -76,4 +89,18 @@
 #h4-logout{
     padding: 20px;
 }
+
+.msg-title{
+    background-color:  #88888821;
+    margin-bottom: 10px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    font-family: calibri;
+}
+
+.msg-info{
+    margin-bottom: 10px;
+}
+
 
