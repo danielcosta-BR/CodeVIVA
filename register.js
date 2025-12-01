@@ -13,7 +13,7 @@ function maskTelefone(el) {
 }
 function togglePasswordVisibility(id, icon) {
     const input = document.getElementById(id);
-    if(input && input.type === 'password') { input.type = 'text'; icon.innerText = '🙈'; }
+    if(input && input.type === 'password') { input.type = 'text'; icon.innerText = '🚫'; }
     else if (input) { input.type = 'password'; icon.innerText = '👁️'; }
 }
 

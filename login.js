@@ -7,7 +7,7 @@ function togglePasswordVisibility(inputId, iconElement) {
         // Se for 'password', muda para 'text' (visível)
         input.type = 'text';
         // Muda o ícone de olho aberto para olho fechado
-        iconElement.textContent = '🙈'; 
+        iconElement.textContent = '🚫'; 
     } else {
         // Se for 'text', muda para 'password' (oculto)
         input.type = 'password';
