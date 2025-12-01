@@ -135,6 +135,33 @@
     margin-bottom: 10px;
 }
 
+ /* CSS embutido para garantir funcionamento do Modal */
+        
+.lista-doencas-grid {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+.checkbox-item label { 
+    margin-left: 10px; 
+    cursor: pointer; 
+}
+.secao-doencas { 
+    margin-top: 15px; 
+    margin-bottom: 15px; 
+}
+#step2 { 
+    display: none; 
+}
+
 @media (max-width: 500px){
     .modal-logout {
         display: none; /* Escondido por padrão */

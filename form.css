@@ -4,7 +4,7 @@
 .form-section {
     width: 100vw;
     /* MUDANÇA CRUCIAL: Mude 'height: 100vh;' para 'min-height: 100vh;' */
-    min-height: 100vh; /* Permite que o conteúdo do formulário empurre o container para baixo se necessário */
+    height: 100vh; /* Permite que o conteúdo do formulário empurre o container para baixo se necessário */
     display: flex;
     align-items: center; 
     justify-content: center; 
@@ -22,8 +22,7 @@
     margin: 10px auto;
     text-align: center;
     overflow-y: auto;
-    scrollbar-color: rgb(122, 149, 173) rgb(255, 255, 255);
-    scrollbar-width: thin;
+    scrollbar-width: none;
 }
 
 .form-container h2 {
@@ -256,18 +255,20 @@
     text-decoration: underline;
 }
 
+
+
 /* Media Query para telas menores (Mobile) */
 @media (max-width: 500px) {
     .form-container {
         padding: 20px; /* Reduzido o padding interno em Mobile */
         width: 95%; 
         max-width: 350px; /* Mantido o mesmo max-width para controle */
-        margin-top: 40px; 
+         
     }
 
     .form-section {
         /* Garante que o formulário apareça abaixo do cabeçalho fixo */
         align-items: flex-start; 
-        padding-top: 110px; 
+        padding-top: 0px; 
     }
 }

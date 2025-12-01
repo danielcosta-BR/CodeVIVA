@@ -29,6 +29,8 @@ html{
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    scrollbar-color: rgb(122, 149, 173) rgb(255, 255, 255);
+    scrollbar-width: thin;
 }
 
 body{
@@ -136,6 +138,7 @@ header{
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
+        
     }
 
 

@@ -9,47 +9,8 @@ include 'Usuários/conexao.php';
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' href='style.css'>
     <link rel='stylesheet' href='form.css'>
-    <link rel='stylesheet' href='modal.css'> 
-    <style>
-        /* CSS embutido para garantir funcionamento do Modal */
-        .modal-logout {
-            display: none; 
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6); 
-            overflow: auto;
-            padding-top: 50px;
-        }
-        .modal-content-logout {
-            background-color: #fefefe;
-            margin: 5% auto; 
-            padding: 20px;
-            border: 1px solid #888;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 10px;
-        }
-        .lista-doencas-grid {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            padding: 5px;
-            border-bottom: 1px solid #eee;
-        }
-        .checkbox-item label { margin-left: 10px; cursor: pointer; }
-        .secao-doencas { margin-top: 15px; margin-bottom: 15px; }
-        #step2 { display: none; }
-    </style>
+    <link rel='stylesheet' href='Usuários/modal.css'> 
+
 </head>
 <body>
     <header>
@@ -131,7 +92,7 @@ include 'Usuários/conexao.php';
 
                         <div class="input-group secao-doencas" id="secao-doencas" style="display: none;">
                             <label>Condições de Saúde</label>
-                            <button type="button" class="submit-btn" id="btn-modal-doencas" style="background-color: #17a2b8;">
+                            <button type="button" class="submit-btn" id="btn-modal-doencas" style="background-color: rgb(173, 204, 216)">
                                 Selecionar Condições (0 selecionadas)
                             </button>
                         </div>
@@ -156,7 +117,7 @@ include 'Usuários/conexao.php';
     <div id="modal-doencas" class="modal-logout" style="display: none;">
         <div class="modal-content-logout">
             <h3>Selecione suas Condições</h3>
-            <p style="font-size:0.9em; color:#666;">Se não tiver condições, marque 'Nenhuma'.</p>
+            <p style="font-size:0.9em; color:#667;">Se não tiver condições, marque 'Nenhuma'.</p>
             
             <div id="lista-doencas" class="lista-doencas-grid"></div>
 
