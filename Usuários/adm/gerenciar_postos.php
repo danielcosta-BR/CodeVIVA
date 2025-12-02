@@ -146,20 +146,23 @@ $conn->close();
                         <tbody>
                             <?php foreach ($postos as $posto): ?>
                                 <tr>
-                                    <td><?php echo $posto['id_posto']; ?></td>
+                                    <td id="nome-posto"><?php echo $posto['id_posto']; ?></td>
                                     <td><?php echo htmlspecialchars($posto['nome_posto']); ?></td>
                                     <td><?php echo htmlspecialchars($posto['endereco'] ?? 'N/A'); ?></td>
                                     <td><?php echo htmlspecialchars($posto['telefone'] ?? 'N/A'); ?></td>
-                                    <td class="btns-edit">
-                                        <button class="btn-editar" 
-                                            data-id="<?php echo $posto['id_posto']; ?>"
-                                            data-nome="<?php echo htmlspecialchars($posto['nome_posto']); ?>"
-                                            data-endereco="<?php echo htmlspecialchars($posto['endereco']); ?>"
-                                            data-telefone="<?php echo htmlspecialchars($posto['telefone']); ?>"
-                                        >Editar</button>
-                                        <a href="?excluir=<?php echo $posto['id_posto']; ?>" 
-                                           onclick="return confirm('ATENÇÃO: Excluir este posto pode desassociar usuários. Deseja continuar?')"
-                                           class="btn-excluir">Excluir</a>
+                                    <td>
+                                        <div class="btns-edit">
+                                            <button class="btn-editar" 
+                                                data-id="<?php echo $posto['id_posto']; ?>"
+                                                data-nome="<?php echo htmlspecialchars($posto['nome_posto']); ?>"
+                                                data-endereco="<?php echo htmlspecialchars($posto['endereco']); ?>"
+                                                data-telefone="<?php echo htmlspecialchars($posto['telefone']); ?>"
+                                            >Editar</button>
+                                            <a href="?excluir=<?php echo $posto['id_posto']; ?>" 
+                                            onclick="return confirm('ATENÇÃO: Excluir este posto pode desassociar usuários. Deseja continuar?')"
+                                            class="btn-excluir">Excluir
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

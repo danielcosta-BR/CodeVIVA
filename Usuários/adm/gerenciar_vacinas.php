@@ -183,17 +183,20 @@ $conn->close();
                                     <td style="color: #3d8cb1; font-weight: bold;">
                                         <?php echo htmlspecialchars($vacina['nome_proxima_vacina'] ?? 'Fim do Ciclo'); ?>
                                     </td>
-                                    <td class="btns-edit">
-                                        <button class="btn-editar" 
-                                            data-id="<?php echo $vacina['id_vacina_modelo']; ?>"
-                                            data-nome="<?php echo htmlspecialchars($vacina['nome_vacina']); ?>"
-                                            data-idade="<?php echo htmlspecialchars($vacina['recomendacao_idade']); ?>"
-                                            data-intervalo="<?php echo htmlspecialchars($vacina['intervalo_dias']); ?>"
-                                            data-proxima="<?php echo htmlspecialchars($vacina['id_proxima_vacina']); ?>"
-                                        >Editar</button>
-                                        <a href="?excluir=<?php echo $vacina['id_vacina_modelo']; ?>" 
-                                        onclick="return confirm('ATENÇÃO: Excluir este modelo pode afetar as cadernetas existentes. Deseja continuar?')"
-                                        class="btn-excluir">Excluir</a>
+                                    <td>
+                                        <div class="btns-edit">
+                                            <button class="btn-editar" 
+                                                data-id="<?php echo $vacina['id_vacina_modelo']; ?>"
+                                                data-nome="<?php echo htmlspecialchars($vacina['nome_vacina']); ?>"
+                                                data-idade="<?php echo htmlspecialchars($vacina['recomendacao_idade']); ?>"
+                                                data-intervalo="<?php echo htmlspecialchars($vacina['intervalo_dias']); ?>"
+                                                data-proxima="<?php echo htmlspecialchars($vacina['id_proxima_vacina']); ?>"
+                                            >Editar</button>
+                                            <a href="?excluir=<?php echo $vacina['id_vacina_modelo']; ?>" 
+                                                onclick="return confirm('ATENÇÃO: Excluir este modelo pode afetar as cadernetas existentes. Deseja continuar?')"
+                                                class="btn-excluir">Excluir
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

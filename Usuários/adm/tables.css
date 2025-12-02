@@ -5,7 +5,8 @@
 td{
     border: 1px solid black;
     padding: 5px 5px;
-    white-space: nowrap;
+    word-wrap: break-word;
+    /* word-break: break-all; */
 }
 
 
@@ -22,7 +23,8 @@ th{
     border: 1px solid black;
     background-color: #3d8cb133;
     padding: 5px 5px;
-    white-space: nowrap;
+    /* word-wrap: break-word;
+    word-break: break-all; */
 }
 
 .data-table{
@@ -48,6 +50,7 @@ th{
 /* .modal-content-logout{
     height: 400px;
 } */
+
 
 @media (max-width: 900px){
     .table-responsive {

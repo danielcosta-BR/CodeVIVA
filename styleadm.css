@@ -22,13 +22,10 @@ a:visited{
 
 /* Corpo Geral */
 
+/* Corpo Geral */
+
 html{
-    /* width: 100vw; */
-    /* height: 100vh; */
-    background-image: url(Img/postobg4.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    /* Mantém as configurações visuais, mas remove a imagem daqui */
     scrollbar-color: rgb(122, 149, 173) rgb(255, 255, 255);
     scrollbar-width: thin;
 }
@@ -39,6 +36,13 @@ body{
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    
+    /* AS PROPRIEDADES DE FUNDO SÃO MOVIDAS PARA AQUI: */
+    background-image: url(Img/postobg4.jpg); /* Ajuste o caminho conforme o uso! */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed; /* Isso impede o scroll da imagem */
+    background-size: cover; /* Garante que a imagem cubra TODA a área do BODY */
 }
 
 /* Cabeçalho */
