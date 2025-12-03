@@ -324,6 +324,19 @@ div.profile-icon-2 {
     display: block;
 } */
 
+.feedback-erro{
+    color:red; 
+    background:#ffe6e6; 
+    padding:10px; 
+    border-radius:5px;
+}
+.feedback-sucesso{
+    color:green; 
+    background:#d4edda; 
+    padding:10px; 
+    border-radius:5px;
+}
+
 @media (max-width: 550px){
     .form-sectionR{
         display: flex;

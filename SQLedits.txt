@@ -1,0 +1,3 @@
+-- Adicionar a coluna `secao` na tabela `vacinamodelo`
+ALTER TABLE `vacinamodelo`
+ADD COLUMN `secao` VARCHAR(50) NOT NULL DEFAULT 'Geral' COMMENT 'Faixa etária ou grupo de vacinação (e.g., Criança, Adulto, Gestante)';

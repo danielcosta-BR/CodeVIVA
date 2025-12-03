@@ -12,13 +12,7 @@ $config_completa = false;
 $id_posto_enfermeiro = null;
 $nome_posto_enfermeiro = "Não definido";
 
-// Tenta buscar na tabela de enfermeiros
-$sql_check = "
-    SELECT e.id_posto_saude, p.nome_posto 
-    FROM enfermeiros e 
-    LEFT JOIN postosaude p ON e.id_posto_saude = p.id_posto 
-    WHERE e.id_usuario = ?
-";
+$sql_check = "SELECT e.id_posto_saude, p.nome_posto FROM enfermeiros e LEFT JOIN postosaude p ON e.id_posto_saude = p.id_posto WHERE e.id_usuario = ?";
 $stmt_check = $conn->prepare($sql_check);
 $stmt_check->bind_param("i", $id_usuario);
 $stmt_check->execute();
@@ -26,23 +20,14 @@ $result_check = $stmt_check->get_result();
 
 if ($result_check->num_rows > 0) {
     $dados_enf = $result_check->fetch_assoc();
-    // Se encontrou registro e tem posto, está configurado
     if (!empty($dados_enf['id_posto_saude'])) {
         $config_completa = true;
         $id_posto_enfermeiro = $dados_enf['id_posto_saude'];
         $nome_posto_enfermeiro = $dados_enf['nome_posto'] ?? "Posto não encontrado";
     }
-} else {
-    // Se não encontrou registro em 'enfermeiros', tenta criar um registro vazio
-    // Isso é uma medida de segurança para casos de migração falha
-    // (Mas o ideal é que o processo de verificação já tenha criado isso)
 }
 $stmt_check->close();
 
-// Se ainda assim não estiver configurado, vamos verificar se o usuário acabou de ser criado
-// e tentar forçar a leitura do id_posto se ele existir em outro lugar (opcional)
-
-// Dados para o Dashboard
 $lista_pacientes = [];
 $solicitacoes = [];
 
@@ -56,20 +41,8 @@ if ($config_completa) {
     while($row = $res_pct->fetch_assoc()){ $lista_pacientes[] = $row; }
     $stmt_pct->close();
 
-    // 2. Lista Solicitações (Mensagens enviadas para o Posto)
-    // Trazemos também o nome de quem atendeu (Self join em usuario u2)
-    $sql_msg = "
-        SELECT 
-            m.id_mensagem, m.assunto, m.corpo, m.data_envio, m.status, m.data_atendimento,
-            u_rem.nome_completo as nome_paciente,
-            u_atend.nome_completo as nome_atendente
-        FROM mensagens m
-        JOIN usuario u_rem ON m.id_remetente = u_rem.id_usuario
-        LEFT JOIN usuario u_atend ON m.id_atendente = u_atend.id_usuario
-        WHERE m.id_posto_alvo = ?
-        ORDER BY m.status ASC, m.data_envio DESC
-    "; // Ordena: Pendentes primeiro, depois as mais recentes
-    
+    // 2. Lista Solicitações
+    $sql_msg = "SELECT m.id_mensagem, m.assunto, m.corpo, m.data_envio, m.status, m.data_atendimento, u_rem.nome_completo as nome_paciente, u_atend.nome_completo as nome_atendente FROM mensagens m JOIN usuario u_rem ON m.id_remetente = u_rem.id_usuario LEFT JOIN usuario u_atend ON m.id_atendente = u_atend.id_usuario WHERE m.id_posto_alvo = ? ORDER BY m.status ASC, m.data_envio DESC";
     $stmt_msg = $conn->prepare($sql_msg);
     $stmt_msg->bind_param("i", $id_posto_enfermeiro);
     $stmt_msg->execute();
@@ -88,7 +61,7 @@ if ($config_completa) {
     <link rel='stylesheet' type='text/css' href='enfermeiro.css'>
     <link rel='stylesheet' type='text/css' href='../styleenf.css'>
     <link rel='stylesheet' type='text/css' href='modal.css'>
-    <link rel='stylesheet' type='text/css' href='mensagens.css'> <!-- NOVO CSS -->
+    <link rel='stylesheet' type='text/css' href='mensagens.css'>
     <link rel='stylesheet' type='text/css' href='adm/tables.css'>
     <script src="https://kit.fontawesome.com/e878368812.js" crossorigin="anonymous"></script>
 </head>
@@ -103,64 +76,51 @@ if ($config_completa) {
                 <h2>Olá, Enfermeiro(a) <?php echo htmlspecialchars($nome_completo); ?>!</h2>
 
                 <?php if (!$config_completa): ?>
-                    <!-- ALERTA DE CONFIGURAÇÃO -->
                     <div class="alerta-config">
                         <i class="fas fa-user-nurse" style="font-size: 50px; color: #3d8cb1; margin-bottom: 20px;"></i>
                         <h3>Configuração Necessária</h3>
                         <p>Configure seu Posto de Saúde para começar.</p>
                         <div id="button_center"><a href="enf/configuracoes_enf.php" class="submit-btn">Configurar Agora</a></div>
                     </div>
-                
                 <?php else: ?>
                     <div class="header-paciente">
                         <p class="posto-info"><i class="fas fa-hospital-alt"></i> Atuando em: <strong><?php echo htmlspecialchars($nome_posto_enfermeiro); ?></strong></p>
                     </div>
 
-                    <!-- SEÇÃO DE SOLICITAÇÕES / MENSAGENS DOS PACIENTES -->
                     <div class="card-lembretes" style="background-color: #fff; border: 1px solid #ddd; border-left: 5px solid #ff9800; padding: 0;">
                         <div style="padding: 15px; background-color: #fff3e0;">
                             <h4 style="margin:0; color: #e65100;"><i class="fas fa-inbox"></i> Solicitações do Posto</h4>
                         </div>
                         
                         <?php if (empty($solicitacoes)): ?>
-                            <p style="padding: 20px;">Nenhuma mensagem recebida dos pacientes.</p>
+                            <p style="padding: 20px;">Nenhuma mensagem recebida.</p>
                         <?php else: ?>
                             <ul class="message-list">
                                 <?php foreach ($solicitacoes as $msg): ?>
                                     <li class="message-item">
-                                        <!-- Cabeçalho Clicável -->
                                         <div class="message-header" onclick="toggleMessage(this)">
                                             <span class="subject">
                                                 <?php if($msg['status']=='pendente') echo '<i class="fas fa-exclamation-circle" style="color:orange"></i> '; ?>
                                                 <?php echo htmlspecialchars($msg['assunto']); ?> 
-                                                <small style="color:#888; font-weight:normal;">- <?php echo htmlspecialchars($msg['nome_paciente']); ?></small>
+                                                <small style="color:#888;">- <?php echo htmlspecialchars($msg['nome_paciente']); ?></small>
                                             </span>
                                             <div class="meta-info">
                                                 <span><?php echo date('d/m H:i', strtotime($msg['data_envio'])); ?></span>
-                                                <?php if($msg['status']=='atendida'): ?>
-                                                    <span class="status-badge badge-atendida">Atendida</span>
-                                                <?php else: ?>
-                                                    <span class="status-badge badge-pendente">Pendente</span>
-                                                <?php endif; ?>
+                                                <span class="status-badge <?php echo ($msg['status']=='atendida'?'badge-atendida':'badge-pendente'); ?>">
+                                                    <?php echo ucfirst($msg['status']); ?>
+                                                </span>
                                                 <i class="fas fa-chevron-down"></i>
                                             </div>
                                         </div>
-                                        <!-- Corpo Expansível -->
                                         <div class="message-body">
                                             <p><?php echo nl2br(htmlspecialchars($msg['corpo'])); ?></p>
-                                            
                                             <div class="atendimento-area">
                                                 <?php if($msg['status']=='pendente'): ?>
-                                                    <p style="font-size:0.9em; color:#666; margin-bottom:5px;">Este paciente precisa de ajuda. Marque como atendido para informar a equipe.</p>
                                                     <button class="btn-atender" onclick="marcarAtendida(<?php echo $msg['id_mensagem']; ?>, this)">
                                                         <i class="fas fa-check"></i> Marcar como Atendida
                                                     </button>
                                                 <?php else: ?>
-                                                    <span class="info-atendida">
-                                                        <i class="fas fa-check-double"></i> 
-                                                        Atendida por <?php echo htmlspecialchars($msg['nome_atendente']); ?> 
-                                                        em <?php echo date('d/m/Y H:i', strtotime($msg['data_atendimento'])); ?>
-                                                    </span>
+                                                    <span class="info-atendida">Atendida por <?php echo htmlspecialchars($msg['nome_atendente']); ?></span>
                                                 <?php endif; ?>
                                             </div>
                                         </div>
@@ -170,7 +130,6 @@ if ($config_completa) {
                         <?php endif; ?>
                     </div>
 
-                    <!-- LISTA DE PACIENTES -->
                     <h3 style="margin-top: 40px;"><i class="fas fa-users"></i> Pacientes do Posto</h3>
                     <div class="table-responsive">
                         <table class="data-table">
@@ -190,10 +149,10 @@ if ($config_completa) {
                                         <td><?php echo htmlspecialchars($paciente['telefone']); ?></td>
                                         <td>
                                             <div class="btns-edit">
-                                                <button class="action-btn" onclick="abrirCaderneta(<?php echo $paciente['id_usuario']; ?>, '<?php echo $paciente['nome_completo']; ?>')">
+                                                <button class="action-btn" type="button" onclick="window.abrirCaderneta(<?php echo $paciente['id_usuario']; ?>, '<?php echo addslashes($paciente['nome_completo']); ?>')">
                                                     <i class="fas fa-syringe"></i> Gerenciar
                                                 </button>
-                                                <button class="btn-mensagem" onclick="abrirModalMensagem(<?php echo $paciente['id_usuario']; ?>, '<?php echo $paciente['nome_completo']; ?>')">
+                                                <button class="btn-mensagem" type="button" onclick="window.abrirModalMensagem(<?php echo $paciente['id_usuario']; ?>, '<?php echo addslashes($paciente['nome_completo']); ?>')">
                                                     <i class="fas fa-envelope"></i> Mensagem
                                                 </button>
                                             </div>
@@ -208,19 +167,27 @@ if ($config_completa) {
         </section>
     </main>
 
-    <!-- MODAL DE VACINAS (JÁ EXISTENTE) -->
-    <div id="modal-vacinas" class="modal-logout">
-        <div class="modal-content-logout3 modal-vacinas">
-            <h3 id="modal-paciente-nome" >Vacinação</h3>
-            <div id="modal-body-content"></div>
-            <div class="submit-box">
-                <button onclick="document.getElementById('modal-vacinas').style.display='none'" class="btn-cancelar">Fechar</button>
+    <div id="modal-vacinas" class="modal-logout ">
+        <div class="modal-content-logout3">
+            <!-- <span class="close" onclick="document.getElementById('modal-vacinas').style.display='none'">&times;</span> -->
+            <h3 id="modal-paciente-nome">Vacinas</h3>
+            
+            <div class="section-nav-container-modal" id="section-nav-container-modal" >
+                <button class="nav-btn-modal" id="nav-prev-modal" disabled> < </i></button>
+                <div class="section-tabs-modal" id="section-tabs-modal"></div>
+                <button class="nav-btn-modal" id="nav-next-modal" disabled> > </button>
+            </div>
+            
+            <div id="modal-body-content" style="max-height: 70vh; overflow-y: auto;">
+                Carregando...
+            </div>
+            <div style="text-align:center; margin-top:15px;">
+                <button type="button" class="btn-cancelar" onclick="document.getElementById('modal-vacinas').style.display='none'">Cancelar</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL ENVIAR MENSAGEM -->
-    <div id="modal-mensagem" class="modal-logout2">
+    <div id="modal-mensagem" class="modal-logout2" style="z-index: 9999;">
         <div class="modal-content-logout3">
             <h3 class="msg-title">NOVA MENSAGEM</h3>
             <p class="msg-info">Para: <strong id="msg-destinatario-nome">Paciente</strong></p>
@@ -235,7 +202,7 @@ if ($config_completa) {
                 </div>
                 <div class="input-group">
                     <label>Mensagem</label>
-                    <textarea name="corpo"  rows="4" style="width:100%; height: 120px; padding:10px; resize: none;" required placeholder="Digite sua mensagem..."></textarea>
+                    <textarea name="corpo" rows="4" style="width:100%; height: 120px; padding:10px; resize: none;" required placeholder="Digite sua mensagem..."></textarea>
                 </div>
                 <div style="text-align:center; margin-top:15px;">
                     <button type="submit" class="submit-btn">Enviar</button>
@@ -245,39 +212,43 @@ if ($config_completa) {
         </div>
     </div>
 
-    <?php include 'modal_logout.html'; ?>
-    <script src="modal.js"></script>
-    
+    <script src="modal.js"></script> 
+
     <script>
-        // Função Acordeão para Mensagens
-        function toggleMessage(header) {
+        // FUNÇÕES GLOBAIS (Anexadas ao window para evitar erros de escopo)
+        
+        // 1. Alternar visualização de mensagem
+        window.toggleMessage = function(header) {
             const body = header.nextElementSibling;
             const isOpen = body.style.display === 'block';
-            
-            // Fecha todos (opcional, se quiser abrir um por vez)
-            // document.querySelectorAll('.message-body').forEach(el => el.style.display = 'none');
-
             if (!isOpen) {
                 body.style.display = 'block';
-                header.querySelector('.fa-chevron-down').classList.replace('fa-chevron-down', 'fa-chevron-up');
+                const icon = header.querySelector('.fa-chevron-down');
+                if(icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
             } else {
                 body.style.display = 'none';
-                header.querySelector('.fa-chevron-up').classList.replace('fa-chevron-up', 'fa-chevron-down');
+                const icon = header.querySelector('.fa-chevron-up');
+                if(icon) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
             }
         }
 
-        // Lógica do Modal de Mensagem
-        function abrirModalMensagem(id, nome) {
-            document.getElementById('msg-id-destinatario').value = id;
-            document.getElementById('msg-destinatario-nome').innerText = nome;
-            document.getElementById('modal-mensagem').style.display = 'block';
-            document.getElementById('form-mensagem').reset();
+        // 2. Modal Mensagem
+        window.abrirModalMensagem = function(id, nome) {
+            const modal = document.getElementById('modal-mensagem');
+            if(modal) {
+                document.getElementById('msg-id-destinatario').value = id;
+                document.getElementById('msg-destinatario-nome').innerText = nome;
+                modal.style.display = 'block';
+                document.getElementById('form-mensagem').reset();
+            } else {
+                console.error("Modal de mensagem não encontrado!");
+            }
         }
 
+        // 3. Processar Envio de Mensagem
         document.getElementById('form-mensagem').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
-
             fetch('processa_mensagem.php', { method: 'POST', body: formData })
             .then(r => r.json())
             .then(d => {
@@ -287,42 +258,116 @@ if ($config_completa) {
                 } else {
                     alert('Erro: ' + d.msg);
                 }
-            });
+            })
+            .catch(err => alert("Erro na comunicação com o servidor."));
         });
 
-        // Lógica para Marcar como Atendida
-        function marcarAtendida(idMsg, btn) {
+        // 4. Marcar Atendida
+        window.marcarAtendida = function(idMsg, btn) {
             if(!confirm("Confirmar que esta solicitação foi atendida?")) return;
-            
             const fd = new FormData();
             fd.append('acao', 'atender');
             fd.append('id_mensagem', idMsg);
-
             fetch('processa_mensagem.php', { method: 'POST', body: fd })
             .then(r => r.json())
             .then(d => {
-                if(d.success) {
-                    // Recarrega a página para atualizar a lista e mostrar quem atendeu
-                    location.reload();
-                } else {
-                    alert('Erro: ' + d.msg);
-                }
+                if(d.success) location.reload();
+                else alert('Erro: ' + d.msg);
             });
         }
 
-        // Mantém lógica da vacina (código anterior simplificado aqui para não ocupar espaço)
-        const modalVacinas = document.getElementById('modal-vacinas');
-        function abrirCaderneta(id, nome) {
-             modalVacinas.style.display = "block";
-             document.getElementById('modal-paciente-nome').innerText = "Vacinas: " + nome;
-             document.getElementById('modal-body-content').innerHTML = "Carregando...";
-             fetch(`enf/buscar_vacinas_paciente.php?id_paciente=${id}`).then(r => r.text()).then(h => document.getElementById('modal-body-content').innerHTML = h);
+        // 5. NAVEGAÇÃO DO MODAL DE VACINAS
+        function setupModalNavigation() {
+            const sectionsContainer = document.getElementById('modal-body-content');
+            const sections = sectionsContainer.querySelectorAll('.tabela-vacinas-secao');
+            const navContainer = document.getElementById('section-nav-container-modal');
+            const tabsContainer = document.getElementById('section-tabs-modal');
+            const navPrev = document.getElementById('nav-prev-modal');
+            const navNext = document.getElementById('nav-next-modal');
+            let activeIndex = 0;
+            
+            tabsContainer.innerHTML = '';
+            
+            if (sections.length > 0) {
+                navContainer.style.display = 'flex';
+                sections.forEach((section, index) => {
+                    const sectionTitleEl = section.querySelector('h4');
+                    const sectionTitle = sectionTitleEl ? sectionTitleEl.textContent : `Seção ${index + 1}`; 
+                    const tab = document.createElement('div');
+                    tab.classList.add('section-tab-modal');
+                    tab.textContent = sectionTitle;
+                    tab.dataset.index = index;
+                    tabsContainer.appendChild(tab);
+                    tab.addEventListener('click', () => showSection(index));
+                    
+                    if (index !== 0) section.classList.add('hidden-section-modal');
+                    else section.classList.remove('hidden-section-modal');
+                });
+                
+                const showSection = (index) => {
+                    if (index < 0 || index >= sections.length) return;
+                    sections.forEach(s => s.classList.add('hidden-section-modal'));
+                    tabsContainer.querySelectorAll('.section-tab-modal').forEach(t => t.classList.remove('active'));
+                    sections[index].classList.remove('hidden-section-modal');
+                    tabsContainer.querySelector(`[data-index="${index}"]`).classList.add('active');
+                    activeIndex = index;
+                    navPrev.disabled = activeIndex === 0;
+                    navNext.disabled = activeIndex === sections.length - 1;
+                    const activeTab = tabsContainer.querySelector('.section-tab-modal.active');
+                    if(activeTab) {
+                        tabsContainer.scroll({ left: activeTab.offsetLeft - (tabsContainer.offsetWidth / 2) + (activeTab.offsetWidth / 2), behavior: 'smooth' });
+                    }
+                };
+
+                navPrev.onclick = () => showSection(activeIndex - 1);
+                navNext.onclick = () => showSection(activeIndex + 1);
+                showSection(0);
+            } else {
+                navContainer.style.display = 'none';
+            }
         }
-        function aplicarVacina(p, m, btn) {
-             // Lógica de aplicar vacina (mesma do arquivo anterior)
-             if(!confirm("Confirmar aplicação?")) return;
-             const fd = new FormData(); fd.append('id_paciente', p); fd.append('id_vacina_modelo', m);
-             fetch('enf/registrar_vacina.php', {method:'POST', body:fd}).then(r=>r.json()).then(d=>{ if(d.success){ btn.innerText="Aplicada"; btn.disabled=true; } });
+
+        // 6. ABRIR CADERNETA (VACINAS)
+        window.abrirCaderneta = function(id, nome) {
+            const modalVacinas = document.getElementById('modal-vacinas');
+            if(modalVacinas) {
+                modalVacinas.style.display = "block";
+                document.getElementById('modal-paciente-nome').innerText = "Vacinas: " + nome;
+                document.getElementById('modal-body-content').innerHTML = "<div class='loading'>Carregando dados...</div>";
+                document.getElementById('section-nav-container-modal').style.display = 'none';
+                
+                fetch(`enf/buscar_vacinas_paciente.php?id_paciente=${id}`)
+                    .then(r => r.text())
+                    .then(h => {
+                        document.getElementById('modal-body-content').innerHTML = h;
+                        setupModalNavigation();
+                    })
+                    .catch(e => {
+                        document.getElementById('modal-body-content').innerHTML = "<p style='color:red; text-align:center'>Erro ao carregar.</p>";
+                    });
+            }
+        }
+
+        // 7. APLICAR VACINA (Chamada pelo HTML carregado via Fetch)
+        window.aplicarVacina = function(p, m, btn) {
+            if(!confirm("Confirmar aplicação?")) return;
+            const fd = new FormData(); 
+            fd.append('id_paciente', p); 
+            fd.append('id_vacina_modelo', m);
+            
+            fetch('enf/registrar_vacina.php', {method:'POST', body:fd})
+            .then(r=>r.json())
+            .then(d=>{ 
+                if(d.success){ 
+                    btn.innerText="Aplicada"; 
+                    btn.disabled=true;
+                    btn.style.backgroundColor = "#ccc";
+                    // Opcional: Recarregar o modal para atualizar status
+                    // abrirCaderneta(p, document.getElementById('modal-paciente-nome').innerText.replace("Vacinas: ", ""));
+                } else {
+                    alert("Erro: " + d.msg);
+                }
+            });
         }
     </script>
 </body>

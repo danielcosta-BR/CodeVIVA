@@ -418,3 +418,88 @@ div.profile-icon-2 {
     overflow-x: auto;
 }
 
+/* --- NOVOS ESTILOS PARA NAVEGAÇÃO DE SEÇÕES NO MODAL DO ENFERMEIRO --- */
+.section-nav-container-modal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f0f8ff; /* Fundo mais suave */
+    border-radius: 6px;
+    padding: 8px 12px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+}
+
+.section-tabs-modal {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    flex-grow: 1;
+    margin: 0 5px;
+}
+
+.section-tabs-modal::-webkit-scrollbar {
+    display: none;
+}
+
+.section-tab-modal {
+    padding: 6px 10px;
+    margin: 0 3px;
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: #fff;
+    color: #444;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    font-size: 0.9em;
+}
+
+.section-tab-modal:hover {
+    background-color: #f5f5f5;
+}
+
+.section-tab-modal.active {
+    background-color: #3db19e; /* Cor primária do Enfermeiro */
+    color: white;
+    border-color: #3db19e;
+    font-weight: bold;
+}
+
+.nav-btn-modal {
+    /* background-color: #2f8c7d; */
+    background-color: #3db19e;
+    border: none;
+    font-size: 1em;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    padding: 5px 8px;
+}
+
+.nav-btn-modal:disabled {
+    color: #bebdbd;
+    cursor: not-allowed;
+}
+
+/* Esconde a seção não ativa dentro do modal */
+.hidden-section-modal {
+    display: none;
+}
+/* No final do seu arquivo enfermeiro.css, adicione estes novos estilos. */
+
+.feedback-erro{
+    color:red; 
+    background:#ffe6e6; 
+    padding:10px; 
+    border-radius:5px;
+}
+.feedback-sucesso{
+    color:green; 
+    background:#d4edda; 
+    padding:10px; 
+    border-radius:5px;
+}

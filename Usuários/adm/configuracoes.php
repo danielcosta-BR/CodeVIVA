@@ -7,6 +7,15 @@ include '../verificar_acesso.php';
 include '../conexao.php'; // Incluindo conexão para buscar os dados
 
 $id_usuario = $_SESSION['id_usuario'];
+$nome_completo = $_SESSION['nome_completo'] ?? 'Administrador';
+$erro = '';
+$sucesso = '';
+
+// Feedback via GET
+if (isset($_GET['status'])) {
+    if ($_GET['status'] == 'sucesso') $sucesso = "Dados atualizados com sucesso!";
+    elseif ($_GET['status'] == 'erro') $erro = "Erro ao salvar alterações.";
+}
 
 // 1. Busca os dados atuais do Administrador (da tabela usuario)
 $id_posto_atual = null;
@@ -47,9 +56,16 @@ while($row_p = $res_postos->fetch_assoc()) {
     <main>
         <section class="form-section">
             <div class="form-container">
-                <h2>🛠️ Configurações (Administrador)</h2>
+                <h2>Configurações</h2>
                 
                 <p>Vincule seu usuário administrativo a um Posto de Saúde.</p>
+
+                <?php if ($erro): ?>
+                    <p class="feedback-erro"><?php echo htmlspecialchars($erro); ?></p>
+                <?php endif; ?>
+                <?php if ($sucesso): ?>
+                    <p class="feedback-sucesso"><?php echo htmlspecialchars($sucesso); ?></p>
+                <?php endif; ?>
 
                 <form action="processa_configuracoes.php" method="POST">
                     
