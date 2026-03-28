@@ -7,7 +7,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='form.css'>
-    <script src='main.js'></script>
+    <script src='login.js'></script>
 </head>
 <body>
     <header>
@@ -15,7 +15,7 @@
             <div><img class="logo" src="Img/Logo 2.0 color.png"></div>
             <div class="buttons buttonsR">
                 <a class="btn1" href="index.html">Início</a><div class="linhaV"></div>
-                <a class="btn2" href="register.html">Cadastrar-se</a>
+                <a class="btn2" href="register.php">Cadastrar-se</a>
             </div>
         </div>
     </header>
@@ -31,14 +31,17 @@
                     </div>
                     <div class="input-group">
                         <label for="senha">Senha</label>
-                        <input type="password" id="senha" name="senha" required>
+                        <div class="input-senha-container"> 
+                            <input type="password" id="senha" name="senha" required>
+                            <span class="toggle-password" onclick="togglePasswordVisibility('senha', this)">👁️</span>
+                        </div>
                     </div>
                     
                     <button type="submit" class="submit-btn">Entrar</button>
                 </form>
 
                 <p class="form-link">Esqueceu a senha? <a href="forgot-password.html">Clique aqui</a></p>
-                <p class="form-link">Não tem uma conta? <a href="register.html">Cadastre-se</a></p>
+                <p class="form-link">Não tem uma conta? <a href="register.php">Cadastre-se</a></p>
             </div>
         </section>
     </main>

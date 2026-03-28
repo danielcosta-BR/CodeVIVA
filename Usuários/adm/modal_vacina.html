@@ -1,0 +1,54 @@
+<div id="modal-editar" class="modal-logout">
+    <div class="modal-content-logout2">
+        <h3 class="msg-title">Editar Modelo de Vacina</h3>
+        <form id="form-editar-vacina" method="POST" action="">
+            <input type="hidden" name="acao" value="editar_vacina">
+            <input type="hidden" name="id_vacina_modelo" id="edit-id-vacina">
+
+            <div class="input-group">
+                <label for="nome_vacina_edit">Nome da Vacina</label>
+                <input type="text" name="nome_vacina_edit" id="nome_vacina_edit" required>
+            </div>
+            <div class="input-group">
+                <label for="recomendacao_idade_edit">Recomendação/Idade</label>
+                <input type="text" name="recomendacao_idade_edit" id="recomendacao_idade_edit">
+            </div>
+            
+            <div class="input-group">
+                <label for="secao_edit">Seção/Faixa Etária</label>
+                <select id="secao_edit" name="secao_edit" required>
+                    <option value="">-- Selecione a Seção --</option>
+                    <option value="Gestante">Gestante</option>
+                    <option value="Criança">Criança</option>
+                    <option value="Adolescente e Jovem">Adolescente e Jovem</option>
+                    <option value="Adulto">Adulto</option>
+                    <option value="Idoso">Idoso</option>
+                    <option value="Geral">Geral (Outros)</option>
+                </select>
+                <p class="hint" style="font-size: 11px; color: #555;">Define o grupo para onde a vacina será exibida.</p>
+            </div>
+            <div class="input-group">
+                <label for="intervalo_dias_edit">Intervalo entre doses (dias)</label>
+                <input type="number" name="intervalo_dias_edit" id="intervalo_dias_edit" placeholder="Deixe em branco para dose única">
+            </div>
+            
+            <div class="input-group">
+                <label for="id_proxima_vacina_edit">Próxima Dose (Encadeamento)</label>
+                <select id="id_proxima_vacina_edit" name="id_proxima_vacina_edit">
+                    <option value="">-- Fim do Ciclo --</option>
+                    <?php foreach ($vacinas as $v_opt): ?>
+                        <option value="<?php echo $v_opt['id_vacina_modelo']; ?>">
+                            <?php echo htmlspecialchars($v_opt['nome_vacina']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <p class="hint" style="font-size: 11px; color: #555;">Ao aplicar esta vacina, a próxima selecionada será agendada automaticamente.</p>
+            </div>
+
+            <div style="text-align:center; margin-top:15px;">
+                <button type="submit" class="submit-btn" style="margin-top: 20px;">Salvar Alterações</button>
+                <button type="button" class="btn-cancelar" onclick="document.getElementById('modal-editar').style.display='none'">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

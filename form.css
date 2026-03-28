@@ -4,11 +4,12 @@
 .form-section {
     width: 100vw;
     /* MUDANÇA CRUCIAL: Mude 'height: 100vh;' para 'min-height: 100vh;' */
-    min-height: 100vh; /* Permite que o conteúdo do formulário empurre o container para baixo se necessário */
+    height: 100vh; /* Permite que o conteúdo do formulário empurre o container para baixo se necessário */
     display: flex;
     align-items: center; 
     justify-content: center; 
-    padding: 20px 0; 
+    padding: 60px auto; 
+    /* overflow-y: hidden; */
 }
 /* Estilo do container principal do formulário (o 'card') */
 .form-container {
@@ -16,10 +17,12 @@
     padding: 30px; /* Reduzido de 40px para 30px */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    width: 90%;
+    width: 100%;
     max-width: 350px; /* REDUZIDO de 400px para 350px (Desktop) */
-    margin: 20px auto;
+    margin: 10px auto;
     text-align: center;
+    overflow-y: auto;
+    scrollbar-width: none;
 }
 
 .form-container h2 {
@@ -46,6 +49,15 @@
 }
 
 .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+.input-group input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -126,18 +138,137 @@
     line-height: 1.4;
 }
 
+/* Contêiner para posicionar o ícone dentro do campo de input */
+.input-senha-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Garante que o input dentro do contêiner ocupe 100% da largura, mantendo o padding */
+.input-senha-container input {
+    width: 100%;
+    padding-right: 40px; /* Adiciona espaço à direita para o ícone */
+}
+
+/* Estilo e posicionamento do ícone (botão de alternar) */
+.toggle-password {
+    position: absolute;
+    right: 12px; /* Distância da borda direita */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Ajuste fino para o centro exato */
+    cursor: pointer;
+    color: #888; /* Cor suave para o ícone */
+    font-size: 18px; /* Tamanho do ícone (o olho) */
+    /* Remove a seleção de texto acidental ao clicar no ícone */
+    user-select: none; 
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+
+/* Estilos do Wizard (Etapas) */
+.step-container { 
+    display: none; 
+    animation: fadeIn 0.4s; 
+}
+.step-container.active { 
+    display: block; 
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background: #fff;
+}
+.checkbox-item { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+.checkbox-item label { 
+    font-weight: normal; 
+    cursor: pointer; 
+    margin: 0; 
+}
+
+.termos-container { 
+    margin: 20px 0; 
+    font-size: 0.9em; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+
+/* Botões de navegação */
+.nav-buttons {
+    display: flex; 
+    gap: 10px; 
+    margin-top: 20px; 
+}
+.btn-voltar { 
+    width: 40%;
+    padding: 10px; /* Levemente reduzido */
+    background-color: rgb(197, 208, 212);
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px; /* Levemente reduzido */
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px; /* Levemente reduzido */
+    transition: background-color 0.2s, transform 0.1s;
+    font-family: sans-serif; 
+}
+.btn-voltar:hover {
+    background-color: rgb(184, 192, 196);
+    transform: scale(1.01);
+}
+
+.btn-voltar:active {
+    background-color: rgb(141, 149, 151);
+    transform: scale(0.99);
+}
+
+/* Estilo da mensagem de recuperação (Para enfermeiros que voltaram a página) */
+.msg-alerta-recuperacao {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    animation: fadeIn 0.5s;
+}
+.msg-alerta-recuperacao a {
+    font-weight: bold;
+    color: #856404;
+    text-decoration: underline;
+}
+
+
+
 /* Media Query para telas menores (Mobile) */
 @media (max-width: 500px) {
     .form-container {
         padding: 20px; /* Reduzido o padding interno em Mobile */
         width: 95%; 
         max-width: 350px; /* Mantido o mesmo max-width para controle */
-        margin-top: 40px; 
+         
     }
 
     .form-section {
         /* Garante que o formulário apareça abaixo do cabeçalho fixo */
         align-items: flex-start; 
-        padding-top: 110px; 
+        padding-top: 0px; 
     }
 }

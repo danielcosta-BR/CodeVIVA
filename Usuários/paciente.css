@@ -1,0 +1,594 @@
+/* Estilo do container principal do formulário (o 'card') */
+.form-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px; /* Reduzido de 40px para 30px */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    overflow: auto;
+    /* max-height: 1000px; <--- LINHA REMOVIDA PARA PERMITIR QUE O CONTEÚDO EXPANDA */
+    margin: 20px auto;
+}
+
+.form-container h2 {
+    color: #333;
+    margin-bottom: 15px; /* Reduzido o espaço abaixo do título */
+    font-family: sans-serif;
+    border-bottom: 2px solid rgb(173, 204, 216);
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+
+.form-container h3{
+    text-align: center;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.116);
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+}
+
+/* .form-container h3:first-child{
+    padding-top: 10px;
+    border-bottom: 0px;
+    background-color: #5ab4c086;
+    text-align: center;
+    border-radius: 5px;
+} */
+.form-container p{
+    text-align: justify;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+
+/* main { 
+    padding: 20px; 
+    max-width: 900px; 
+    margin: 20px auto; 
+    background-color: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+} */
+
+.form-section{
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.form-section-G {
+    /* Mantive o cálculo de altura aqui, mas a remoção do max-height no container é a chave. */
+    min-height: 100vh;
+    max-height: 200vh;
+      
+}
+.form-section h4, .form-section-G h4 {
+    color: #333; 
+    border-bottom: 1px solid #eee; 
+    padding-bottom: 10px; 
+    margin-bottom: 20px; 
+}
+.form-section p, .form-section-G p{ 
+    color: #667; 
+    margin-bottom: 10px;
+}
+.form-section button, .form-section-G button { 
+    background-color: #3d8cb1; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1em; 
+}
+.form-section button.profile-icon-2{  
+    display: none; 
+}
+.form-section a, .form-section-G a { 
+    background-color: #b13d3d; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1em; 
+}
+.form-section #a-none{
+    background-color: transparent;
+    padding: 0px;
+    margin: 0px;
+}
+.form-section a.btn-secundario{ 
+    background-color: #3db19e; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1em; 
+    font-family: arial;
+}
+.form-section a.submit-btn{ 
+    background-color: #3d8cb1; 
+    color: white; 
+    padding: 10px 15px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 1em; 
+    display: inline-block;
+    width: 25vw;
+}
+.form-section button:hover, .form-section-G button:hover { 
+    background-color: #2f6b86; 
+}
+.form-section a:hover, .form-section-G a:hover { 
+    background-color: #862f2f; 
+}
+.form-section a.btn-secundario:hover { 
+    background-color: #27776a; 
+}
+.form-section a.submit-btn:hover { 
+    background-color: #2f6b86; 
+}
+
+#button_center{
+    text-align: center;
+    margin: 10px auto;
+}
+
+/* #usermanage-btn{
+    border-top: 1px solid #eee; 
+    padding-top: 10px; 
+    border-bottom: 1px solid #eee; 
+    padding-bottom: 20px; 
+    margin-top: 20px;
+    margin-bottom: 10px;
+} */
+
+/* INPUTS GERAIS */
+.input-group {
+    margin-bottom: 15px; /* Reduzido de 20px para 15px */
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+    font-family: sans-serif;
+}
+.input-group textarea {
+    width:100%; 
+    padding:10px; 
+    border:1px solid #ccc; 
+    border-radius:5px;
+    resize: none;
+    height: 120px;
+    font-family: sans-serif;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+.input-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: rgb(147, 207, 231);
+    outline: none;
+}
+.input-group select:focus {
+    border-color: rgb(147, 207, 231);
+    outline: none;
+}
+.submit-box{
+    text-align:center; 
+    margin-top:15px;
+}
+.buttons-box-pdf{
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: right;
+}
+.submit-btn {
+    width: 100%;
+    padding: 10px; /* Levemente reduzido */
+    background-color: rgb(173, 204, 216);
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px; /* Levemente reduzido */
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px; /* Levemente reduzido */
+    transition: background-color 0.2s, transform 0.1s;
+    font-family: sans-serif;
+}
+.submit-btn:hover {
+    background-color: rgb(140, 180, 195);
+    transform: scale(1.01);
+}
+.submit-btn:active {
+    background-color: rgb(100, 140, 155);
+    transform: scale(0.99);
+}
+.btn-cancelar{
+    background-color: #cc4848;
+    color: white;
+}
+.btn-cancelar:hover{
+    background-color: #a83b3b;
+    transform: scale(1.01);
+}
+.btn-cancelar:active{
+    background-color: #862f2f;
+    transform: scale(0.99);
+}
+
+.form-link {
+    margin-top: 15px; /* Reduzido de 20px para 15px */
+    font-size: 14px;
+    color: #667;
+    font-family: sans-serif;
+}
+
+.form-link a {
+    color: rgb(70, 100, 110);
+    text-decoration: underline;
+    display: inline;
+    width: auto;
+    height: auto;
+    font-weight: bold;
+}
+
+.form-link a:hover {
+    color: rgb(40, 60, 70);
+}
+
+.instruction-text {
+    margin-bottom: 25px;
+    color: #665;
+    font-size: 15px;
+    font-family: sans-serif;
+    line-height: 1.4;
+}
+
+/* Contêiner para posicionar o ícone dentro do campo de input */
+.input-senha-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Garante que o input dentro do contêiner ocupe 100% da largura, mantendo o padding */
+.input-senha-container input {
+    width: 100%;
+    padding-right: 40px; /* Adiciona espaço à direita para o ícone */
+}
+
+/* Estilo e posicionamento do ícone (botão de alternar) */
+.toggle-password {
+    position: absolute;
+    right: 12px; /* Distância da borda direita */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Ajuste fino para o centro exato */
+    cursor: pointer;
+    color: #888; /* Cor suave para o ícone */
+    font-size: 18px; /* Tamanho do ícone (o olho) */
+    /* Remove a seleção de texto acidental ao clicar no ícone */
+    user-select: none; 
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+
+.card-cardeneta{
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.card-apoio{
+    margin-bottom: 40px;
+}
+
+a .btn-secundario{
+    background-color: #3d8cb1;
+}
+
+div.profile-icon-2 {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%; /* Bolinha */
+    background-color: rgb(130, 222, 243); /* Cor de destaque */
+    color: white;
+    font-size: 5em;
+    font-family: arial;
+    font-weight: bold;
+    border: 10px solid rgb(163, 221, 255); /* Borda branca para destacar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+
+/* PACIENTE EXTRAS */
+/* Status visuais para vacinas */
+.status-aguardando { 
+    color: #007bff; 
+    background-color: #e7f1ff; 
+    font-weight: bold; 
+    text-align: center; 
+    padding: 5px; 
+    border-radius: 5px; 
+}
+.status-pendente { 
+    color: #dc3545; 
+    background-color: #ffe6e6; 
+    font-weight: bold; 
+    text-align: center; 
+    padding: 5px; 
+    border-radius: 5px; 
+}
+.status-aplicada { 
+    color: #28a745; 
+    background-color: #d4edda; 
+    font-weight: bold; 
+    text-align: center; 
+    padding: 5px; 
+    border-radius: 5px; 
+}
+.status-neutro { 
+    color: #6c757d; 
+    text-align: center; 
+}
+
+/* ALERT BOX NO TOPO (Estilo do Alerta de Doença) */
+.alert-box {
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    animation: fadeInDown 0.5s;
+    border: 1px solid transparent;
+}
+/* Cores baseadas no tipo de alerta */
+.alert-warning { 
+    background-color: #fff3cd; 
+    border-left: 6px solid #ffc107; 
+    color: #856404; 
+}
+.alert-success { 
+    background-color: #d4edda; 
+    border-left: 6px solid #28a745; 
+    color: #155724; 
+}
+.alert-info { 
+    background-color: #e2e3e5; 
+    border-left: 6px solid #383d41; 
+    color: #383d41; 
+}
+
+@keyframes fadeInDown { 
+    from { 
+        opacity:0; 
+        transform:translateY(-20px); 
+    } 
+    to { 
+        opacity:1; 
+        transform:translateY(0); 
+    } 
+}
+
+/* MAIS EXTRAS */
+
+#h4-alert{
+    margin-top:0; 
+    margin-bottom:5px;   
+}
+#p-alert{
+    text-align: left;
+}
+
+.button-pdf{
+    text-align: right; 
+    margin-top: 15px;
+}
+
+#recive-msg-pct{
+    color:#667; 
+    padding: 10px;
+    background-color: #3d8cb133;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.subject{
+    color:#3d8cb1; 
+    margin-right:5px;
+}
+
+.alerta-config{
+    margin-top: 20px; 
+    background-color: #c7e3e6ff; 
+    border-color: #869a9cff; 
+    border-radius: 15px; 
+    color: #333; 
+    margin-bottom: 20px;
+}
+
+.p-alerta-config{
+    padding: 10px 0;
+}
+
+.data-group{
+    margin-top: 30px;
+}
+
+.msg-alter-config{
+    margin-top: 30px;
+}
+
+/* CONFIGURAÇÕES DO PACIENTE */
+/* Estilos Específicos para o Modal de Doenças */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    text-align: left;
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 8px;
+    border-radius: 4px;
+}
+.checkbox-item input { 
+    margin-right: 8px; 
+    transform: scale(1.2); 
+    cursor: pointer; 
+}
+.checkbox-item label { 
+    cursor: pointer; 
+    font-size: 0.95em; 
+    color: #333; 
+    width: 100%; 
+}
+
+.btn-doencas {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+}
+.btn-doencas:hover { 
+    background-color: #e68900; 
+}
+
+.feedback-erro{
+    color:red; 
+    background:#ffe6e6; 
+    padding:10px; 
+    border-radius:5px;
+}
+.feedback-sucesso{
+    color:green; 
+    background:#d4edda; 
+    padding:10px; 
+    border-radius:5px;
+}
+
+/* --- NOVOS ESTILOS PARA NAVEGAÇÃO DE SEÇÕES --- */
+.section-nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    padding: 10px 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.section-tabs {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto; /* Permite scroll horizontal se não couber */
+    scroll-behavior: smooth;
+    -ms-overflow-style: none; /* Oculta a barra de rolagem no IE/Edge */
+    scrollbar-width: none; /* Oculta a barra de rolagem no Firefox */
+    flex-grow: 1;
+    margin: 0 10px;
+}
+
+.section-tabs::-webkit-scrollbar {
+    display: none; /* Oculta a barra de rolagem no Chrome/Safari */
+}
+
+.section-tab {
+    padding: 8px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    white-space: nowrap; /* Impede a quebra de linha do texto da aba */
+    background-color: #e9e9e9;
+    color: #555;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    font-weight: 500;
+}
+
+.section-tab:hover {
+    background-color: #ddd;
+}
+
+.section-tab.active {
+    background-color: #3d8cb1; /* Cor primária do paciente */
+    color: white;
+    box-shadow: 0 2px 5px rgba(61, 140, 177, 0.5);
+}
+
+.nav-btn {
+    background-color: #3d8cb1;
+    border: none;
+    font-size: 1.2em;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.nav-btn:disabled {
+    color: #bebdbd;
+    cursor: not-allowed;
+}
+
+/* Classe para ocultar as seções (tabelas) inativas */
+.hidden-section {
+    display: none;
+}
+/* No final do seu arquivo paciente.css, adicione estes novos estilos. */

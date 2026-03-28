@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>VIVA+ | Cadastro</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='form.css'>
+    <script src='register.js'></script>
+</head>
+<body>
+    <header>
+        <div class="cabeca">
+            <div><img class="logo" src="Img/Logo 2.0 color.png"></div>
+            <div class="buttons buttonsR">
+                <a class="btn1" href="index.html">Início</a><div class="linhaV"></div>
+                <a class="btn2" href="login.html">Entrar</a>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section class="form-section">
+            <div class="form-container">
+                <h2>Crie sua conta VIVA+</h2>
+                <form action="processa_cadastro.php" method="POST">
+                    <div class="input-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="senha">Senha</label>
+                        <div class="input-senha-container"> 
+                            <input type="password" id="senha" name="senha" required>
+                            <!-- A função recebe 2 parâmetros: o ID do input alvo e 'this' (o próprio span clicado) -->
+                            <span class="toggle-password" onclick="togglePasswordVisibility('senha', this)">👁️</span>
+                        </div>
+                    </div>
+
+                    <!-- Bloco de Confirmar Senha -->
+                    <div class="input-group">
+                        <label for="confirma_senha">Confirmar Senha</label>
+                        <div class="input-senha-container">
+                            <input type="password" id="confirma_senha" name="confirma_senha" required>
+                            <!-- Aqui usamos 'confirma_senha' como ID -->
+                            <span class="toggle-password" onclick="togglePasswordVisibility('confirma_senha', this)">👁️</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="funcao_usuario">Função</label>
+                        <select id="funcao_usuario" name="funcao_usuario" required>
+                            <option value="" disabled selected>Selecione sua função</option> 
+                            <option value="paciente">Paciente</option>
+                            <option value="enfermeiro">Enfermeiro</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Cadastrar</button>
+                </form>
+
+                <p class="form-link">Já tem uma conta? <a href="login.html">Faça Login</a></p>
+                <div id="mensagem-verificacao" style="display:none;">
+                    <p class="form-link msg-sucesso" style="margin-top: 20px;">Seu pré-cadastro já foi realizado!</p>
+                    <p class="form-link">Deseja finalizar a verificação? <a href="verificacao_enfermeiro.php" id="link-verificacao">Clique aqui</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const email = urlParams.get('email');
+        const erro = urlParams.get('erro');
+        
+        const formContainer = document.querySelector('.form-container');
+
+        // 1. Tratamento de Erros
+        if (erro) {
+            let mensagemErro = "";
+            switch(erro) {
+                case 'campos_vazios':
+                    mensagemErro = "Por favor, preencha todos os campos obrigatórios.";
+                    break;
+                case 'senhas_nao_coincidem':
+                    mensagemErro = "As senhas digitadas não coincidem.";
+                    break;
+                case 'email_ja_existe':
+                    mensagemErro = "Este e-mail já está cadastrado no sistema.";
+                    break;
+                case 'falha_pre_cadastro':
+                    mensagemErro = "Erro interno ao tentar realizar o pré-cadastro.";
+                    break;
+                case 'funcao_invalida':
+                    mensagemErro = "Função de usuário inválida. Escolha Paciente ou Enfermeiro.";
+                    break;
+                default:
+                    mensagemErro = "Ocorreu um erro desconhecido durante o cadastro.";
+            }
+
+            // Cria e insere a mensagem de erro
+            const erroDiv = document.createElement('p');
+            erroDiv.classList.add('msg-erro');
+            erroDiv.textContent = mensagemErro;
+            formContainer.insertBefore(erroDiv, formContainer.querySelector('form'));
+        }
+
+        // 2. Verificação do Status de Sucesso (Exibir link de verificação para enfermeiros)
+        if (status === 'cadastro_sucesso') {
+            const mensagemDiv = document.getElementById('mensagem-verificacao');
+            const linkVerificacao = document.getElementById('link-verificacao');
+
+            // 2. Exibe a mensagem escondida (Corrigindo o bug)
+            mensagemDiv.style.display = 'block';
+
+            // 3. (Opcional, mas recomendado) Mantém o email no link de volta para a verificação
+            if (email) {
+                // O link deve direcionar para a tela de verificação,
+                // mantendo o email na URL para que o processo saiba quem verificar.
+                linkVerificacao.href = `verificacao_enfermeiro.php?email=${email}`;
+            } else {
+                // Se por algum motivo o email for perdido, apenas manda para a página
+                linkVerificacao.href = `verificacao_enfermeiro.php`;
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
